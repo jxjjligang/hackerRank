@@ -1,0 +1,12 @@
+All the recursion problem can be solved by iteration (calculate from start until end is reached)
+
+1. Crossword Puzzle: 
+                      Strategy:  backtrack and restore (means save variable before method calling and restore it after method calling) 
+					  Technique: find the pattern (no use of regular expression) of potential word 
+
+2. Fibonacci Numbers: most basic recursion sample
+                      F(n) = F(n - 1) + F(n - 2)   
+					 
+3. Davis' Staircase:  F(n) = F(n - 1) + F(n - 2) + F(n - 3) 
+
+4. Digit Sum:         recursion and break when condition meets

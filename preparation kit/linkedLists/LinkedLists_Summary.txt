@@ -1,0 +1,13 @@
+1. Insert a node into single (doubly) linked list:
+   Technique: find place to insert; edge case like the list is empty;
+
+2. Reverse a doubly linked list:
+   Technique: iterate from head, make change to the currently-visiting node
+
+3. Find merge point of two lists:
+   Technique: (1). Find the size difference of 2 lists, then advance the bigger list by the difference; then iterate both list and check if they equal during iteration
+              (2). Use cache for help.
+			  
+4. Detect a cycle in linked list:
+   Technique: (1). Have fast ( fast= fast.next.next) and normal iterator, check if they equal during iteration
+              (2). Save visited node in cache, then check if the currently-visiting node is already in cache.   

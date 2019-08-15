@@ -1,0 +1,8 @@
+1. Friend Circle Queries: [Disjoint set] data structure
+   https://www.hackerearth.com/practice/notes/disjoint-set-union-union-find/
+
+2. Maximum Xor: Trie data structure 
+
+3. Time Complexity Primality: based on proven mathematic rule: sqrt(number)
+
+4. Flipping bits: programming technique: transform number into 2-radix string; flip 0,1; parse 2-radix string back into 10-radix number. 
