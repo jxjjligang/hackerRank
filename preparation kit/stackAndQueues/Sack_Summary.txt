@@ -1,0 +1,20 @@
+Methodology:
+	Largest Rectangle:
+
+	
+	Max Min Riddle:
+		
+	
+	Poisonous Plants:
+	
+	
+Technique:
+	Balanced Brackets: 
+	    Crate stack and check each character:
+        	if it is left bracket, then push into stack;
+    		if it is right bracket check if there is match left bracket at the top of stack, pop out of stack if found.
+
+	Queues: A Tale of Two Stacks:
+	        Create 2 stack: enqueue_statck and dequeue_statck;
+			For enqueue operation, push value into enqueue_statck, for dequeue operation, pops all the values from enqueue_statck into dequeue_statck, then pop dequeue_statck;
+			For print operation, print dequeue_statck if it has value, else move values from enqueue_statck into dequeue_statck and print the top value of dequeue_statck.

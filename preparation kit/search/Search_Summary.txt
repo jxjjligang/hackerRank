@@ -1,0 +1,31 @@
+Methodology: 
+	(1). Use binary search on sorted array will get log(n) performance 
+	(2). Index (index value is from array value) array helps in some cases.
+	(3). Hash table (data structure) is great in searching in some cases.
+
+Ice Cream Parlor:
+	Sort and use binary search to pass performance requirement
+	
+Swap Nodes:
+	Use recursion to visit nodes of tree and swap them when necessary.
+	
+Pairs:
+    Methodology 1, 2 and 3 work.
+	
+Triple Sum:
+	Binary search works.
+	
+Minimum time Required:
+	(1). First find a day this is bigger than the correct answer;
+	(2). Then use binary search idea to split days value into 2 parts each time, 
+	(3). Until find a value that [Amount Produced] on [day] < goal, and [Amount Produced] on [day + 1] >= goal
+
+Maximum Sub-array Sum: (https://www.quora.com/What-is-the-logic-used-in-the-HackerRank-Maximise-Sum-problem)
+    (1). Use prefix array (array of accumulated module value).
+	(2). Sort prefix array in descending order and remember the original index.
+    (3). Iterate array created in steps in 2 level;
+         inside inner level, [small module value] subtract the first [bigger module value], then plus m, and update the [max module value] variable.
+	
+	
+	
+		
