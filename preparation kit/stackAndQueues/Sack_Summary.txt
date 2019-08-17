@@ -1,8 +1,20 @@
 Methodology:
-	Largest Rectangle:
+
+Largest Rectangle: 
+	2 ways that both use stack, but
+	(1). During iteration of height array, push into stack with object {width: 1, value: height}, 
+	      when incoming height >= top of stack, increment width by 1 for all existing stack objects and push incoming object;
+          otherwise pop stack object until top stack object height >= incoming height, then push incoming object;
+    keep updating largest rectangle by width*height when pop occurs and in the end
+ 
+    (2). The idea is the same as the above, 2 points are different:
+         #1 push statk the index of height array, when pop occurs, width = (incoming index - [value poped from stack] - 1) OR
+		    incoming index value when stack is empty;
+		 #2 push height value which is smaller than the minimum value of height array, this helps to pop stack in the end
 
 	
-	Max Min Riddle:
+Max Min Riddle:
+    Essentially, the same solution for [Largest Rectangle] can be applied to it.
 		
 	
 	Poisonous Plants:
