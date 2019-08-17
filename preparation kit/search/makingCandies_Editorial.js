@@ -12,29 +12,30 @@ function countTime(func) {
 }
 
 function minimumPasses(m, w, p, n) {
-    function check(machines, workers, price, target, rounds) {
         if (machines >= (target + workers - 1) / workers)
+    function check(machines, workers, price, target, bestGuess) {
+        if (machines * workers >= target)
             return true;
 
         let produced = machines * workers;
-        rounds--;
-        if (rounds === 0)
+        bestGuess--;
+        if (bestGuess === 0)
             return false;
 
         while (true) {
-            let rem = target - produced;
-            let rnds = Math.floor((rem + machines * workers - 1) / (machines * workers));
-            if (rnds <= rounds)
+            let remaining = target - produced;
+            let rounds = Math.ceil(remaining / (machines * workers));
+            if (rounds <= bestGuess)
                 return true;
 
             if (produced < price) {
-                rem = price - produced;
-                rnds = Math.floor((rem + machines * workers - 1) / (machines * workers));
-                rounds -= rnds;
-                if (rounds < 1)
+                let shortOfBuying = price - produced;
+                let roundsForBuy = Math.ceil(shortOfBuying / (machines * workers));
+                bestGuess -= roundsForBuy;
+                if (bestGuess <= 0)
                     return false;
 
-                produced += rnds * machines * workers;
+                produced += roundsForBuy * machines * workers;
             }
             produced -= price;
             if (machines > workers)
@@ -42,10 +43,7 @@ function minimumPasses(m, w, p, n) {
             else
                 machines++;
         }
-
-        return false;
     }
-
 
     let minPass = 1, maxPass = 1000000000000;
     while (minPass < maxPass) {

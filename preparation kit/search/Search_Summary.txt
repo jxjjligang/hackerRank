@@ -1,6 +1,6 @@
 Methodology: 
 	(1). Use binary search on sorted array will get log(n) performance 
-	(2). Index (index value is from array value) array helps in some cases.
+	(2). Index (its index is based on another array value) array helps in some cases.
 	(3). Hash table (data structure) is great in searching in some cases.
 
 Ice Cream Parlor:
