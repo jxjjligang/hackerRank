@@ -12,7 +12,6 @@ function countTime(func) {
 }
 
 function minimumPasses(m, w, p, n) {
-        if (machines >= (target + workers - 1) / workers)
     function check(machines, workers, price, target, bestGuess) {
         if (machines * workers >= target)
             return true;
