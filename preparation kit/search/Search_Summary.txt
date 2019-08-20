@@ -26,6 +26,12 @@ Maximum Sub-array Sum: (https://www.quora.com/What-is-the-logic-used-in-the-Hack
     (3). Iterate array created in steps in 2 level;
          inside inner level, [small module value] subtract the first [bigger module value], then plus m, and update the [max module value] variable.
 	
+Making Candies:
+    (1). Use binary search to quickly narrow down the range of best answer, each time half size down until range is 1 which means
+	     the best answer is found.
+    (2). During each iteration of above binary search, compare the [best guess value] with the [necessary rounds to make candies],
+	     return TRUE if [best guess] >= [real rounds]; 
+		 if not then check the possibility of increse resource amount case (return FALSE when [best guess] <= [round to buy resource];). 
 	
 	
 		
