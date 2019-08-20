@@ -17,8 +17,20 @@ Max Min Riddle:
     Essentially, the same solution for [Largest Rectangle] can be applied to it.
 		
 	
-	Poisonous Plants:
-	
+Poisonous Plants: 
+    steps:
+	1. Create stack and push an object with below property:
+	   level: first element value of [plant poisonous level array, simply as plant array],
+	   days:  0 (0 means never die, 1 means will die after day 1; 2 means will die after day 2, etc.
+	   
+	2. Iterate plant array from index 1 to the end, compare element value with statck top object level value:
+	   If array element > stack top level value, then push a new object {level: array element value, days: 1};
+	   Else pop up stack while array element <= stack top level value, there are 2 cases here:
+	   #1 pop the stack to be empty, which means array element has the lowest poisonous level, will never die, push a new object {level: array element value, days: 0};
+	   #2 can't pop the stack to be empty, remember the maxmimum days value of all those poped-pout stack objects, then 
+	      push a new object {level: array element value, days: 1 + [maxmimum days value]};
+		  Means after those will-die plants in the stack did die, the current plant will die.
+	3. Update the maxDays (save the days that no plants will die after that) variable value.
 	
 Technique:
 	Balanced Brackets: 
