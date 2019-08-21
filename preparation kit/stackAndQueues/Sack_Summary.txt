@@ -31,6 +31,17 @@ Poisonous Plants:
 	      push a new object {level: array element value, days: 1 + [maxmimum days value]};
 		  Means after those will-die plants in the stack did die, the current plant will die.
 	3. Update the maxDays (save the days that no plants will die after that) variable value.
+
+Castle on the Grid:
+    Tips:
+	1. It's not necessary to use BFS (breadth-first-search) in this task.
+	   Start with start point, set its TURNS to 0, then find its cross points and set their TURNS value one more;
+	   continue until end point is reached.
+	   The above loop is controlled by a queue while queue length > 0, therefore push and pop the queue is important.
+	   
+	2. Grasp the meaning of turn - the cross points (to right, left, up, down) of a point could be
+	   sibling point OR children point.
+
 	
 Technique:
 	Balanced Brackets: 

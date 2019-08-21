@@ -1,150 +1,92 @@
 'use strict'
 
+/* Based on the code from discussion */
 function minimumMoves(grid, startX, startY, goalX, goalY) {
-    function getAllPoints(grid) {
-        let points = [], blockers = [];
-        for (let i = 0; i < ROW_COUNT; i++) {
-            for (let j = 0; j < COLUMN_COUNT; j++) {
-                if (grid[i][j] !== 'X')
-                    points.push([i, j]);
-                else
-                    blockers.push([i, j]);
+    function getAllPoints(grdLine) {
+        let allPoints = [];
+        for (let i = 0; i < grdLine.length; i++) {
+            let line = grdLine[i];
+            for (let j = 0; j < line.length; j++) {
+                if (line[j] === '.')
+                    allPoints.push([i, j]);
             }
         }
 
-        return [points, blockers];
+        return allPoints;
     }
 
-    function constructEdges(points) {
-        function mapPointToEdge(map, point, edge) {
-            let edges;
-            if (!map.has(point)) {
-                edges = [];
-                map.set(point, edges);
-            }
-            else
-                edges = map.get(point);
-
-            if (!edges.find(e => e === edge))
-                edges.push(edge);
+    function addPointToMap(nextPoint, key, map) {
+        let array = map.get(key);
+        if (array === undefined) {
+            array = [];
+            map.set(key, array);
         }
 
-        let allEdges = new Map();
-        for (let i = 0; i < points.length; i++) {
-            let point = points[i], pointX = point[0], pointY = point[1];
-            //                     right,               bottom,               left,                 top 
-            let adjacentPoints = [[pointX, pointY + 1], [pointX + 1, pointY], [pointX, pointY - 1], [pointX - 1, pointY]];
-            for (let j = 0; j < adjacentPoints.length; j++) {
-                let adjPoint = adjacentPoints[j];
-                let connectedPoint = points.find(p => p[0] === adjPoint[0] && p[1] === adjPoint[1]);
-                if (!connectedPoint)
-                    continue;
-
-                let edge = [point, connectedPoint];
-                mapPointToEdge(allEdges, point, edge);
-                mapPointToEdge(allEdges, connectedPoint, edge);
-            }
-        }
-
-        return allEdges;
+        array.push(nextPoint);
     }
 
-    function getEdges(allEdges, currentPoint) {
-        return allEdges.get(currentPoint);
-    }
-
-    // find 4 way points from the current point
-    function saveTurnOf4WayPoints(points2Turns, startPoint, turnValue, points, findVertical) {
-        function toRight(x, y) {
-            return [x, y + 1];
-        }
-
-        function toLeft(x, y) {
-            return [x, y - 1];
-        }
-
-        function toUp(x, y) {
-            return [x - 1, y];
-        }
-
-        function toDown(x, y) {
-            return [x + 1, y];
-        }
-
-
-        let funcs = [toRight, toLeft];
-        if (findVertical)
-            funcs = [toDown, toUp];
-
-        for (let i = 0; i < funcs.length; i++) {
-            let x = startPoint[0], y = startPoint[1], func = funcs[i];
-            // to the right direction
-            let p = findPoint(points, x, y);
-            while (p) {
-                let minTurn = points2Turns.get(p);
-                if (minTurn === undefined || minTurn > turnValue)
-                    points2Turns.set(p, turnValue);
-
-                let nextPoint = func(x, y);
-                x = nextPoint[0], y = nextPoint[1];
-                p = findPoint(points, x, y);
-            }
-        }
-    }
-
-    function findPoint(pointArr, x, y) {
-        return pointArr.find(element => element[0] === x && element[1] === y);
-    }
-
-    function getTheOtherPoint(edge, excludePoint) {
-        return edge[0] === excludePoint ? edge[1] : edge[0];
-    }
-
-    const ROW_COUNT = grid.length, COLUMN_COUNT = grid[0].length;
-    let pointsAndBlockers = getAllPoints(grid), points = pointsAndBlockers[0], blockers = pointsAndBlockers[1];
-    if (blockers.length === 0)
-        return (startX === goalX || startY === goalY) ? 1 : 2;
-
-    let allEdges = constructEdges(points), startPoint = findPoint(points, startX, startY), targetPoint = findPoint(points, goalX, goalY);
-    let queue = [startPoint], points2Turns = new Map(), visitedPoints = new Set(), visitedEdges = new Set();
-    visitedPoints.add(startPoint);
-    saveTurnOf4WayPoints(points2Turns, startPoint, 1, points, true);
-    saveTurnOf4WayPoints(points2Turns, startPoint, 1, points, false);
-
-    while (queue.length > 0) {
-        // allVisited is used to improve performance
-        let allVisited = true, targetEdges = allEdges.get(targetPoint);
-        for (let te = 0; te < targetEdges.length; te++) {
-            if (!visitedEdges.has(targetEdges[te])) {
-                allVisited = false;
+    function findCrossPoints(allPoints, point) {
+        let foundPoints = [], row = point[0], column = point[1];
+        // find points has same column value, but row value is higher
+        for (let i = row + 1; i < rowCount; i++) {
+            let p = allPoints.find(p => p[0] === i && p[1] === column)
+            if (p === undefined)
                 break;
-            }
-        }
-        if (allVisited)
-            break;
-
-        let currentPoint = queue[0];
-        queue.shift();
-        let edges = getEdges(allEdges, currentPoint);
-        for (let i = 0; i < edges.length; i++) {
-            let edge = edges[i];
-            if (visitedEdges.has(edge))
-                continue;
             else
-                visitedEdges.add(edge);
+                foundPoints.push(p);
+        }
 
-            let connectedPoint = getTheOtherPoint(edge, currentPoint);
-            let currentTurn = points2Turns.get(currentPoint);
-            saveTurnOf4WayPoints(points2Turns, connectedPoint, 1 + currentTurn, points, connectedPoint[1] === currentPoint[1]);
+        // find points has same column value, but row value is lower
+        for (let i = row - 1; i >= 0; i--) {
+            let p = allPoints.find(p => p[0] === i && p[1] === column)
+            if (p === undefined)
+                break;
+            else
+                foundPoints.push(p);
+        }
 
-            if (!visitedPoints.has(connectedPoint)) {
-                queue.push(connectedPoint);
-                visitedPoints.add(connectedPoint);
-            }
-        }   // for (let i = 0; i < edges.length; i++) {
+        // find points has same row value, but column value is higher
+        for (let j = column + 1; j < columnCount; j++) {
+            let p = allPoints.find(p => p[0] === row && p[1] === j)
+            if (p === undefined)
+                break;
+            else
+                foundPoints.push(p);
+        }
+
+        // find points has same row value, but column value is higher
+        for (let j = column - 1; j >= 0; j--) {
+            let p = allPoints.find(p => p[0] === row && p[1] === j)
+            if (p === undefined)
+                break;
+            else
+                foundPoints.push(p);
+        }
+
+        return foundPoints;
     }
 
-    return points2Turns.get(targetPoint);
+    let rowCount = grid.length, columnCount = grid[0].length, allPoints = getAllPoints(grid);
+    let startPoint = allPoints.find(p => p[0] === startX && p[1] === startY), endPoint = allPoints.find(p => p[0] === goalX && p[1] === goalY);
+    let turns2Points = new Map();
+    turns2Points.set(0, [startPoint]);
+    let visitedPoints = [startPoint], turns = 0;
+
+    while (true) {
+        let points = turns2Points.get(turns);
+        for (let i = 0; i < points.length; i++) {
+            let point = points[i];
+            for (let nextPoint of findCrossPoints(allPoints, point)) {
+                if (visitedPoints.findIndex(p => p === nextPoint) === -1) {
+                    if (nextPoint === endPoint)
+                        return turns + 1;
+                    visitedPoints.push(nextPoint);
+                    addPointToMap(nextPoint, turns + 1, turns2Points);
+                }
+            }
+        }
+        turns++;
+    }
 }
 
 countTime(main)();
