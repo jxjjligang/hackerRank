@@ -8,4 +8,6 @@
    The key point is for each node that has TARGET value, use BFS or DFS to find another node has TARGET value; 			   
        and finally returns the minimum value of them;
    If choose to use BFS, push the queue with object {node: nodeIndex, depth: depth value from top node} will help.
-   
+
+3. BFS: Shortest Reach in a Graph
+   Simple: just use BFS to get the depth value from the start node  
