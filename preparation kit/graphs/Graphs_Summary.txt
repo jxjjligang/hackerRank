@@ -3,3 +3,9 @@
    Then for each graph, 
                let costLibs = graphLen * c_lib, costRoadAndLibs = c_lib + roadsLength * c_road;
                minCost += Math.min(costLibs, costRoadAndLibs);
+			   
+2. Find the nearest clone:
+   The key point is for each node that has TARGET value, use BFS or DFS to find another node has TARGET value; 			   
+       and finally returns the minimum value of them;
+   If choose to use BFS, push the queue with object {node: nodeIndex, depth: depth value from top node} will help.
+   
