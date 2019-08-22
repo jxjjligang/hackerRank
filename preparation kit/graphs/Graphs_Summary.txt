@@ -1,0 +1,5 @@
+1. Roads and Libraries:
+   The key point is how to split cities that connected (directly or indirectly) into graphs;
+   Then for each graph, 
+               let costLibs = graphLen * c_lib, costRoadAndLibs = c_lib + roadsLength * c_road;
+               minCost += Math.min(costLibs, costRoadAndLibs);
