@@ -25,4 +25,62 @@
         */
         //                      1        2                        3                    4                        5        6                        7                    8
         // let adjacentCells = [key + 1, key + 1 + COLUMN_LENGTH, key + COLUMN_LENGTH, key + COLUMN_LENGTH - 1, key - 1, key - 1 - COLUMN_LENGTH, key - COLUMN_LENGTH, key - COLUMN_LENGTH + 1];
-											    
+
+5. matrix
+   Solution 1: solve it from bottom -> add edge one by one:
+                                       case 1: the edge's both cities have machine, then drop the edge and add its time;
+									   case 2: the edge's both cities don't have machine, then add it to graph (by setting root of one city to root of another); 
+									   case 3: one city of edge has machine, then check if root of graph has machine, if YES then drop the edge and add its time;
+			   tips:						                                                    else set root of graph to the city have machine (means add edge to graph);
+               (1). use disjoint set method: getRoot, setRootAToB;
+			   (2). use another array red (index is root of city, value is true or false, true means have machine)
+			   
+	Solution 2: dynamic programming (I don't grasp currently) 
+	https://www.hackerrank.com/challenges/matrix/forum?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=graphs
+	Here's my sharing about dynamic programming solution from editorial.
+
+	(1) f[0][s]: the least cost to make the subtree rooted at node s contains 0 machine.
+
+	(2) f[1][s]: the least cost to make the subtree rooted at node s contains 1 machine.
+
+	(3) x is the least cost for node s to have all its child node v in a state that 
+		either node v has no machine inside 
+		or 1 machine inside and the path between s and v will be deleted.
+
+		x = sum of sub_x[v] for all child node v,
+			where sub_x[v] = min(f[0][v], f[1][v] + w[s][v])
+
+	(4) Depending on whether a machine is a node s, 
+		f[i][s] can be defined as the following cases:
+
+		Case 1, Machine is at node s:
+				f[0][s] = infinite
+				f[1][s] = x
+
+		case 2, Machine is not at node s:
+				f[0][s] = x
+				f[1][s] = f[0][s] + least cost to reconnect with a child with a machine
+						= min(f[0][s] - sub_x[v] + f[1][v])
+				where sub_x[v] = min(f[0][v], f[1][v] + w[s][v])
+
+	(5) For example, machines at node 1 and 2, and w[1][2] = 3, w[1][3] = 4.
+		
+		Step 1, at node 2:
+			x = 0 // As node 2 has no other neighbor except for its parent node 1.
+			f[0][2] = inf // One machine at node 2.
+			f[1][2] = x = 0
+
+		Step 2, at node 3:
+			x = 0 // As node 3 has no other neighbor except for its parent node 1.
+			f[0][3] = x = 0 // No machine at node 3.
+			f[1][3] = x + 0 = 0
+
+		Step 3, at node 1:
+			x = sub_x[2] + sub_x[3]
+			  = min(f[0][2], f[1][2] + w[1][2]) + min(f[0][3], f[1][3] + w[1][3])
+			  = min(inf, 0 + 3) + min(0, 0 + 4)
+			  = 3 + 0 = 3
+			f[0][1] = inf // It's because one machine at node 1.
+			f[1][1] = x = 3
+
+		So, to make node 1 has less one machine insdie take the cost of 3.
