@@ -1,0 +1,6 @@
+1. Minimum absolute difference: 
+   Simple: sort array and get the difference between current item (starts from index 1) and previous item (index - 1), 
+           then get the minimum value of the difference array.
+		   
+2. Luck Balance:
+   Simple: 
