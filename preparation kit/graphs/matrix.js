@@ -2,33 +2,54 @@
 
 // Complete the minTime function below.
 function minTime(roads, machines) {
-    let totalTime = 0, machineSet = new Set(machines);
-    // First, destroy road that connects 2 cities both have machine
-    for (let i = roads.length - 1; i >= 0; i--) {
+
+    function getRoot(rootArr, index) {
+        while (rootArr[index] !== index)
+            index = rootArr[index];
+
+        return index;
+    }
+
+    function rootAToB(rootArr, a, b) {
+        let rootA = getRoot(rootArr, a), rootB = getRoot(rootArr, b);
+        if (rootA !== rootB)
+            rootArr[rootA] = rootB;
+    }
+
+    const maxCity = roads.reduce((agg, cur) => Math.max(agg, cur[0], cur[1]), Number.MIN_SAFE_INTEGER), machineSet = new Set(machines);
+    let rootArr = [], red = [];             // rootArr is disjoint set used to save the root of the city, red saved true/false (root of city has machine or not)
+    for (let i = 0; i <= maxCity; i++) {
+        rootArr[i] = i;
+        red[i] = (machineSet.has(i) ? true : false);
+    }
+
+    // sort roads in descending order of its Time property
+    roads.sort((r1, r2) => r2[2] - r1[2]);
+    let minTime = 0
+    for (let i = 0; i < roads.length; i++) {
         let road = roads[i], c1 = road[0], c2 = road[1];
-        if (machineSet.has(c1) && machineSet.has(c2)) {
-            totalTime += road[2];
-            roads.splice(i, 1);
+        let r1 = getRoot(rootArr, c1), r2 = getRoot(rootArr, c2);
+        let r1Red = red[r1], r2Red = red[r2];
+        if (r1Red && r2Red)
+            minTime += road[2];
+        else if (r1Red || r2Red) {
+            if (r1Red) {
+                rootAToB(rootArr, r2, r1);
+                red[r2] = true;
+            }
+            else { // r2Red is true
+                rootAToB(rootArr, r1, r2);
+                red[r1] = true;
+            }
+        }
+        else {
+            // root r1 to r2 OR root r2 to r1, both works
+            // rootAToB(rootArr, r2, r1);
+            rootAToB(rootArr, r1, r2);
         }
     }
 
-    // Then, find all the roads that connects to city has machine
-    let mRoads = [];
-    for (let i = 0; i < machines.length; i++) {
-        let road = roads.find(road => road[0] === machines[i] || road[1] === machines[i]);
-        if (road)
-            mRoads.push(road[2]);
-    }
-
-    // order the time of road in ascending order
-    mRoads.sort((a, b) => a - b);
-    if (mRoads.length > 1)
-        mRoads.length = mRoads.length - 1;
-
-    if (mRoads.length > 0)
-        totalTime += mRoads.reduce((agg, cur) => agg + cur);
-
-    return totalTime;
+    return minTime;
 }
 
 main();
@@ -42,7 +63,7 @@ function main() {
     4
     0`;
 
-    input=`100 23
+    input = `100 23
     9 78 35
     9 54 45
     78 69 27
@@ -165,7 +186,7 @@ function main() {
     22
     21
     29`;
-    
+
     let lines = input.split('\n').map(l => l.trim()).filter(l => l !== ''), index = 0;
 
     const nk = lines[index++].split(' '), n = parseInt(nk[0], 10), k = parseInt(nk[1], 10);
