@@ -3,4 +3,11 @@
            then get the minimum value of the difference array.
 		   
 2. Luck Balance:
-   Simple: 
+   Simple: sort array and do filter / reduce operation against sorted array.
+
+3. Greedy Florist
+   Simple: sort flower cost array in descending order, add up the cost of flower, 
+           the flower price is (1 + Math.floor(i % k)), i is flower cost array index, k is number of tourists
+
+4. Max Min:
+   Simple: similar to task [Minimum absolute difference]
