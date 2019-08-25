@@ -4,3 +4,7 @@
  
 2. [Alternating Characters]
    Simple: iterate input string, compare current character with previous one.
+   
+3. [Sherlock and the Valid String]
+   Simple: create map (character to its count) and 
+           write code to compare difference between character count
