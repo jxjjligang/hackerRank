@@ -1,0 +1,6 @@
+1. [Making Anagrams]
+   Simple: create map (character to its count) for a and b, 
+   find the count of common characters, then return (a.length + b.length - 2 *(common count))       
+ 
+2. [Alternating Characters]
+   Simple: iterate input string, compare current character with previous one.
