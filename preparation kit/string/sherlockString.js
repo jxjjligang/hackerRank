@@ -24,7 +24,6 @@ function isValid(s) {
     }
     else
         return 'NO';
-
 }
 
 main();
