@@ -8,3 +8,11 @@
 3. [Sherlock and the Valid String]
    Simple: create map (character to its count) and 
            write code to compare difference between character count
+		   
+4. [Special String Again]
+   Tips:
+   (1.) Iterate string s one by one, save the character and its count (for the same repeating character) into array repeatingCharCount.
+   (2.1) Iterate repeatingCharCount, for each element (of length K), add up K (k+1)/2 to answer. (e.g., 'aaa' has 6 substrings altogher)
+   (2.2) Iterate repeatingCharCount, starts from the second element ends the second-last element, this is to compare the current one with its 
+       previous/next element to see if those three matches 'aaaxaaaaaa' pattern, if matches adds up Math.min(prev.length, next.length), because 
+       it means substring like axa, aaxaa, aaaxaaa, etc.		   
