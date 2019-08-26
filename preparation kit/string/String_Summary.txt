@@ -16,3 +16,16 @@
    (2.2) Iterate repeatingCharCount, starts from the second element ends the second-last element, this is to compare the current one with its 
        previous/next element to see if those three matches 'aaaxaaaaaa' pattern, if matches adds up Math.min(prev.length, next.length), because 
        it means substring like axa, aaxaa, aaaxaaa, etc.		   
+	   
+5. [Common Child]
+	Solve task with recursion is straightforward, but time complexity is 2 power n, which means impossible for real usage.
+    
+	Solve task with iterative method,
+	(1.1) Create 2-dimension array s2Rows, s1 index used for column value, s2 index used for row value, the [rowIdx, columnIdx] element in the grid
+	      represents the value of commonChild(s1.slice(0, columnIdx +1), s2.slice(0, rowIdx +1) )
+	
+    (1.2) Each element of s2Rows is a row, row index from 0 to S1_LENGTH
+          step 1. initialize each row with its first element
+          step 2. initialize each element of the first row
+          step 3. iterate to compute value for element [rowIdx, columnIdx] in the grid, the outer iteration starts from row 1, the inner iteration starts from column 1
+	   
