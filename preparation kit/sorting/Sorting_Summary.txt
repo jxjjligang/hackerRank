@@ -1,8 +1,17 @@
-1. Bubble Sort
+1. Bubble Sort:
    Really Simple
   
 2. Mark and Toy:
    Really Simple
    
-3. Comparator
-Really Simple
+3. Comparator:
+   Really Simple
+
+4. Fraudulent Activity Notifications:
+   Key point: construct/maintain a map (mapping between spend value and its count) structure;
+              OR use [Counting Sort], time complexity is O (n * maximum numbers in the array)
+			  OR use 2 priority queue (one save upperBound values, up to; another save lowerBound values bottom from);
+			     when add numbers to priority queue, remember to balance the size of them (difference of them can't > 1)
+				 
+5. Counting Inversions:
+
