@@ -1,0 +1,8 @@
+1. Bubble Sort
+   Really Simple
+  
+2. Mark and Toy:
+   Really Simple
+   
+3. Comparator
+Really Simple
