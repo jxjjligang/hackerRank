@@ -1,0 +1,7 @@
+1. [Ransom Note]
+   Simple: create map to save the relationship between word and its count.
+   
+2. [Two Strings]   
+   Simple: create set to save distinct character that exists in string, then check its existence in another set (based on another string)
+
+
