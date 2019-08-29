@@ -10,17 +10,8 @@ function countInversions(arr) {
         let sorted = [];
         while (leftResult.length > 0 && rightResult.length > 0) {
             let shiftArr = ((leftResult[0] <= rightResult[0]) ? leftResult : rightResult);
-            if (shiftArr === rightResult) {
-                let firstLeft = leftResult[0], cnt = 0;
-                for (let i = 0; i < rightResult.length; i++) {
-                    if (firstLeft > rightResult[i])
-                        cnt++;
-                    else
-                        break;
-                }
-
-                inversions += cnt;
-            }
+            if (shiftArr === rightResult)
+                inversions += leftResult.length;    // each item in leftResult is bigger than first item of rightResult
             sorted.push(shiftArr.shift());
         }
 
@@ -39,9 +30,11 @@ function countInversions(arr) {
 
 main();
 function main() {
-    let input = `1
-    3
-     5 3 1`;
+    let input = `2
+    5
+    1 1 1 2 2
+    5
+    2 1 3 1 2`;
     let lines = input.split('\n').map(l => l.trim()).filter(l => l !== ''), index = 0;
 
     const t = parseInt(lines[index++], 10);

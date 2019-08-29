@@ -14,4 +14,6 @@
 			     when add numbers to priority queue, remember to balance the size of them (difference of them can't > 1)
 				 
 5. Counting Inversions:
+   Use merge sort is straightforwad, but to grasp the idea of counting inversions corretly will help
+   when and how to add up those inversion count.
 
