@@ -4,4 +4,9 @@
 2. [Two Strings]   
    Simple: create set to save distinct character that exists in string, then check its existence in another set (based on another string)
 
+3. [Sherlock and Anagrams]
+   Key point: 
+       1. In iteration of get substrings of the same length (from 1 to s.length - 1),
+	      re-order substring by the a-z order, then put them into Map (mapping between substring and its count),
+		  then for each key in map, adds up n(n-1)/2 to the final result.
 
