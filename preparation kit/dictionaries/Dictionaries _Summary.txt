@@ -20,4 +20,5 @@
       the count value from oneTimeMap.
   	  
 5. [Frequency Queries]	  
-
+   It's straightward to use map to save number->occurrence, but it's slow for big size array.
+   Use another map to save the mapping between occurrence-> set of number will improve performance a lot. 
