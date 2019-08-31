@@ -1,0 +1,7 @@
+1. [2D Array]:
+   Simple: Iteration within iteration.
+
+2. [Left Rotation]
+   Simple: copy 2 parts of original array, then mgerge the 2 parts together.
+   
+3. [New Year Chaos]
