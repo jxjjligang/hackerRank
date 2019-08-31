@@ -9,4 +9,15 @@
        1. In iteration of get substrings of the same length (from 1 to s.length - 1),
 	      re-order substring by the a-z order, then put them into Map (mapping between substring and its count),
 		  then for each key in map, adds up n(n-1)/2 to the final result.
+		  
+4. [Triplet]
+   Key point: based on the idea from discussion.
+   1. Create 2 map - baseMap (save all the incoming numbers) 
+              and oneTimeMap (save number which is the ration * number in baseMap);
+   2. Above map save mapping between number to count, for baseMap the count is simply of its occurrence;
+      for oneTimeMap, its count will be adds-up of the count value from baseMap.
+   3. If incoming number is ration * number in oneTimeMap, then we know a triplet occurs, and adds up 
+      the count value from oneTimeMap.
+  	  
+5. [Frequency Queries]	  
 
