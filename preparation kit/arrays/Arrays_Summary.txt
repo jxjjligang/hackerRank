@@ -14,4 +14,9 @@
    value i+1 and sway with it.
    To increase the performance, create a map value2Index and maintain it during swap.
 
-5. []   
+5. [Array Manipulation]   
+   Key point (based on the idea from discussion): 
+   (1). Create a RangeArray, its length will be the max value of queries[1];
+   (2). Iterate queries, for each item, set RangeArray[fromIndex] += queries[i][0], RangeArray[toIndex] -= queries[i][1];
+   (3). Iterate RangeArray from the second item, rangeArr[i] += rangeArr[i-1]
+              
