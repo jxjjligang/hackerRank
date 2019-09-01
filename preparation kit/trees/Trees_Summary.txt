@@ -1,0 +1,5 @@
+1. [Height of a Binary Tree]
+   Use recursive method call to find answer
+
+2. [Lowest Common Ancestor]
+   Still use recursive method call to find answer.
