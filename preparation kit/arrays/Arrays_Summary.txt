@@ -8,3 +8,10 @@
    Iterate arr from the last to first, for current item, check if it's bribe result 
    case 1: its value - index > 3, bribe more than 2 which is not allowed and return 'Too chaotic';
    case 2: its value - index in (1,2), then sway it with right neighbour and re-set the iteration index.
+   
+4. [Minimum Swaps 2]
+   Iterate the array, check each item value at index is i+1 or not, if not find the position that has
+   value i+1 and sway with it.
+   To increase the performance, create a map value2Index and maintain it during swap.
+
+5. []   
