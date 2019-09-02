@@ -3,3 +3,11 @@
 
 2. [Lowest Common Ancestor]
    Still use recursive method call to find answer.
+   
+3. [Is This a Binary Search Tree]
+   Still use recursive idea to check each node's data within range (minValue, maxValue)
+
+4. [Huffman Decoding]
+   In while loop, read decoded string one by one and move node to the left (when read 0) 
+   or to the right (while read 1), if leaf node is reached, add it to the final string and 
+   reset node to root.
