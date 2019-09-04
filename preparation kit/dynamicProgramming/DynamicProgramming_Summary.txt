@@ -3,4 +3,6 @@
    #2 Read backwards array, when read last number, calculate result for array that has only one number; 
       when read last 2 numbers, calculate result for array that has 2 numbers; so on so forth.
 
-2. [Abbreviation]	  
+2. [Abbreviation]	 
+   It's straightforward to use recursion, but it's not performant to pass all the tests.
+   Therefore, we can use iteration to get the answer, in a very similar way to get [Common Child String] from 2 strings.
