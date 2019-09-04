@@ -1,0 +1,6 @@
+1. [Max Array Sum]
+   #1 Use iteration to accumulate the final result from previously calculated partial result;
+   #2 Read backwards array, when read last number, calculate result for array that has only one number; 
+      when read last 2 numbers, calculate result for array that has 2 numbers; so on so forth.
+
+2. [Abbreviation]	  
