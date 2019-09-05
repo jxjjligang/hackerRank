@@ -6,3 +6,11 @@
 2. [Abbreviation]	 
    It's straightforward to use recursion, but it's not performant to pass all the tests.
    Therefore, we can use iteration to get the answer, in a very similar way to get [Common Child String] from 2 strings.
+   
+3. [Candies]   
+   Key point:
+   (1). Find 3 cases when compare new grade with previous grade
+	    # 1 new grade  >  previous grade 
+	    # 2 new grade === previous grade
+	    # 3 new grade  <  previous grade
+   (2). Create stack for saving candies allocated, eventually adds up to the total candies amount variable.
