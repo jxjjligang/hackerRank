@@ -1,0 +1,6 @@
+1. [Components in a graph]
+   It's straightforward, create 2 array (root array and size array);
+   In the end, iterate all the root values and get corresponding size value to update min/max graph size.
+
+2. 
+   
