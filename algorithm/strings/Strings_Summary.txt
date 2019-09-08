@@ -1,0 +1,2 @@
+1. [HackerRank in a String]
+   Easy: just use greedy way to solve the task, the partial best result will be part of global best result.
