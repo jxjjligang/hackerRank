@@ -143,7 +143,7 @@ function main() {
     30
     11`];
 
-    for (let i = 0; i < 1; i++) {
+    for (let i = 1; i < 2; i++) {
         let input = inputs[i];
         let lines = input.split('\n').map(l => l.trim()).filter(l => l !== ''), index = 0;
 
