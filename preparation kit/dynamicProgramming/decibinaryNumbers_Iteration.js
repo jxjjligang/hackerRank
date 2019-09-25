@@ -80,8 +80,11 @@ function decibinaryNumbers(x) {
             return [];
 
         let lessDigits = digit - 1, n = number - Math.pow(2, lessDigits), formats = [];
-        while (n >= 0) {
-            formats = formats.concat(getFormatsOfNumber(n, lessDigits));
+        for (let highBit = 1; highBit < 10; highBit++) {
+            if (n < 0)
+                break;
+
+            formats = formats.concat(highBit.toString() + getFormatsOfNumber(n, lessDigits).map(lower => lower.padStart(lessDigits, '0')));
             n -= Math.pow(2, lessDigits);
         }
 
