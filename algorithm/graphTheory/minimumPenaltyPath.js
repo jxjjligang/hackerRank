@@ -1,7 +1,7 @@
 'use strict'
 main();
 
-// Complete the beautifulPath function below.
+// My own solution, only pass 4 cases
 function beautifulPath(edges, A, B) {
     let penaltiesOfNode = [], visited = [];
     penaltiesOfNode[A] = [0];

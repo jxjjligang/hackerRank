@@ -1,0 +1,3 @@
+1. [Minimum Penalty Path]
+   (1). Use brute-force way to solve the problem.
+   (2). use bit operator technique to solve the problem without timeout.
