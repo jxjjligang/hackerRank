@@ -36,6 +36,8 @@ function beautifulPath(edges, A, B) {
             return false;
 
         nodes = nodes.filter(o => (o.k & (~costLimit)) === 0).map(o => o.n);
+        // SHOULD NOT USE Below condition
+        // nodes = nodes.filter(o => o.k <= costLimit).map(o => o.n);
         if (nodes.length === 0)
             return false;
         let set = new Set(nodes);
@@ -83,7 +85,7 @@ function main() {
     1 3 100
     1 3`;
 
-    let ainput = `500 10000
+    input = `500 10000
     28 173 673
     160 366 428
     229 440 938
@@ -20089,7 +20091,7 @@ function main() {
     43 11 499
     34 29`;
 
-    input = `1000 100
+    let acinput = `1000 100
     484 559 763
     250 455 159
     858 118 628
