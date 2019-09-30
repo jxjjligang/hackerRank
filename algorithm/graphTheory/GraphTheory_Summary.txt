@@ -14,3 +14,10 @@
 		For example, 1011 (10-base 11), if use <= 11 to filter o.k, 
 		we may choose 4,5,6 (the third digit is 1) and because of the OR calculation, that 1 digit 
 		will be in the final result which is not we want.
+		
+2. [Breadth First Search]
+   It's quite straightforward.
+
+3. [Rruskals MST] Minimum-Spanning-Tree
+   It's quite straightforward, disjointset technique helps to detect if a new edge will introduce cycle 
+   into existing graph.
