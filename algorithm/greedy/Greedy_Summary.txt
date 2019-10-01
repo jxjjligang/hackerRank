@@ -1,0 +1,2 @@
+1. [Chief Hopper]
+   Start from the end of array, calculate the intermediate value until to the beginning.
