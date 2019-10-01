@@ -24,3 +24,5 @@
    
 4. [Even Tree]   
    Not hard, and the logic from Editorial is much simpler than mine.
+   
+5. [Snakes and Ladders]   
