@@ -1,3 +1,23 @@
 1. [Minimum Penalty Path]
    (1). Use brute-force way to solve the problem.
    (2). use bit operator technique to solve the problem without timeout.
+        The idea is narrow down the cost by starting the costLimit with 1023, 
+		then check if its top digit (valut is 2^9=512) can be zero or not. Mask off that digit from 
+		all the edges' cost, then use DFS to see if end node can still be reached, if YES then that digit 
+		can be 0 in the final cost, otherwise that digit must be kept 1. 
+		Follow the same procedure until we reach the bottom digit (valut is 2^0=1).
+		
+        here I use below condiion:
+      		    nodes = nodes.filter(o => (o.k & (~costLimit)) === 0).map(o => o.n);
+		     instead of o.k <= costLimit
+	    It's because we want all 0 bits of number costLimit were obeyed when filtering o.k.
+		For example, 1011 (10-base 11), if use <= 11 to filter o.k, 
+		we may choose 4,5,6 (the third digit is 1) and because of the OR calculation, that 1 digit 
+		will be in the final result which is not we want.
+		
+2. [Breadth First Search]
+   It's quite straightforward.
+
+3. [Rruskals MST] Minimum-Spanning-Tree
+   It's quite straightforward, disjointset technique helps to detect if a new edge will introduce cycle 
+   into existing graph.
