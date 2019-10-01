@@ -21,3 +21,6 @@
 3. [Rruskals MST] Minimum-Spanning-Tree
    It's quite straightforward, disjointset technique helps to detect if a new edge will introduce cycle 
    into existing graph.
+   
+4. [Even Tree]   
+   Not hard, and the logic from Editorial is much simpler than mine.

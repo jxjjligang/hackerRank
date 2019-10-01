@@ -1,0 +1,5 @@
+1. [Encryption]
+   Simple: just follow the steps from the [problem description].
+   
+2. [Bigger is Greater]
+   Straightforward, 2 levels of iteration will solve it.
