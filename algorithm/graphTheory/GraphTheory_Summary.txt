@@ -28,3 +28,6 @@
 5. [Snakes and Ladders]   
    Use graph BFS idea to solve the problem, treat ladder / snake / normal position as a choice of next step, I only add [normal position] case once since it's forwarding.
    [From the Editorial], use visited array to remember positions have been visited is good to deal with edge case like 6 consecutive snakes.
+   
+6. [Crab Graphs]
+      

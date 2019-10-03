@@ -1,0 +1,3 @@
+1. [Alice and Bob's Silly Game]
+   The idea is straightforward - count the [Prime Number] with range of N.
+   Use Sieve algorithm to quickly flag [Prime Numbers].
