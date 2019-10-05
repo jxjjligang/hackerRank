@@ -2,67 +2,99 @@
 
 main();
 
-// Based on the Java solution from xdavidliu (located on discussion tab)
+/**
+ *  From discussion tab of this task.
+    jroitgrund 3 years ago
+    I think I have an intuitive one. 
+    The key insight is to realize that you want the following invariant to hold: the count of A, T, G, and C outside 
+    the substring are all <= N / 4. 
+    Find the largest substring starting from 0 for which this holds. This is your right bound. 
+    Then try and make the substring smaller and smaller by increasing the left bound of the substring. 
+    If this makes the invariant false, you need to increase the right bound. For each left and right bound where the invariant holds, 
+    update your "best solution so far" if the distance between left and right is smaller. 
+    
+    Once the right bound hits the end of the string, you have exhausted all possible solutions, return the best so far.
+ * @param {*} gene 
+ */
+
+// Can get correct result, but will timeout for cases due to the time complexity of my solution.
 // Complete the steadyGene function below.
 function steadyGene(gene) {
-    function index(geneChar) {
-        switch (geneChar) {
-            case 'A':
-                return 0;
-            case 'C':
-                return 1;
-            case 'G':
-                return 2;
-            case 'T':
-                return 3;
+    function addToMap(map, char, index) {
+        let indexSet;
+        if (map.has(char))
+            indexSet = map.get(char);
+        else {
+            indexSet = new Set();
+            map.set(char, indexSet);
         }
-        return -1;
+
+        indexSet.add(index);
     }
 
-    function geneCount(gene) {
-        let count = [];
-        for (let i = 0; i < 4; i++)
-            count.push([]);
+    function isEligible(char2ExtraCount) {
+        for (let value of char2ExtraCount.values()) {
+            if (value > 0)
+                return false;
+        }
 
-        for (let i = 0; i < gene.length; ++i)
-            ++count[index(gene[i])];
-
-        return count;
+        return true;
     }
 
-    let count = geneCount(gene);
-    let quarter = gene.length / 4, nOver = 0;
-    for (let c of count) {
-        if (c > quarter)
-            ++nOver;
+    let quarter = gene.length / 4, char2IndexSet = new Map();
+    for (let i = 0; i < gene.length; i++)
+        addToMap(char2IndexSet, gene[i], i);
+
+    let charIndexArray = [], toBeReplacedCount = 0;     // index of character whose amount is mroe than quarter
+    let char2ExtraCount = new Map();                    // mapping between character and its extra amount (= its array size - quarter)
+    for (let kv of char2IndexSet) {
+        let char = kv[0], idxSet = kv[1], setSize = idxSet.size;
+        if (setSize > quarter) {
+            char2ExtraCount.set(char, setSize - quarter);
+            toBeReplacedCount += setSize - quarter;
+            charIndexArray = charIndexArray.concat(Array.from(idxSet));
+        }
     }
 
-    if (nOver == 0)
+    if (charIndexArray.length === 0)
         return 0;
-
-    let r = 0;
-    while (r < gene.length && nOver != 0) {
-        let ind = index(gene[r++]);
-        if (--count[ind] == quarter)
-            --nOver;
-    }
-
-    let l = 0, best = gene.length;
-    while (r <= gene.length) {
-        let ind = index(gene[l]);
-        while (l < r && count[ind] != quarter) {
-            count[ind]++;
-            ind = index(gene[++l]);
+    else {
+        const GENE_LENGTH = gene.length;
+        let r = 0;
+        for (; r < GENE_LENGTH; r++) {
+            let char = gene[r];
+            if (char2ExtraCount.has(char)) {
+                char2ExtraCount.set(char, char2ExtraCount.get(char) - 1);
+                if (isEligible(char2ExtraCount) === true)
+                    break;
+            }
         }
-        if (r - l < best)
-            best = r - l;
 
-        if (r < gene.length)
-            --count[index(gene[r])];
-        ++r;
+        let resultLen = GENE_LENGTH, l = 0, charAtL = gene[l];
+        while (r < GENE_LENGTH) {
+            while (!char2ExtraCount.has(charAtL) || (char2ExtraCount.get(charAtL) < 0)) {
+                if (char2ExtraCount.has(charAtL))
+                    char2ExtraCount.set(charAtL, char2ExtraCount.get(charAtL) + 1)
+                l++;
+                charAtL = gene[l];
+            }
+
+            if (r - l + 1 < resultLen)
+                resultLen = r - l + 1;
+
+            if (r === GENE_LENGTH - 1)
+                break;
+            else {
+                r++;
+                let charAtR = gene[r];
+                if (char2ExtraCount.has(charAtR)) {
+                    char2ExtraCount.set(charAtR, char2ExtraCount.get(charAtR) - 1);
+                }
+            }
+        }
+
+        return resultLen;
     }
-
-    return best;
 }
 
 function main() {
