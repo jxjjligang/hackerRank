@@ -1,2 +1,8 @@
 1. [Chief Hopper]
    Start from the end of array, calculate the intermediate value until to the beginning.
+
+2. [Goodland Electricity]
+   Straightforward, try to get best result every step.
+  
+3. [Cloudy Day]
+   
