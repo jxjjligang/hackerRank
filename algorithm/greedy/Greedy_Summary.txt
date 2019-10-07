@@ -5,4 +5,14 @@
    Straightforward, try to get best result every step.
   
 3. [Cloudy Day]
-   
+   I figured out the idea - find towns that only covered by one cloud; this will solve the solution.
+   To pass all tests, performance must be improved in 2 ways:
+   (1). Use count array idea to count clouds that cover one town;
+   (2). Save the count of towns (covered only by one cloud) such as variable [oneCloudTwonsCount],
+        then in the follow logic decrement it and use it to break loop when oneCloudTwonsCount<=0
+
+   For way 1, refer follow from Discussion tab of this task:
+      for each cloud mark the cities as visited and increase their visited count by 1 and this can be done in O(1). 
+	  u can refer this question https://www.hackerrank.com/challenges/crush/problem and 
+	  its MASTER STEP at https://www.hackerrank.com/challenges/crush/forum/comments/69550 for O(1) complexity. 
+	  this will give the no. of clouds at a particular city.  
