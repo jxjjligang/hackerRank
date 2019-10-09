@@ -1,0 +1,5 @@
+1. [Counter game]  
+   It's quite straightforward.
+   But when read Editorial, I still learn many. When implement in JavaScript, found bit operation applies to 32 bit signed integer;
+   Therefore, BigInt type must be used to achieve expected result.
+ 
