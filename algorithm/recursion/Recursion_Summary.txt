@@ -1,0 +1,6 @@
+1. [The Power Sum]
+   Step1: 1. Find all the valid [power number] and put them into array;
+          2. Find the [maximum amount] (that power number can sum together and the final sum value <=X);
+          3. From 1 to [maximum amount], during each iteration, find how many combinations amount to X;
+             and sum all these values from each iteration.
+             Recursion function must be written to reach every possible combination.			 
