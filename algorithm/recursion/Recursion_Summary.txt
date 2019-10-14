@@ -3,4 +3,7 @@
           2. Find the [maximum amount] (that power number can sum together and the final sum value <=X);
           3. From 1 to [maximum amount], during each iteration, find how many combinations amount to X;
              and sum all these values from each iteration.
-             Recursion function must be written to reach every possible combination.			 
+             Recursion function must be written to reach every possible combination.	
+2. [Stone Division, Revisited]
+   Solve task in iterative way, starts from the smallest number in S array, then calculae bigger number which
+   will use the result of the smaller number; this solution works efficiently both in time and space.   
