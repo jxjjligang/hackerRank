@@ -8,4 +8,8 @@
    step 1 only 1 bit of original number is introduced, so the original bit can be easily deduced;
    step 2 only introduce the bit found in step 1 and bit (after or before) it, so the next bit can be deduced also.
    step by step, we will deduce all the bits of the original number.
+   
+3. [The Great XOR]      
+   It's straightforward to use right shift number and check each bit, attention the number range 
+   in JavaScript does not satisfy the input range of this task, that's why BigInt is used.
  
