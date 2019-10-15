@@ -14,3 +14,12 @@
 	    # 2 new grade === previous grade
 	    # 3 new grade  <  previous grade
    (2). Create stack for saving candies allocated, eventually adds up to the total candies amount variable.
+   
+4. [Stock Maximize]   
+   This task is similar to several other tasks like [Largest Rectangle], the key is remember previous state 
+   while iterating price array day by day.
+   (1). Create an array, push curret price if it <= previous day, pop up previous day othwise and save 
+        the price difference as profit, pops the array item until condition does not meet, save [days number] 
+		with profit value as object property, this will help when another higher price comes in, the previous profit 
+        value can be updated (plus [the price difference] * [1 + days value] ) to reflect the effect of the newly-comes-in higher price.		
+   (2). In the end, loop each item in above array and sum the profit value to return.		
