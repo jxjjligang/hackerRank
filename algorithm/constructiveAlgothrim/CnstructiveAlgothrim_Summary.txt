@@ -1,0 +1,7 @@
+1. [Gaming Array]
+   The key point is sort the original array and save the original index; the original index will help to find the next biggest element after delete 
+   the first biggest element from the array.
+
+2. [Flipping the Matrix]
+   The key point is for each cell in upper-left quadrant matrix, there are 3 cells should be used to find max cell value with all 4 cells;
+   then simply add up all these cells will get the answer.
