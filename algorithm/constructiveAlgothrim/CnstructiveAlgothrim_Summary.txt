@@ -5,3 +5,7 @@
 2. [Flipping the Matrix]
    The key point is for each cell in upper-left quadrant matrix, there are 3 cells should be used to find max cell value with all 4 cells;
    then simply add up all these cells will get the answer.
+   
+3. [Bonetrousle]
+   The key point is construct the [series], a [series] is consecutive b number of boxes, another [series] which starts 1 index higher than previous one 
+   will have b more [sum value], this point is used to find the correct position of [series].
