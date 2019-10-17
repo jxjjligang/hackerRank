@@ -12,4 +12,8 @@
 3. [The Great XOR]      
    It's straightforward to use right shift number and check each bit, attention the number range 
    in JavaScript does not satisfy the input range of this task, that's why BigInt is used.
+   
+4. [What's Next]
+   (1). Analyze the binary pattern, convert the rightmost '01' to '10', and then try to move as many 1s to its right as possible.
+   (2). Dealing with special case like 0 [represent the count value of 1 or 0] is left in the array.
  
