@@ -1,2 +1,8 @@
 1. [Red Knight's Shortest Path]
    Straightforward, just use BFS to find the shortest path from all possible moves.
+   
+2. [Hackerland Radio Transmitters]
+   The logic is clear, all below steps are in while loop, exit when houses array is empty:
+   1. Order houses by their location value in ascending way.
+   2. Find a transmitter (the far right house that can be reached by the first house location value plus transmitter range), then push that transmitter into array.
+   3. Remove all the houses that will be covered by the transmitter found in step 2.
