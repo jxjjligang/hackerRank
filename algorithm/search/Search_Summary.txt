@@ -6,3 +6,12 @@
    1. Order houses by their location value in ascending way.
    2. Find a transmitter (the far right house that can be reached by the first house location value plus transmitter range), then push that transmitter into array.
    3. Remove all the houses that will be covered by the transmitter found in step 2.
+
+3. [Cut the Tree]
+   First create a recursive solution, which is starightforward but will have 'max call stack exceeded' error 
+   when the call stack is very deep.
+   Therefore, I created a iterative solution which starts from leaf node, and goes up from leaf node;
+   Reverse the BFS array (which saves the access order of tree nodes), will calculate all tree nodes subTotal
+   value in one iteration, only by this way the performance will meet the requirement.    
+   
+   
