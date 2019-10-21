@@ -12,6 +12,9 @@
    when the call stack is very deep.
    Therefore, I created a iterative solution which starts from leaf node, and goes up from leaf node;
    Reverse the BFS array (which saves the access order of tree nodes), will calculate all tree nodes subTotal
-   value in one iteration, only by this way the performance will meet the requirement.    
+   value in one iteration, only by this way the performance will meet the requirement. 
+
+4. [KnightL on a Chessboard]
+   It's quite straightforward, just use BFS to search the least number of moves to reach destination location.   
    
    
