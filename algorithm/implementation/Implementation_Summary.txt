@@ -3,3 +3,6 @@
    
 2. [Bigger is Greater]
    Straightforward, 2 levels of iteration will solve it.
+   
+3. [Climbing the Leaderboard]   
+   Straightforward, create a ordered array and use binary search to find the rank position.
