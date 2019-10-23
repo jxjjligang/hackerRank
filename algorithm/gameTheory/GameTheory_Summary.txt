@@ -1,3 +1,14 @@
 1. [Alice and Bob's Silly Game]
    The idea is straightforward - count the [Prime Number] with range of N.
    Use Sieve algorithm to quickly flag [Prime Numbers].
+   
+2. [bob And Ben]   
+   After learn [Sprague-Grundy Theorem], [Nimbers and Mex] from [GeeksforGeeks], I can complete this task.
+   https://www.geeksforgeeks.org/combinatorial-game-theory-set-3-grundy-numbersnimbers-and-mex/
+   
+3. [Game of Stones]
+   Easy, use iterative idea, starts from known results and accumulate to the final result.
+
+
+
+   
