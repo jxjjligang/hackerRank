@@ -20,5 +20,8 @@
         game. The coins aren't the stones in the Nim's term. The slots before the current square are.
    (2). The number of coins in each square is just a flag, if initially some square has even number of coins, no matter what the first player did, all the changes can be cancel out 
         by puting all rest of the coins in current square (will be an odd number) to the same set of squares the first player put onto.
+		
+6. [A Chessboard Game]		
+   
 
    
