@@ -24,5 +24,6 @@
 6. [A Chessboard Game]		
    I have figured out all the flow of code, with the help from discussion, I corrected logic for 2 if condition clause and then complete the task. 
    
-
+7. [Chocolate in Box]
+   Straightforward, just use the idea of determine how to move to ensure first player win.
    
