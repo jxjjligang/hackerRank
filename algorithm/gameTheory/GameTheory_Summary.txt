@@ -25,7 +25,7 @@
    I have figured out all the flow of code, with the help from discussion, I corrected logic for 2 if condition clause and then complete the task. 
    
 7. [Chocolate in Box]
-   Straightforward, just use the idea of determine how to move to ensure first player win.
+   Straightforward, just use the idea of classic Nim Game (remove stones from piles) to find how many moving ways for first player to win.
 
 8. [Powers Game]
    Key points:
@@ -36,4 +36,9 @@
        that could make the equation still works, then we find the number of series must be times of 8.   
 	   
 8. [Play on benders]	   
+   Key points: 
+       (1). Written in C# so as to use its profiler to identify the bottleneck. 
+	        Before: IEnumerable<int> nextLocations = paths.Where(p => p[0] == location).Select(p => p[1]);
+	        After:  IEnumerable<int> nextLocations = parent2Children[location];
+	   (2). Implement a iterative program flow does help me to locate the bottleneck; however the recursive way can't because it calls itself.
    
