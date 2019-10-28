@@ -24,5 +24,16 @@
 6. [A Chessboard Game]		
    I have figured out all the flow of code, with the help from discussion, I corrected logic for 2 if condition clause and then complete the task. 
    
+7. [Powers Game]
+   Key points:
+   (1). Since both players play optimally and player 2 plays after player 1, therefore player 2
+        must be able to make his play works with previous player 1 play - the combination 
+        of their step won't affect the final result;
+   (2) 17 = 16 + 1 = 32 + 2 = 2^5 + 2^1, for every number player 1 choose find the other one
+       that could make the equation still works, then we find the number of series must be times of 8.   
+	   
+8. [Play on benders]	   
+   
+   
 
    
