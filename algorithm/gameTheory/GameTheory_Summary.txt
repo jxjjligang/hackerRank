@@ -49,5 +49,7 @@
 	cell in the grid, then calculate the accumulated XOR result of all the input coins, return result 
     based on the XOR result is 0 or not.
 
+11. [Permutation game]
+    
 	
    
