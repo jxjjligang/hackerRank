@@ -35,10 +35,19 @@
    (2) 17 = 16 + 1 = 32 + 2 = 2^5 + 2^1, for every number player 1 choose find the other one
        that could make the equation still works, then we find the number of series must be times of 8.   
 	   
-8. [Play on benders]	   
+9. [Play on benders]	   
    Key points: 
        (1). Written in C# so as to use its profiler to identify the bottleneck. 
+	        A single line change decreame time from 9 seconds to 0 second.
+	   
 	        Before: IEnumerable<int> nextLocations = paths.Where(p => p[0] == location).Select(p => p[1]);
 	        After:  IEnumerable<int> nextLocations = parent2Children[location];
 	   (2). Implement a iterative program flow does help me to locate the bottleneck; however the recursive way can't because it calls itself.
+
+10. [Chessboard Game, Again]
+    Use [Sprague Grundy Theorem] to solve the problem, first calculate the Grundy Number for every 
+	cell in the grid, then calculate the accumulated XOR result of all the input coins, return result 
+    based on the XOR result is 0 or not.
+
+	
    
