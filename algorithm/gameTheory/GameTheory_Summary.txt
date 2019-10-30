@@ -50,6 +50,7 @@
     based on the XOR result is 0 or not.
 
 11. [Permutation game]
+    Solution 1: After read discussion, implement a recursive way to solve the task.
     
 	
    

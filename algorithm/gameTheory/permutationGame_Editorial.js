@@ -1,65 +1,60 @@
 'use strict'
 
-// save the result for the first player faces with an array, true means first player will win, false means first player will lose
+let cs, dp = [], vis = [];
 function permutationGame(arr) {
-    function isArrayAscending(arr) {
-        for (let i = 1; i < arr.length; i++) {
-            if (arr[i] < arr[i - 1])
-                return false;
-        }
+    const n = arr.length;
 
+    function isPositionSet(mask, pos) {
+        let setFlag = ((1 << pos) & mask) > 0;
+        return setFlag;
+    }
+
+    function setBitAndReturn(mask, pos) {
+        let orResult = ((1 << pos) | mask);
+        return orResult;
+    }
+
+    function isSorted(mask, arr) {
+        let last = -1;
+        for (let i = 0; i < arr.length; i++) {
+            if (isPositionSet(mask, i) === false) {
+                if (arr[i] <= last)
+                    return false;
+                last = arr[i];
+            }
+        }
         return true;
     }
 
-    function calculateState(arr, isTurnOfFirst) {
-        let arrID = arr.join(',');
-        if (!array2State.has(arrID)) {
-            if (isArrayAscending(arr) === true) {
-                // if it's turn of first player and array is ordered already, then he/she loses and save false into map; otherwise saves false
-                array2State.set(arrID, !isTurnOfFirst);
-                return !isTurnOfFirst;
-            }
-
-            let subResults = [], finalResult;
-            for (let i = 0; i < arr.length; i++) {
-                let subArray = arr.slice(0, i).concat(arr.slice(i + 1, arr.length));
-                let subArrayResult = calculateState(subArray, !isTurnOfFirst);
-                subResults.push(subArrayResult);
-
-                if (isTurnOfFirst && (subArrayResult === true)) {
-                    finalResult = true;
-                    break;      // saves time by preventing unnecessary computation
+    function solve(mask) {
+        if (isSorted(mask, arr))
+            return false;
+        if (vis[mask] === cs)
+            return dp[mask];
+        vis[mask] = cs;
+        let can_win = false;
+        for (let i = 0; i < n; i++) {
+            if (isPositionSet(mask, i) === false) {
+                let orResult = setBitAndReturn(mask, i);
+                if (solve(orResult) === false) {
+                    can_win = true;
+                    break;
                 }
-                if (!isTurnOfFirst && (subArrayResult === false)) {
-                    finalResult = false;
-                    break;      // saves time by preventing unnecessary computation
-                }
-
             }
-            if (finalResult === undefined)
-                finalResult = isTurnOfFirst ? false : true;
-
-            array2State.set(arrID, finalResult);
-            return finalResult;
         }
-        else {
-            let existingState = array2State.get(arrID);
-            return existingState;
-        }
+        dp[mask] = can_win;
+        return can_win;
     }
 
-    // array2State is used to save mapping between array and win/lose result for first player (ture for win, false for lose)
-    let array2State = new Map();    
-
-    let arrID = arr.join(',');
-    if (!array2State.has(arrID))
-        calculateState(arr, true);
-
-    return array2State.get(arrID) === true ? 'Alice' : 'Bob';
+    return (solve(0) === true) ? 'Alice' : 'Bob';
 }
 
 function main() {
-    let inputs = [`100
+    let inputs = [`2
+    3
+    1 3 2
+    5
+    5 3 2 1 4`, `100
     11
     11 9 10 5 8 3 2 7 6 4 1
     10
@@ -361,13 +356,14 @@ function main() {
     Alice
     Alice`.split('\n').map(s => s.trim());
     let errorCount = 0;
-    for (let i = 0; i < inputs.length; i++) {    // inputs.length
+    for (let i = 0; i < 1; i++) {    // inputs.length
         let input = inputs[i], lines = input.split('\n').map(s => s.trim()), index = 0;
         const t = parseInt(lines[index++], 10);
         for (let tItr = 0; tItr < t; tItr++) {
             const arrCount = parseInt(lines[index++], 10), arr = lines[index++].split(' ').map(arrTemp => parseInt(arrTemp, 10));
             // if (tItr + 1 !== 98)
             //     continue;
+            cs = tItr + 1;
             let result = permutationGame(arr);
             if (result !== corretResult[tItr]) {
                 errorCount++;
