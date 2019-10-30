@@ -15,8 +15,8 @@ function permutationGame(arr) {
     function calculateState(arr, isTurnOfFirst) {
         let arrID = arr.join(',');
         if (isArrayAscending(arr) === true) {
-            array2State.set(arrID, !isTurnOfFirst);
-            return !isTurnOfFirst;
+            array2State.set(arrID, false);
+            return !false;
         }
 
         if (!array2State.has(arrID)) {
@@ -26,17 +26,19 @@ function permutationGame(arr) {
                 subResults.push(calculateState(subArray, !isTurnOfFirst));
             }
 
-            let finalResult;
-            if (isTurnOfFirst)
-                finalResult = subResults.some(r => r === true) ? true : false;
-            else
-                finalResult = subResults.some(r => r === false) ? false : true;
-
+            let finalResult = subResults.some(r => r === true) ? true : false;
+            // if (isTurnOfFirst)
+            finalResult = subResults.some(r => r === true) ? true : false;
+            // else
+            //     finalResult = subResults.some(r => r === false) ? false : true;
+            // finalResult = (isTurnOfFirst ? finalResult : (!finalResult));
             array2State.set(arrID, finalResult);
             return finalResult;
         }
-        else
-            return array2State.get(arrID);
+        else {
+            let existingState = array2State.get(arrID);
+            return isTurnOfFirst ? existingState : (!existingState);
+        }
     }
 
     let arrID = arr.join(',');
@@ -248,18 +250,122 @@ function main() {
     6 3 5 4 1 2
     9
     8 1 6 9 2 3 4 5 7`];
-
+    let corretResult = `Bob
+    Alice
+    Alice
+    Bob
+    Alice
+    Alice
+    Alice
+    Alice
+    Alice
+    Bob
+    Alice
+    Alice
+    Bob
+    Bob
+    Alice
+    Alice
+    Bob
+    Alice
+    Alice
+    Alice
+    Bob
+    Alice
+    Alice
+    Alice
+    Alice
+    Bob
+    Bob
+    Bob
+    Alice
+    Bob
+    Alice
+    Bob
+    Alice
+    Alice
+    Alice
+    Alice
+    Bob
+    Bob
+    Alice
+    Alice
+    Alice
+    Bob
+    Alice
+    Bob
+    Alice
+    Alice
+    Alice
+    Alice
+    Alice
+    Alice
+    Alice
+    Alice
+    Alice
+    Bob
+    Bob
+    Alice
+    Bob
+    Alice
+    Alice
+    Bob
+    Alice
+    Alice
+    Bob
+    Alice
+    Bob
+    Bob
+    Bob
+    Bob
+    Alice
+    Bob
+    Alice
+    Bob
+    Bob
+    Bob
+    Alice
+    Bob
+    Bob
+    Bob
+    Bob
+    Alice
+    Alice
+    Bob
+    Alice
+    Alice
+    Alice
+    Alice
+    Bob
+    Alice
+    Alice
+    Alice
+    Alice
+    Alice
+    Alice
+    Alice
+    Bob
+    Bob
+    Alice
+    Alice
+    Alice
+    Alice`.split('\n').map(s => s.trim());
+    let errorCount = 0;
     for (let i = 0; i < inputs.length; i++) {    // inputs.length
         let input = inputs[i], lines = input.split('\n').map(s => s.trim()), index = 0;
         array2State.clear();
         const t = parseInt(lines[index++], 10);
         for (let tItr = 0; tItr < t; tItr++) {
             const arrCount = parseInt(lines[index++], 10), arr = lines[index++].split(' ').map(arrTemp => parseInt(arrTemp, 10));
-            // if (tItr + 1 !== 37)
-            //     continue;
+            if (tItr + 1 !== 37)
+                continue;
             let result = permutationGame(arr);
-            console.log(`${tItr + 1}: ${result}, arrCount:${arrCount}`);
+            if (result !== corretResult[tItr]) {
+                errorCount++;
+                console.log(`${tItr + 1}: ${result}, arrCount:${arrCount}, corretResult: ${corretResult[tItr]}`);
+            }
         }
+        console.log(`Total errors: ${errorCount}`);
     }
 }
 
@@ -267,7 +373,8 @@ main();
 
 
 /**
- * Bob
+ *
+Bob
 Alice
 Alice
 Bob
