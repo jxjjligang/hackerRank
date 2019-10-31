@@ -50,11 +50,7 @@ function permutationGame(arr) {
 }
 
 function main() {
-    let inputs = [`2
-    3
-    1 3 2
-    5
-    5 3 2 1 4`, `100
+    let inputs = [`100
     11
     11 9 10 5 8 3 2 7 6 4 1
     10
@@ -361,8 +357,8 @@ function main() {
         const t = parseInt(lines[index++], 10);
         for (let tItr = 0; tItr < t; tItr++) {
             const arrCount = parseInt(lines[index++], 10), arr = lines[index++].split(' ').map(arrTemp => parseInt(arrTemp, 10));
-            // if (tItr + 1 !== 98)
-            //     continue;
+            if (tItr + 1 !== 98)
+                continue;
             cs = tItr + 1;
             let result = permutationGame(arr);
             if (result !== corretResult[tItr]) {

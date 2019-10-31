@@ -51,6 +51,10 @@
 
 11. [Permutation game]
     Solution 1: After read discussion, implement a recursive way to solve the task.
+	Solution 2: The source code from Editorial is more concise, but not easy to digest and understand.
+	
+12. [Tower Breakers, Revisited]
+    This is actually a [Game of Nim], the [coins number] of each pile is [count of divisors] for each input number, like 6 has 2 [2,3], 8 has 3 [2,2,2]
     
 	
    
