@@ -55,6 +55,9 @@
 	
 12. [Tower Breakers, Revisited]
     This is actually a [Game of Nim], the [coins number] of each pile is [count of divisors] for each input number, like 6 has 2 [2,3], 8 has 3 [2,2,2]
+	
+13. [Tower Breakers, Again!]
+    	
     
 	
    
