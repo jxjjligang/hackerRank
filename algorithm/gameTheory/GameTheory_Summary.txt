@@ -57,6 +57,18 @@
     This is actually a [Game of Nim], the [coins number] of each pile is [count of divisors] for each input number, like 6 has 2 [2,3], 8 has 3 [2,2,2]
 	
 13. [Tower Breakers, Again!]
+    Based on the idea from discussion, key points:
+    (1). Find [odd] divisors of number and save them into array;
+	(2). When original number is odd, then the k (value of Nim Game) will be above array length,
+	     when original number is even, then the k (value of Nim Game) will be above array length plus 1.
+		 
+14. [Fun Game]
+    Based on the idea from discussion: 
+	1. Create an array, has property a:a[i], b:b[i], index:index, 
+       then order the array in desending order by its a[i]+b[i] value.
+	2. In each turn, find the first one (not chosen before) from above ordered array, 
+	   add its a or b value to sumA or sumB based on current turn is for a or for b.
+    		 
     	
     
 	
