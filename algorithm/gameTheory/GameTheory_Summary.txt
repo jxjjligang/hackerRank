@@ -68,6 +68,9 @@
        then order the array in desending order by its a[i]+b[i] value.
 	2. In each turn, find the first one (not chosen before) from above ordered array, 
 	   add its a or b value to sumA or sumB based on current turn is for a or for b.
+	   
+15. [Deforestation]
+    	   
     		 
     	
     
