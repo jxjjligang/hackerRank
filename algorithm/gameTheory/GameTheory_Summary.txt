@@ -38,7 +38,7 @@
 9. [Play on benders]	   
    Key points: 
        (1). Written in C# so as to use its profiler to identify the bottleneck. 
-	        A single line change decreame time from 9 seconds to 0 second.
+	        A single line change decrease time from 9 seconds to 0 second.
 	   
 	        Before: IEnumerable<int> nextLocations = paths.Where(p => p[0] == location).Select(p => p[1]);
 	        After:  IEnumerable<int> nextLocations = parent2Children[location];
@@ -65,11 +65,20 @@
 14. [Fun Game]
     Based on the idea from discussion: 
 	1. Create an array, has property a:a[i], b:b[i], index:index, 
-       then order the array in desending order by its a[i]+b[i] value.
+       then order the array in descending order by its a[i]+b[i] value.
 	2. In each turn, find the first one (not chosen before) from above ordered array, 
 	   add its a or b value to sumA or sumB based on current turn is for a or for b.
 	   
 15. [Deforestation]
+     Based on the link given by cbuff :cool link to understand hackenbush and colon principle
+     http://math450games.blogspot.com/2017/02/green-hackenbush.html
+     We can use the Colon Principle to find the position of a game consisting of trees.
+     Colon Principle: When several stalks meet at a vertex we may replace those stalks by a single stalk of the value 
+	 equal to their sum.
+	 
+16. [Zero-Move Nim]	 
+    
+
     	   
     		 
     	
