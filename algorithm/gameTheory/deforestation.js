@@ -3,28 +3,34 @@
 main();
 
 function deforestation(n, tree) {
-    function getEdgeCount(node, edges, visited) {
+    /**
+     * Based on the link given by cbuff :cool link to understand hackenbush and colon principle
+     * http://math450games.blogspot.com/2017/02/green-hackenbush.html
+     * We can use the Colon Principle to find the position of a game consisting of trees.
+       Colon Principle: When several stalks meet at a vertex we may replace those stalks by a single stalk of the value equal to their sum.
+     * @param {*} node 
+     * @param {*} edges 
+     * @param {*} visited 
+     */
+    function getNodeNimValue(node, edges, visited) {
         let nodeEdges = edges.filter(e => e[0] === node || e[1] === node), edgeCount = 0;
+        let xorResult = 0;
         for (let edge of nodeEdges) {
             let childNode = (edge[0] === node ? edge[1] : edge[0]);
             if (visited.has(childNode))
                 continue;
 
             visited.add(childNode);
-            edgeCount++;
-            edgeCount += getEdgeCount(childNode, edges, visited);
+            let nimValue = getNodeNimValue(childNode, edges, visited);
+            xorResult ^= (1 + nimValue);
         }
 
-        return edgeCount;
+        return xorResult;
     }
 
-    let visited = new Set(), root = 1, children = tree.filter(e => e[0] === root || e[1] === root).map(e => e[0] === root ? e[1] : e[0]), xorResult = 0;
+    let visited = new Set(), root = 1;
     visited.add(root);
-    for (let child of children) {
-        visited.add(child);
-        let childEdgeCount = getEdgeCount(child, tree, visited);
-        xorResult ^= (1 + childEdgeCount);
-    }
+    let xorResult = getNodeNimValue(root, tree, visited);
 
     return (xorResult !== 0 ? 'Alice' : 'Bob');
 }
@@ -23499,9 +23505,9 @@ function main() {
                 tree[treeRowItr] = lines[index++].split(' ').map(treeTemp => parseInt(treeTemp, 10));
 
             let idx = wrongTests.findIndex(e => e === tItr);
-            if (idx === -1)
-                continue;
-                
+            // if (idx === -1)
+            //     continue;
+
             let result = deforestation(n, tree);
             console.log(result);
         }
