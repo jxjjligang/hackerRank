@@ -1,10 +1,29 @@
 'use strict'
 
 main();
-
+/**
+ * Use the idea from Discussion -> find the [Nim Number] value of a specific pile 
+ * The key point is divide [Nim Number] formula into 2 groups:
+ * Group one is the normal one we are familar with: zero move has been used, we have below formula
+ *  GN1[0]= 0, GN1[1]= 1, ..., GN1[n]= n 
+ * 
+ * Group two is the special case: zero move has not used, we have below formula
+ * GN2[0]= 0 
+ * GN2[1] = mex{GN2[0], GN1[1]}= mex{0,1}= 2
+ * GN2[2] = mex{GN2[1], GN2[0], GN1[2]}= mex{2, 0, 2}= 1
+ * By continue calculating GN2[3] and GN2[4], we can find the formula is different for odd number and even number.
+ * 
+ * 
+ * @param {*} p 
+ */
 function zeroMoveNim(p) {
     function getNimValue(plateNum) {
-        return (plateNum === 0) ? 0 : (1 + plateNum);
+        if (plateNum === 0)
+            return 0;
+        else {
+            let isOdd = (plateNum % 2 === 1);
+            return isOdd ? (plateNum + 1) : (plateNum - 1);
+        }
     }
 
     if (p.length === 1)
