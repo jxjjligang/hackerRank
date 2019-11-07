@@ -87,7 +87,11 @@
 	GN2[0]= 0 
 	GN2[1] = mex{GN2[0], GN1[1]}= mex{0,1}= 2
 	GN2[2] = mex{GN2[1], GN2[0], GN1[2]}= mex{2, 0, 2}= 1
-	By calculate GN2[3] and GN2[4], we can find the formula is different for odd number and even number.
+	By continue calculating GN2[3] and GN2[4], we can find the formula is different for odd number and even number.
+	
+17. [New Year Game]
+    Just map the original array to its residual value (%3), then reduce the array to its XOR aggregation result, then decide 
+	which player wins based on the XOR result equals 0 or not.
 
 
     	   
