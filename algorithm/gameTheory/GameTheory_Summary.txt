@@ -92,6 +92,19 @@
 17. [New Year Game]
     Just map the original array to its residual value (%3), then reduce the array to its XOR aggregation result, then decide 
 	which player wins based on the XOR result equals 0 or not.
+	
+18. [A Stones Game]
+    Key points: 
+	1. Find the rule of Nim Value for every number (starts from 1), the Nim Value increases from 
+       1 upwards and there are a set of numbers have the same Nim Value, Math.pow(2, Nim Value - 1)
+    2. Xor all the nim value to xorResult variable:
+	    -> If xorResult is 0 then return 0 (means no answer), otherwise iterate all 
+		   Nim Value until [current Nim Value xor xorResult] gets smaller value.
+        -> The current Nim Value has the [source number],
+     	   smaller Nim value is the target Nim Value (by subtracting source number)
+	3. To improve performance,
+	   (1). Create [Nim Object Array] to represent a set of number that has the same Nim Value
+       (2). Above [Nim Object Array] can be global so that existing ones will be reused. 	   
 
 
     	   
