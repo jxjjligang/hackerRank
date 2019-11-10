@@ -104,7 +104,11 @@
      	   smaller Nim value is the target Nim Value (by subtracting source number)
 	3. To improve performance,
 	   (1). Create [Nim Object Array] to represent a set of number that has the same Nim Value
-       (2). Above [Nim Object Array] can be global so that existing ones will be reused. 	   
+       (2). Above [Nim Object Array] can be global so that existing ones will be reused. 
+
+19. [Vertical Rooks]	
+    Ket point:
+    Find Nim value for each column (has rooks from player 1 and player 2), then XOR all these Nim Values.	
 
 
     	   

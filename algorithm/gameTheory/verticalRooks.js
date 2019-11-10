@@ -5,16 +5,15 @@ main();
 
 
 function verticalRooks(r1, r2) {
-    let dif = r1.map((element, index) => {
+    let nimValues = r1.map((element, index) => {
         let r2Element = r2[index];
-        if (r2Element > element)
-            return (r2Element - element - 1);
-        else
-            return (element - r2Element - 1);
+        return Math.abs(r2Element - element) - 1;
     });
-    let xorResslt = dif.reduce((agg, cur) => agg ^ cur);
+    let xorResslt = 0;
+    for (let nimValue of nimValues)
+        xorResslt ^= nimValue;
 
-    return (xorResslt !== 1) ? 'player-2' : 'player-1';
+    return (xorResslt !== 0) ? 'player-2' : 'player-1';
 }
 
 function main() {
@@ -38969,7 +38968,7 @@ function main() {
 4
 4
 4`];
-    for (let i = 0; i < 1; i++) {    // inputs.length
+    for (let i = 0 ; i < 1; i++) {    // inputs.length
         let input = inputs[i], lines = input.split('\n').map(s => s.trim()), index = 0;
         const t = parseInt(lines[index++], 10);
 
