@@ -110,7 +110,9 @@
     Ket point:
     Find Nim value for each column (has rooks from player 1 and player 2), then XOR all these Nim Values.	
 
-
+20. [Tower Breakers - The Final Battle]
+	Used the code from discussion - a Dynamic Programming technique
+	I don't understand how the code was written in that way. 
     	   
     		 
     	
