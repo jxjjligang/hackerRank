@@ -6,3 +6,17 @@
    
 3. [Climbing the Leaderboard]   
    Straightforward, create a ordered array and use binary search to find the rank position.
+   
+4. [Non-Divisible Subset]
+   Use the code from discussion, this challenge is more about techniuqe skills although I have already observed 
+   below three points:
+   (1). Map the original array to its remainder value (modulo to k) array;
+   (2). Count above array by its value (from 0 to k-1), this creates [Remainder Count Array];
+   (3). The number at index 0 (remainder value is 0) can be [at most 1].
+
+   Then, it should use below techniuqes:
+   (4). If k is even number, then value at index k/2 of [Remainder Count Array] can be [at most 1];
+   (5). Starts from index 1 of [Remainder Count Array], compare its value with its offset index value, 
+        set index value to 0 if its value is less than its offset index value.
+        1 to k-1, 2 to k-2, etc, this is how the index corresponds to its [offset index]. 
+   (6). Reduce above array in step 5 by sum all its value, return the sum value.		
