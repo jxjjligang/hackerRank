@@ -23,3 +23,6 @@
 
 5. [Larry's Array]
    Count the inversion in permutation array, return final result based on the count value is even or not.
+   
+6. [Organizing Containers of Balls]
+      
