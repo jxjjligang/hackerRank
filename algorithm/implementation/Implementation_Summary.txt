@@ -19,4 +19,7 @@
    (5). Starts from index 1 of [Remainder Count Array], compare its value with its offset index value, 
         set index value to 0 if its value is less than its offset index value.
         1 to k-1, 2 to k-2, etc, this is how the index corresponds to its [offset index]. 
-   (6). Reduce above array in step 5 by sum all its value, return the sum value.		
+   (6). Reduce above array in step 5 by sum all its value, return the sum value.
+
+5. [Larry's Array]
+   Count the inversion in permutation array, return final result based on the count value is even or not.
