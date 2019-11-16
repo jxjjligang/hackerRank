@@ -34,5 +34,11 @@
    Keypoint: figure out (n % (2*k)) === 0, then it will be easy to find how to make numbers
    meet the [Absolute Permutation] requirement.
    
+8. [3D Surface Area]
+   Keypoint: 
+   (1). Visit each cell in the grid, for each cell, its top/bottom area is always included; 
+        then compare its north/east/south/west sides with its neighbours, the positive difference 
+		will be accumulated into the final result.
+		
    
    
