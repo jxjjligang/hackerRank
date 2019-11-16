@@ -68,7 +68,7 @@ function main() {
 0 2 1
 1 1 1
 2 0 0`];
-    for (let i = 1; i < inputs.length; i++) {    // inputs.length
+    for (let i = 0; i < 1; i++) {    // inputs.length
         let input = inputs[i], lines = input.split('\n').map(s => s.trim()), index = 0;
         const q = parseInt(lines[index++], 10);
 

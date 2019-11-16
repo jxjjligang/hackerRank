@@ -25,4 +25,14 @@
    Count the inversion in permutation array, return final result based on the count value is even or not.
    
 6. [Organizing Containers of Balls]
-      
+   Key points:
+   (1). Count the ball count by their type [from column], save the [count value] and its frequency.
+   (2). Count the ball count by row [from row], save the [count value] and its frequency. 
+   Compare if above 2 map equal, if equal then returns true otherwise returns false.   
+
+7. [Absolute Permutation]
+   Keypoint: figure out (n % (2*k)) === 0, then it will be easy to find how to make numbers
+   meet the [Absolute Permutation] requirement.
+   
+   
+   
