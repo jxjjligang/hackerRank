@@ -40,5 +40,16 @@
         then compare its north/east/south/west sides with its neighbours, the positive difference 
 		will be accumulated into the final result.
 		
+9. [Ema's Supercomputer]
+   Based on the discussion and [Java 8 source code], accomplish this challenge, key points are:
+   (1). Iterate each cell of grid, find the biggest plus centers from current cell, and save them into an array;
+   (2). Create a nested (2-levels) iteration of above plus array, during each iteration calculate
+        the max area can be produced by these 2 plus (they can't overlap).
+
+   There are techniques like:
+   (1). Decrease plus cells array size by 4, remember to decrease the biggest one always;  
+   (2). Sort plus array, during the inner interation if the possible [max area] can't be bigger 
+        than [alread found max area], then break from inner iteration (this improve performance).   
+		
    
    
