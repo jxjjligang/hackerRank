@@ -57,4 +57,5 @@
         all those sliced rows into one big string; to compare with the strings joined from P;
    (2). Use while to loop each row in G until -1 (index of frist row of P that exists in G row) returns.		
    
-   
+11.[Queen's Attack II]
+   It's straighforward, count squares in 8 directions and sum them to return.    
