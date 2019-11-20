@@ -6,3 +6,56 @@
    
 3. [Climbing the Leaderboard]   
    Straightforward, create a ordered array and use binary search to find the rank position.
+   
+4. [Non-Divisible Subset]
+   Use the code from discussion, this challenge is more about techniuqe skills although I have already observed 
+   below three points:
+   (1). Map the original array to its remainder value (modulo to k) array;
+   (2). Count above array by its value (from 0 to k-1), this creates [Remainder Count Array];
+   (3). The number at index 0 (remainder value is 0) can be [at most 1].
+
+   Then, it should use below techniuqes:
+   (4). If k is even number, then value at index k/2 of [Remainder Count Array] can be [at most 1];
+   (5). Starts from index 1 of [Remainder Count Array], compare its value with its offset index value, 
+        set index value to 0 if its value is less than its offset index value.
+        1 to k-1, 2 to k-2, etc, this is how the index corresponds to its [offset index]. 
+   (6). Reduce above array in step 5 by sum all its value, return the sum value.
+
+5. [Larry's Array]
+   Count the inversion in permutation array, return final result based on the count value is even or not.
+   
+6. [Organizing Containers of Balls]
+   Key points:
+   (1). Count the ball count by their type [from column], save the [count value] and its frequency.
+   (2). Count the ball count by row [from row], save the [count value] and its frequency. 
+   Compare if above 2 map equal, if equal then returns true otherwise returns false.   
+
+7. [Absolute Permutation]
+   Keypoint: figure out (n % (2*k)) === 0, then it will be easy to find how to make numbers
+   meet the [Absolute Permutation] requirement.
+   
+8. [3D Surface Area]
+   Keypoint: 
+   (1). Visit each cell in the grid, for each cell, its top/bottom area is always included; 
+        then compare its north/east/south/west sides with its neighbours, the positive difference 
+		will be accumulated into the final result.
+		
+9. [Ema's Supercomputer]
+   Based on the discussion and [Java 8 source code], accomplish this challenge, key points are:
+   (1). Iterate each cell of grid, find the biggest plus centers from current cell, and save them into an array;
+   (2). Create a nested (2-levels) iteration of above plus array, during each iteration calculate
+        the max area can be produced by these 2 plus (they can't overlap).
+
+   There are techniques like:
+   (1). Decrease plus cells array size by 4, remember to decrease the biggest one always;  
+   (2). Sort plus array, during the inner interation if the possible [max area] can't be bigger 
+        than [alread found max area], then break from inner iteration (this improve performance).   
+		
+10.[The Grid Search]
+   It's straighforward to find a solution, key points:
+   (1). Try to find one string in G that matches first row in P, then slice rows below it and join 
+        all those sliced rows into one big string; to compare with the strings joined from P;
+   (2). Use while to loop each row in G until -1 (index of frist row of P that exists in G row) returns.		
+   
+11.[Queen's Attack II]
+   It's straighforward, count squares in 8 directions and sum them to return.    
