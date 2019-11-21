@@ -63,4 +63,6 @@
    It's straighforward, count squares in 8 directions and sum them to return. 
 
 12.[The Time in Words]
+
+13.[The Bomberman Game]
       
