@@ -71,3 +71,10 @@
    (3). Find the grid pattern: 
                               (3.1) When elapsed seconds is even and > 0, then the grid will be all bombs;
 							  (3.2) The grid pattern repeats for 3, 7, 11, ... and 5, 9, 13, ...
+							  
+
+14.[Almost Sorted]	
+   Key points: 						  
+   (1). Create descending object with start,end property, there might be more than one [descending object] created.
+   (2). It's straightforward to deal with case when only one [descending object], when 2 or more [descending object] created there is a special case to deal with.
+   
