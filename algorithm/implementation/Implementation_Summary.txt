@@ -22,7 +22,9 @@
    (6). Reduce above array in step 5 by sum all its value, return the sum value.
 
 5. [Larry's Array]
-   Count the inversion in permutation array, return final result based on the count value is even or not.
+   Base on the idea from discussion: 
+   (1). Count the inversion in permutation array;
+   (2). Return result based on the parity (is even or odd) of above count value.
    
 6. [Organizing Containers of Balls]
    Key points:
@@ -58,4 +60,7 @@
    (2). Use while to loop each row in G until -1 (index of frist row of P that exists in G row) returns.		
    
 11.[Queen's Attack II]
-   It's straighforward, count squares in 8 directions and sum them to return.    
+   It's straighforward, count squares in 8 directions and sum them to return. 
+
+12.[The Time in Words]
+      
