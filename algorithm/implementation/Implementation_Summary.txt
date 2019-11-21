@@ -65,4 +65,9 @@
 12.[The Time in Words]
 
 13.[The Bomberman Game]
-      
+   Key points:
+   (1). Place number 3 as planted bomb, decrease number by 1 each second; 
+   (2). When bomb detonate, set its neighbor to empty (unless neighbor cell value is 0 [menas a bomb ready to detonate]);
+   (3). Find the grid pattern: 
+                              (3.1) When elapsed seconds is even and > 0, then the grid will be all bombs;
+							  (3.2) The grid pattern repeats for 3, 7, 11, ... and 5, 9, 13, ...
