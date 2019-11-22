@@ -1,4 +1,14 @@
 1. [HackerRank in a String]
    Easy: just use greedy way to solve the task, the partial best result will be part of global best result.
    
-2. [Bear and Steady Gene]   
+2. [Bear and Steady Gene]
+   Kind of tough   
+
+3. [Highest Value Palindrome]
+   It's quite straightforward, key points are:
+   (1). First, count the minimum required changes for input string to be a palindrome, if the value > k, then return -1;
+   (2). Else change input string into palindrome and change to 9 when possible.   
+   There are 2 edge cases:
+   (1). Input string length is 1 like '5';
+   (2). Input string is already a palindrome and k is 1, like '131'
+   
