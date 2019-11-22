@@ -12,3 +12,5 @@
    (1). Input string length is 1 like '5';
    (2). Input string is already a palindrome and k is 1, like '131'
    
+4. [Maximum Palindromes]   
+   
