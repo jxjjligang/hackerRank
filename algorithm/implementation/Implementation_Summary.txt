@@ -63,6 +63,7 @@
    It's straighforward, count squares in 8 directions and sum them to return. 
 
 12.[The Time in Words]
+   It's very straighforward to implement, take an hour or so.
 
 13.[The Bomberman Game]
    Key points:
