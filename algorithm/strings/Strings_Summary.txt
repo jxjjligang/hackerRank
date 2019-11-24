@@ -12,5 +12,10 @@
    (1). Input string length is 1 like '5';
    (2). Input string is already a palindrome and k is 1, like '131'
    
-4. [Maximum Palindromes]   
+4. [Maximum Palindromes] 
+   (1). Must have combination knowledge to find the correct answer;
+   (2). Use BigInt for very big number.
+   When try to improve performance to pass left tests, need to be familar with below knowledge:
+   (1). Modular multiplicative inverse
+   (2). Exponentiation by squaring, in C# there is BigInteger.ModPow(base, exponent, modulus) method for it.
    
