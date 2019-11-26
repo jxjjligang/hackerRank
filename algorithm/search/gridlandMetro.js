@@ -12,6 +12,13 @@ function gridlandMetro(n, m, k, track) {
         return row;
     }
 
+    function cellWithInTrack(cellIndex, track) {
+        if (cellIndex > track[1] && cellIndex < track[2])
+            return true;
+
+        return false;
+    }
+
     function mergeTracks(tracks) {
         if (tracks.length < 2)
             return tracks;
@@ -31,6 +38,30 @@ function gridlandMetro(n, m, k, track) {
                     mergedTracks[j][1] = Math.min(mergedTracks[j][1], trkStart);
                     break;
                 }
+
+                if (mergedTracks[j][2] === trkStart) {
+                    merged = true;
+                    mergedTracks[j][2] = trkEnd;
+                    break;
+                }
+
+                if (mergedTracks[j][1] === trkEnd) {
+                    merged = true;
+                    mergedTracks[j][1] = trkStart;
+                    break;
+                }
+
+                if (cellWithInTrack(trkStart, mergedTracks[j]) === true) {
+                    merged = true;
+                    mergedTracks[j][2] = Math.max(mergedTracks[j][2], trk[2]);
+                    break;
+                }
+                if (cellWithInTrack(trkEnd, mergedTracks[j]) === true) {
+                    merged = true;
+                    mergedTracks[j][1] = Math.min(mergedTracks[j][1], trkStart);
+                    break;
+                }
+
             }
 
             if (merged === false)
@@ -39,14 +70,8 @@ function gridlandMetro(n, m, k, track) {
 
         return mergedTracks;
     }
+
     function tracksOverlap(tracks) {
-        function cellWithInTrack(cellIndex, track) {
-            if (cellIndex > track[1] && cellIndex < track[2])
-                return true;
-
-            return false;
-        }
-
         if (tracks.length < 2)
             return false;
 
@@ -64,8 +89,7 @@ function gridlandMetro(n, m, k, track) {
     }
 
     let rowSet = new Set(track.map(tk => tk[0]));
-
-    let cellsFree = (n - rowSet.size) * m;
+    let cellsFree = BigInt(n - rowSet.size) * BigInt(m);
     let row;
 
     for (let rowIndex of rowSet) {
@@ -78,11 +102,11 @@ function gridlandMetro(n, m, k, track) {
         });
         tracks = mergeTracks(tracks);
         if (tracks.length === 1) {
-            cellsFree += tracks[0][2] - tracks[0][1] + 1;
+            cellsFree += BigInt(m - (tracks[0][2] - tracks[0][1] + 1));
             continue;
         }
         if (tracksOverlap(tracks) === false)
-            cellsFree += tracks.reduce((agg, cur) => agg + cur[2] - cur[1] + 1, 0);
+            cellsFree += BigInt(m) - tracks.reduce((agg, cur) => (agg + BigInt(cur[2] - cur[1] + 1)), 0n);
 
         if (row === undefined)
             row = constructArray();
@@ -120,7 +144,11 @@ function countTime(func) {
 }
 
 function main() {
-    let inputs = [`402159386 855281517 951
+    let inputs = [`2 9 3
+    2 1 5
+    2 2 4
+    2 8 8`,
+        `402159386 855281517 951
     78784642 628778006 814819524
     257121863 512690385 568531630
     191483712 133998276 219876078
@@ -1080,7 +1108,7 @@ function main() {
     2 2 3
     3 1 4
     4 4 4`];
-    for (let i = 0; i < 1; i++) {    // inputs.length
+    for (let i = 0; i < inputs.length; i++) {    // inputs.length
         let input = inputs[i], lines = input.split('\n').map(s => s.trim()), index = 0;
         const nmk = lines[index++].split(' '), n = parseInt(nmk[0], 10), m = parseInt(nmk[1], 10), k = parseInt(nmk[2], 10);
 

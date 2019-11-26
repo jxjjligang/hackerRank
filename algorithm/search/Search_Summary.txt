@@ -18,6 +18,8 @@
    It's quite straightforward, just use BFS to search the least number of moves to reach destination location.   
    
 5. [Gridland Metro]
+   Key point: merge tracks when they overlap, including case one track's start position 
+   is another track's end position.
       
    
    
