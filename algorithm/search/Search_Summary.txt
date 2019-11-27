@@ -18,8 +18,18 @@
    It's quite straightforward, just use BFS to search the least number of moves to reach destination location.   
    
 5. [Gridland Metro]
-   Key point: merge tracks when they overlap, including case one track's start position 
-   is another track's end position.
+   Key point: merge tracks when they overlap, including case one track's start position is another track's end position.
+   The code from Editorial is easier to written and understood.
+   
+6. [Minimum Loss]   
+   My solution is:
+   (1). Create a new array in order to save all processed prices, initialize it to have the first day price
+   (2). Then, for each day [current price], try to find the smallest price that is bigger than [current price], that value 
+        will be used to update the [Minimum Loss], and merge [current price] into array created in step 1.
+   But, my solution fails against 3 tests because of performance.
+   Based on the idea from discussion, we only need to sort price array (remember to save the original index), then use nested iteration
+   to update the [Minimum Loss], the original index comparison is critical because [bigger price index] must be less than [smaller price index].
+   
       
    
    
