@@ -30,6 +30,11 @@
    Based on the idea from discussion, we only need to sort price array (remember to save the original index), then use nested iteration
    to update the [Minimum Loss], the original index comparison is critical because [bigger price index] must be less than [smaller price index].
    
-      
+7. [Short Palindrome] 
+   My solution works, but can't pass half of tests (timeout), then I used the code from discussion and passed.
+   The idea is 
+
+8. [Gena Playing Hanoi]
+        
    
    
