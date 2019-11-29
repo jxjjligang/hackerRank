@@ -30,7 +30,11 @@
    Based on the idea from discussion, we only need to sort price array (remember to save the original index), then use nested iteration
    to update the [Minimum Loss], the original index comparison is critical because [bigger price index] must be less than [smaller price index].
    
-7. [Gena Playing Hanoi]
+7. [Short Palindrome] 
+   My solution works, but can't pass half of tests (timeout), then I used the code from discussion and passed.
+   The idea is (to be continued)
+
+8. [Gena Playing Hanoi]
    Implement JavaScript solution based on the code from discussion (didn't understand though), it works but did not pass 5 tests. 
       
    Then I re-write same logic in C#, use Visual Studio profiler to idenfity the bottleneck, the runtime decreased from 11 seconds to 0.3 second.
