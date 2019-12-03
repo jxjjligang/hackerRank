@@ -46,6 +46,12 @@
             //bfs.RemoveAt(0);
    Based on the comparison, the huge change is caused by the list data structure modification.
    
+9. [Beautiful Quadruples]   
+   The naive solution that I made uses 4-levels loop to get the final result, which works but can't pass performance tests.
+   From the discussion, it uses better idea which I currently can't fully comprehend.
+   
+   
+   
 
    
    
