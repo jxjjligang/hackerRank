@@ -55,6 +55,9 @@
    Key points:
    (1). Use DFS to find all connected cells
    (2). Remember to set current cell to 0 before iterate all its neighbors otherwise will trigger endless loop error 
+
+11.[Count Luck]   
+   Just use DFS to find the waves that required to find the exit position.
       
    
    
