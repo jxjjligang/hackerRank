@@ -30,4 +30,8 @@
    [From the Editorial], use visited array to remember positions have been visited is good to deal with edge case like 6 consecutive snakes.
    
 6. [Crab Graphs]
+
+7. [Prim's (MST) : Special Subtree]
+   Must understand how to implement Prim's algothrim to calculate MST (Minimum Spanning Tree).
+
       
