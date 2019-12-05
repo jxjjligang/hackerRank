@@ -26,35 +26,6 @@ function countLuck(matrix, k) {
         }
     }
 
-    function dfs(currentX, currentY, visited) {
-        if (currentX === endX && currentY === endY)
-            return waveMade;
-
-        visited.add(`${currentX}:${currentY}`);
-        let nextMoves = [];
-        for (let option of NEXT_OPTIONS) {
-            let nextX = currentX + option[0], nextY = currentY + option[1];
-            if (nextX >= 0 && nextX < MATRIX_LENGTH && nextY >= 0 && nextY < MATRIX_WIDTH) {
-                let cell = matrix[nextX][nextY], cellKey = `${nextX}:${nextY}`;
-                if (cell !== CELL_TREE && !visited.has(cellKey))
-                    nextMoves.push([nextX, nextY]);
-            }
-        }
-
-        if (nextMoves.length > 1)
-            waveMade++;
-        for (let nextMove of nextMoves) {
-            let result = dfs(nextMove[0], nextMove[1], visited);
-            if (result !== undefined)
-                return result;
-        }
-
-        if (nextMoves.length > 1)
-            waveMade--;
-
-        return undefined;
-    }
-
     const MATRIX_LENGTH = matrix.length, MATRIX_WIDTH = matrix[0].length;
     const CELL_START = 'M', CELL_PORTKEY = '*', CELL_TREE = 'X';
 
@@ -62,14 +33,35 @@ function countLuck(matrix, k) {
     const NEXT_OPTIONS = [[-1, 0], [0, 1], [1, 0], [0, -1]];
 
     let startEnd = getStartAndEnd(matrix), startX = startEnd[0], startY = startEnd[1], endX = startEnd[2], endY = startEnd[3];
-    // use BFS
-    let visited = new Set(), waveMade = 0;
 
-    let totalWavesMade = dfs(startX, startY, visited);
-    if (totalWavesMade === k)
-        return 'Impressed';
-    else
-        return 'Oops!';
+    // use BFS
+    let visited = new Set(), waveMade = 0, queue = [{ x: startX, y: startY, waves: 0 }];
+    while (queue.length > 0) {
+        let current = queue.shift(), currentX = current.x, currentY = current.y;
+
+        if (currentX === endX && currentY === endY) {
+            if (current.waves === k)
+                return 'Impressed';
+            else
+                return 'Oops!';
+        }
+        else {
+            visited.add(`${currentX}:${currentY}`);
+            let nextMoves = [];
+            for (let option of NEXT_OPTIONS) {
+                let nextX = currentX + option[0], nextY = currentY + option[1];
+                if (nextX >= 0 && nextX < MATRIX_LENGTH && nextY >= 0 && nextY < MATRIX_WIDTH) {
+                    let cell = matrix[nextX][nextY], cellKey = `${nextX}:${nextY}`;
+                    if (cell !== CELL_TREE && !visited.has(cellKey))
+                        nextMoves.push([nextX, nextY]);
+                }
+            }
+
+            let newWaves = (nextMoves.length > 1 ? 1 + current.waves : current.waves);
+            for (let nextMove of nextMoves) 
+                queue.push({ x: nextMove[0], y: nextMove[1], waves: newWaves });
+        }
+    }
 }
 
 function main() {
