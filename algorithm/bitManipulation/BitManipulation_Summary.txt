@@ -16,4 +16,9 @@
 4. [What's Next]
    (1). Analyze the binary pattern, convert the rightmost '01' to '10', and then try to move as many 1s to its right as possible.
    (2). Dealing with special case like 0 [represent the count value of 1 or 0] is left in the array.
+   
+5. [A or B]
+   Initially, I use BigInt to solve the challenge, it works but failed for several performance tests.
+   Then, based on the idea from disucssion, I treat input as string (transform hex string to binary string), 
+   it works.
  
