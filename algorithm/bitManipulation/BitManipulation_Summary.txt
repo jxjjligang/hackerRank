@@ -21,4 +21,9 @@
    Initially, I use BigInt to solve the challenge, it works but failed for several performance tests.
    Then, based on the idea from disucssion, I treat input as string (transform hex string to binary string), 
    it works.
+   
+6. [AND Product]
+   Key point: find the rule that 2&3&4=0, 4&5&6&7&8=0, this can help improve performance by log2(n)
+
+7. []   
  
