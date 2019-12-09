@@ -26,5 +26,13 @@
    Key point: find the rule that 2&3&4=0, 4&5&6&7&8=0, this can help improve performance by log2(n)
 
 7. [Xor-sequence] 
-   Find the rule that 0^2^4^6 = 0, 1^3^5^7=0  
+   Find the rule that 0^2^4^6 === 0, 1^3^5^7 === 0 and (even number)^(even number + 1) === 0
+   
+8. [Winning Lottery Ticket]
+   key points:
+   (1). Map string to number of digit 0 to 9, and count number frequency.
+   (2). If 2 number OR result === 1023, then multiply their frequency and add up to [pairs] result
+   (3). Special case for number === 1023, need subtract the duplicate pairs (from combination theory)
+   
+   
  
