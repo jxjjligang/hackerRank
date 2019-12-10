@@ -34,5 +34,11 @@
    (2). If 2 number OR result === 1023, then multiply their frequency and add up to [pairs] result
    (3). Special case for number === 1023, need subtract the duplicate pairs (from combination theory)
    
+9. [Yet Another Minimax Problem]   
+   Based on idea from the discussion,
+   (1). Put numbers into 2 groups, based on their highest bit value (1 or 0)
+   (2). If all numbers have 1 start, then we may need subtract numbers until they differ
+   (3). Edge case when all numbers are the same value.   
+   
    
  
