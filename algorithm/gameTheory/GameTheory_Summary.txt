@@ -125,7 +125,11 @@
          return gr[x][y][z][m];
      }
 	 
-	(2).
+	(2). For below case, I thought [First] should win, but answer from test case 1 is [Second]
+	3
+	4 6 3
+	5 4 3
+	6 2 1
     		 
     	
     
