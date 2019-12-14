@@ -1,22 +1,81 @@
 'use strict'
 
-/* mapping between array length and all its possible comparisons (saved in a set object)
-   key 1: array length, it maps to another map of
-          key 2: comparisons amount
-          value: array of integer, the integer value is [array length]
-*/
-let arrLen2Possibles = new Map();
-arrLen2Possibles.set(0, new Set([0]));
-arrLen2Possibles.set(1, new Set([0]));
-arrLen2Possibles.set(2, new Set([1]));
+function getCompareCount(arr) {
+    let compares = 0;
+    lenaSort(arr);
+    return compares;
 
+    function lenaSort(arr) {
+        if (arr.length <= 1)
+            return;
+
+        compares += arr.length - 1;
+        let first = arr[0], smaller = [], bigger = [];
+        for (let i = 1; i < arr.length; i++) {
+            if (arr[i] > first)
+                bigger.push(arr[i]);
+            else
+                smaller.push(arr[i]);
+        }
+        lenaSort(smaller);
+        lenaSort(bigger);
+    }
+}
+
+/* mapping between array length and all its possible comparisons (saved in a set object)
+   key 1: [array length], it maps to another map of
+          key 2: [comparisons amount]
+          value: object has below property
+                 ll: left array length
+                 lc: left array comparisions count
+                 rl: right array length
+                 rc: right array comparisions count
+    Attention:
+        1. [array length] = 1 + ll + rl
+        2. [comparisons amount] = ll + rl + lc + rc
+        3. value of arr[0] is (1 + ll)
+
+*/
 main();
 function getArray(arrLen, comparisons, testNumber) {
-    function mergeTwoSet(s1, s2) {
-        let merged = new Set();
-        for (let s1Element of s1) {
-            for (let s2Element of s2)
-                merged.add(s1Element + s2Element);
+    function initializeMap() {
+        let arrLen2Possibles = new Map();
+        arrLen2Possibles.set(0, new Map());
+        let m = arrLen2Possibles.get(0);
+        m.set(0, { ll: 0, lc: 0, rl: 0, rc: 0 });
+
+        arrLen2Possibles.set(1, new Map());
+        m = arrLen2Possibles.get(1);
+        m.set(0, { ll: 0, lc: 0, rl: 0, rc: 0 });
+
+        arrLen2Possibles.set(2, new Map());
+        m = arrLen2Possibles.get(2);
+        m.set(1, { ll: 1, lc: 0, rl: 0, rc: 0 });
+
+        return arrLen2Possibles;
+    }
+
+    function mergeTwoMap(m1, m2, leftArrLen, rightArrLen) {
+        let merged, arrayLen = 1 + leftArrLen + rightArrLen;
+        if (arrLen2Possibles.has(arrayLen))
+            merged = arrLen2Possibles.get(arrayLen);
+        else {
+            merged = new Map();
+            arrLen2Possibles.set(arrayLen, merged);
+        }
+
+        for (let kv1 of m1) {
+            let c1 = kv1[0], obj1 = kv1[1];
+            for (let kv2 of m2) {
+                let c2 = kv2[0], obj2 = kv2[1];
+                let newLC = obj1.ll + obj1.lc + obj1.rl + obj1.rc,
+                    newRC = obj2.ll + obj2.lc + obj2.rl + obj2.rc;
+                let comparisons = newLC + newRC + leftArrLen + rightArrLen;
+                if (merged.has(comparisons))
+                    continue;
+
+                merged.set(comparisons, { ll: leftArrLen, lc: newLC, rl: rightArrLen, rc: newRC });
+            }
         }
 
         return merged;
@@ -26,56 +85,60 @@ function getArray(arrLen, comparisons, testNumber) {
         if (arrLen2Possibles.has(arrLen))
             return arrLen2Possibles.get(arrLen);
 
-        let possibles = new Set();
-        possibles.add(arrLen * (arrLen - 1) / 2);
-
         const halfLen = Math.floor(arrLen / 2);
         for (let leftArrLen = 0; leftArrLen <= halfLen; leftArrLen++) {
-            let s1 = getAllPossible(leftArrLen), s2 = getAllPossible(arrLen - leftArrLen - 1), merged = mergeTwoSet(s1, s2);
-            for (let comparison of merged)
-                possibles.add(arrLen - 1 + comparison);
+            let m1 = getAllPossible(leftArrLen), m2 = getAllPossible(arrLen - leftArrLen - 1);
+            mergeTwoMap(m1, m2, leftArrLen, arrLen - leftArrLen - 1, arrLen);
         }
 
-        arrLen2Possibles.set(arrLen, possibles);
-        return possibles;
+        return arrLen2Possibles.get(arrLen);
     }
 
-    // function getArrayPermutation(arrLen, comparisons) {
-    //     if (comparisons === (arrLen * (arrLen - 1) / 2)) {
-    //         let arr = [];
-    //         for (let i = arrLen; i > 0; i--)
-    //             arr.push(i);
-    //         return arr;
-    //     }
+    let cache = new Map();
+    function getArrayPermutation(arrLen, comparisons) {
+        if (arrLen === 0)
+            return [];
+        else if (arrLen === 1)
+            return [1];
+        else if (arrLen === 2 && comparisons === 1)
+            return [2, 1];
+        else if (comparisons === ((arrLen - 1) * arrLen / 2)) {
+            let arr = [];
+            for (let i = arrLen; i > 0; i--)
+                arr.push(i);
 
-    //     const halfLen = Math.floor(arrLen / 2), arr=[];
-    //     for (let leftArrLen = 0; leftArrLen <= halfLen; leftArrLen++) {
-    //         let s1 = arrLen2Possibles.get(leftArrLen), s2 = arrLen2Possibles.getgetAllPossible(arrLen - leftArrLen - 1);
-    //         if (s1 === undefined || s2 === undefined)
-    //             continue;
+            return arr;
+        }
 
-    //         for (let s1Element of s1) {
-    //             for (let s2Element of s2)
-    //                 if (arrLen - 1 + s1Element + s2Element === comparisons) {   // this is the correct combination of s1, s2
-    //                     arr[0]= s1Element+1;
-    //                     arr=arr.concat(getArrayPermutation(s1Element, ))
-    //                     break;
-    //                 }
-    //         }
+        let key = arrLen + ':' + comparisons;
+        if (cache.has(key))
+            return cache.get(key);
 
-    //     }
+        let map = arrLen2Possibles.get(arrLen);
+        let obj = map.get(comparisons), arr = [], middleValue = obj.ll + 1;
+        arr[0] = middleValue;
 
-    //     return arr;
-    // }
+        let leftHalf = getArrayPermutation(obj.ll, obj.lc);
+        arr = arr.concat(leftHalf);
+        let rightHalf = getArrayPermutation(obj.rl, obj.rc);
+        arr = arr.concat(rightHalf.map(element => element + middleValue));
 
-    if (getAllPossible(arrLen).has(comparisons))
-        return  ['Valid'] //getArrayPermutation(arrLen, comparisons);
+        cache.set(key, arr);
+        return arr;
+    }
+
+    let arrLen2Possibles = initializeMap();
+    let comparisionMap = getAllPossible(arrLen);
+    if (comparisionMap.has(comparisons))
+        return getArrayPermutation(arrLen, comparisons);
     else
         return [-1];
 }
 
 function main() {
-    let inputs = [`21175
+    let inputs = [`1
+    88243 171104`,
+        `1000
     48 839
     40 719
     39 364
@@ -21263,9 +21326,18 @@ function main() {
         for (let qItr = 0; qItr < q; qItr++) {
             const lc = lines[index++].split(' '), l = parseInt(lc[0], 10), c = parseInt(lc[1], 10);
 
-            console.log(getArray(l, c, qItr + 1).join(' '));
+            let unOrdered = getArray(l, c, qItr + 1);
+            if (unOrdered[0] === -1)
+                continue;
+
+            let compareCount = getCompareCount(unOrdered);
+            console.log(`Array: ${unOrdered.join(' ')}`);
+            if (compareCount !== c) {
+                console.log('-------Error occurs---------');
+                console.log(`l:${l}, c:${c}`);
+                console.log('');
+            }
+            // console.log(unOrdered.join(' '));
         }
     }
 }
-
-
