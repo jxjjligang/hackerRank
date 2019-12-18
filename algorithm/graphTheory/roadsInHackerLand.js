@@ -20,26 +20,34 @@ function roadsInHackerland(n, roads) {
         }
 
         updateRoadMinimumValue(start, end, cost, minimumRoads);
+        updateRoadMinimumValue(end, start, cost, minimumRoads);
+
         for (let kv of minimumRoads) {
             let mapStart = kv[0], map = kv[1];
             if (mapStart !== end && map.has(start)) {
                 let runningCost = map.get(start);
                 if (!map.has(end) || (map.get(end) > (runningCost + cost))) {
                     map.set(end, runningCost + cost);
-                    updateRoadMinimumValue(end, mapStart, runningCost + cost, minimumRoads);
                     updateMinimumRoads(mapStart, end, runningCost + cost, minimumRoads);
                 }
-
             }
         }
     }
 
     // minimumRoads saves the [minimum travel cost] between any 2 nodes
-    let directedRoads = [], minimumRoads = new Map();
+    let directedRoads = [], minimumRoads = new Map(), nodes = new Set();
     for (let road of roads) {
         directedRoads.push(road);
         directedRoads.push([road[1], road[0], road[2]]);
+        nodes.add(road[0]);
+        nodes.add(road[1]);
     }
+    // initialize minimumRoads
+    for (let node of nodes) {
+        let map = new Map([[node, 0n]]);
+        minimumRoads.set(node, map);
+    }
+
     for (let road of directedRoads)
         road[2] = BigInt(Math.pow(2, road[2]));
 
@@ -48,7 +56,7 @@ function roadsInHackerland(n, roads) {
         let road = queue.shift(), start = road[0], end = road[1], cost = road[2];
         // update minimumRoads
         updateMinimumRoads(start, end, cost, minimumRoads);
-        // updateMinimumRoads(end, start, cost, minimumRoads);
+        updateMinimumRoads(end, start, cost, minimumRoads);
         road.visited = true;
 
         // find roads (not visited) that starts from end 
