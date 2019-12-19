@@ -1,4 +1,5 @@
 1. [Lena Sort]
    I wrote a recurive solution, it works but can't pass the performance test when n (array length) 
    is very large.
+   It uses knowleges like binary tree, shift node like the AVL way.
    
