@@ -9,7 +9,7 @@
    Solve task in iterative way, starts from the smallest number in S array, then calculae bigger number which
    will use the result of the smaller number; this solution works efficiently both in time and space.  
 
-3. [Password Cracker] written in C#
+3. [Password Cracker] written in C# (This challenge doesn't support JavaScript while I was solving it)
    Key points:
    1. Use DFS idea to iterate all possible matches, and save the match result (when one pass can be used to match from the current location, but eventually it can't match further).
    2. Remove passwords that can be produced by (1). repeat of another password, like 'aaa' can be removed when 'a' is also a password;
