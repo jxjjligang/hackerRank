@@ -2,114 +2,111 @@
 
 countTime(main)();
 
-/*
- * Complete the 'shop' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts following parameters:
- *  1. INTEGER n
- *  2. INTEGER k
- *  3. STRING_ARRAY centers
- *  4. 2D_INTEGER_ARRAY roads
- */
-
-function shop(n, k, centers, roads) {
-    function initCenter2Fishes(centers) {
-        let center2Fishes = new Map(), center = 1;
-        for (let centerString of centers) {
-            let centerArr = centerString.split(' ').map(s => parseInt(s)), fishes = 0;
-            centerArr.shift();
-            for (let fish of centerArr)
-                fishes += (1 << (fish - 1));
-
-            center2Fishes.set(center++, fishes);
-        }
-
-        return center2Fishes;
-    }
-
-    function initCenter2Roads(roads) {
-        function addToArray(arr, center, road) {
-            let roads;
-            if (arr[center] !== undefined)
-                roads = arr[center];
-            else {
-                roads = [];
-                arr[center] = roads;
-            }
-            roads.push(road);
-        }
-
-        let center2Roads = [];
-        for (let road of roads) {
-            let start = road[0], end = road[1];
-            addToArray(center2Roads, start, [end, road[2]]);
-            addToArray(center2Roads, end, [start, road[2]]);
-        }
-
-        return center2Roads;
-    }
-
-    function addVisitedCenter(map, center, boughtFish, runningDist) {
-        let fish2Dist;
-        if (map.has(center))
-            fish2Dist = map.get(center);
-        else {
-            fish2Dist = new Map();
-            map.set(center, fish2Dist);
-        }
-
-        if (!fish2Dist.has(boughtFish) || fish2Dist.get(boughtFish) > runningDist) {
-            fish2Dist.set(boughtFish, runningDist);
-            return true;
-        }
-        else
-            return false;
-    }
-
-    function getMinimumDistance(distMap) {
-        let fish2Dist = distMap.get(n), fishes = Array.from(fish2Dist.keys()), result = Number.MAX_SAFE_INTEGER;
-        for (let i = 0; i < fishes.length; i++) {
-            let fishI = fishes[i];
-            for (let j = 0; j < fishes.length; j++) {
-                let fishJ = fishes[j];
-                if ((fishI | fishJ) === ALL_FISHES)
-                    result = Math.min(result, Math.max(fish2Dist.get(fishI), fish2Dist.get(fishJ)));
-            }
-        }
+function countTime(func) {
+    let savedThis = this;
+    return function (...args) {
+        let start = new Date();
+        let result = func.apply(savedThis, args);
+        let end = new Date();
+        console.log(`${((end - start) / 1000).toFixed(1)} seconds spent.`);
         return result;
     }
+}
 
-    const ALL_FISHES = (1 << k) - 1, FIRST_CENTER = 1;
-    let distMap = new Map();    // dist saves [minimus distance] of per [center + can bought fishes];
-    let center2Fishes = initCenter2Fishes(centers), center2Roads = initCenter2Roads(roads);
+function parseInput(lines) {
+    var n, m, k, shopItems = [], graph = [];
 
-    let firstCenterObj = { center: FIRST_CENTER, runningDist: 0, boughtFish: center2Fishes.get(FIRST_CENTER) };
-    addVisitedCenter(distMap, FIRST_CENTER, center2Fishes.get(FIRST_CENTER), firstCenterObj.runningDist);
-    let queue = [firstCenterObj], visited = new Map();
-    visited.set(FIRST_CENTER + ':' + center2Fishes.get(FIRST_CENTER), 0);
-    let computation = 0;
-    while (queue.length > 0) {
-        let vertexObj = queue.shift(), center = vertexObj.center;
-        let roads = center2Roads[center];
-        for (let road of roads) {
-            let nextCenter = road[0];
-            let totalFish = (vertexObj.boughtFish | center2Fishes.get(nextCenter));
-            let totalDist = vertexObj.runningDist + road[1];
-            let nextKey = nextCenter + ':' + totalFish;
+    [n, m, k] = lines.shift();
+    for (var i = 0; i < n; i++) {
+        shopItems[i] = lines.shift().splice(1).reduce((s, c) => s |= (1 << (c - 1)), 0);
+        graph[i] = [];
+    }
 
-            if (addVisitedCenter(distMap, nextCenter, totalFish, totalDist)) {
-                let nextObj = { center: nextCenter, runningDist: totalDist, boughtFish: totalFish };
-                if (queue.find(obj => obj.center === nextCenter && obj.runningDist === totalDist && obj.boughtFish === totalFish) === undefined) {
-                    queue.push(nextObj);
-                    computation++;
+    for (var j = 0; j < m; j++) {
+        var [x, y, cost] = lines.shift();
+        graph[x - 1].push([y - 1, cost]);
+        graph[y - 1].push([x - 1, cost]);
+    }
+
+    return [k, shopItems, graph];
+}
+
+
+function processData(k, shopItems, graph) {
+
+    var findOptimalSolution = (k, options, showDebug) => {
+        var allItems = (1 << k) - 1;
+        var min = Infinity;
+        for (var i in options) {
+            for (var j in options) {
+                if ((i | j) === allItems) {
+                    min = Math.min(min, Math.max(options[i], options[j]));
                 }
             }
         }
+        return min;
     }
 
-    console.log(`computation: ${computation}`);
-    return getMinimumDistance(distMap);
+    var calculateOptions = (k, shopItems, graph) => {
+        var dist = {}, queue = [];
+        var comparer = (a, b) => queue[a][0] - queue[b][0];// dist[a1][a2]-dist[b1][b2];
+        let computation = 0;
+
+        for (var v = 0; v < graph.length; v++) dist[v] = [];
+
+        queue.push([0, 0, shopItems[0]]);
+        dist[0][shopItems[0]] = 0;
+        var cost, src, current_shops, tmp;
+        while (queue.length) {
+            cost = queue[0][0];
+            src = queue[0][1];
+            current_shops = queue[0][2];
+            queue[0] = queue[queue.length - 1];
+            queue.pop();
+            var swapIndex = 0, parent, leftChild, rightChild;
+            while (swapIndex != parent) {
+                parent = swapIndex;
+                leftChild = (parent << 1) + 1;
+                rightChild = leftChild + 1;
+                if (leftChild < queue.length && comparer(leftChild, swapIndex) < 0) swapIndex = leftChild;
+                if (rightChild < queue.length && comparer(rightChild, swapIndex) < 0) swapIndex = rightChild;
+                if (swapIndex != parent) {
+                    tmp = queue[parent];
+                    queue[parent] = queue[swapIndex];
+                    queue[swapIndex] = tmp;
+                }
+            }
+
+            for (var i = 0; i < graph[src].length; i++) {
+                var neighbour = graph[src][i][0];
+                var mask = (current_shops | shopItems[neighbour]);
+                var altCost = cost + graph[src][i][1];
+
+                var currentDist = dist[neighbour][mask];
+                if (currentDist === undefined || currentDist >= altCost) {
+                    dist[neighbour][mask] = altCost;
+                    queue.push([altCost, neighbour, mask]);
+                    computation++;
+                    var child = queue.length - 1, parent = (child - 1) >> 1;
+                    while (child != 0 && comparer(child, parent) < 0) {
+                        tmp = queue[child];
+                        queue[child] = queue[parent];
+                        queue[parent] = tmp;
+                        child = parent;
+                        parent = (child - 1) >> 1;
+                    }
+
+                }
+            }
+        }
+
+        console.log(`computation: ${computation}`);
+        return dist[graph.length - 1];
+    }
+
+    var options = calculateOptions(k, shopItems, graph);
+    var solution = findOptimalSolution(k, options);
+    return solution;
 }
 
 function main() {
@@ -926,32 +923,10 @@ function main() {
 3 5 10
 4 5 10`];
     for (let i = 0; i < 1; i++) {
-        let input = inputs[i], lines = input.split('\n').map(s => s.trim()).filter(s => s !== ''), index = 0;
+        let input = inputs[i], lines = input.split('\n').map(s => s.trim().split(' ').map(s => parseInt(s)));;
 
-        const firstMultipleInput = lines[index++].replace(/\s+$/g, '').split(' ');
-        const n = parseInt(firstMultipleInput[0], 10), m = parseInt(firstMultipleInput[1], 10), k = parseInt(firstMultipleInput[2], 10);
-        let centers = [];
-        for (let i = 0; i < n; i++) {
-            const centersItem = lines[index++];
-            centers.push(centersItem);
-        }
-
-        let roads = Array(m);
-        for (let i = 0; i < m; i++)
-            roads[i] = lines[index++].replace(/\s+$/g, '').split(' ').map(roadsTemp => parseInt(roadsTemp, 10));
-
-        const res = shop(n, k, centers, roads);
-        console.log(res + '\n');
-    }
-}
-
-function countTime(func) {
-    let savedThis = this;
-    return function (...args) {
-        let start = new Date();
-        let result = func.apply(savedThis, args);
-        let end = new Date();
-        console.log(`${((end - start) / 1000).toFixed(1)} seconds spent.`);
-        return result;
+        var [k, shopItems, graph] = parseInput(lines);
+        var result = processData(k, shopItems, graph);
+        console.log(result + '\n');
     }
 }
