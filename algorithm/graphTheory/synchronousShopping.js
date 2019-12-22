@@ -80,6 +80,47 @@ function shop(n, k, centers, roads) {
         return result;
     }
 
+    // queue is ordered by runningCost in ascending order
+    function addToQueue(queue, nextObj) {
+        function getInsertionPlace(queue, nextObj) {
+            let left = 0, right = queue.length - 1, middle = Math.floor((left + right) / 2);
+            while (right > left) {
+                if (queue[middle].runningDist < nextObj.runningDist) {
+                    if (queue[middle + 1].runningDist >= nextObj.runningDist)
+                        return middle;
+                    else {
+                        left = middle;
+                        middle = Math.floor((left + right) / 2);
+                    }
+                }
+                else {
+                    right = middle;
+                    middle = Math.floor((left + right) / 2);
+                }
+            }
+        }
+
+        if (queue.length === 0) {
+            queue.push(nextObj);
+            return;
+        }
+        else {
+            let firstObj = queue[0], lastObj = queue[queue.length - 1];
+            if (nextObj.runningDist <= firstObj.runningDist) {
+                queue.unshift(nextObj);
+                return;
+            }
+            if (nextObj.runningDist >= lastObj.runningDist) {
+                queue.push(nextObj);
+                return;
+            }
+
+            // now, nextObj should be put somewhere between first and last object in queue
+            let insertionPlace = getInsertionPlace(queue, nextObj);
+            queue.splice(insertionPlace, 0, nextObj);
+        }
+    }
+
     const ALL_FISHES = (1 << k) - 1, FIRST_CENTER = 1;
     let distMap = new Map();    // dist saves [minimus distance] of per [center + can bought fishes];
     let center2Fishes = initCenter2Fishes(centers), center2Roads = initCenter2Roads(roads);
@@ -101,7 +142,7 @@ function shop(n, k, centers, roads) {
             if (addVisitedCenter(distMap, nextCenter, totalFish, totalDist)) {
                 let nextObj = { center: nextCenter, runningDist: totalDist, boughtFish: totalFish };
                 if (queue.find(obj => obj.center === nextCenter && obj.runningDist === totalDist && obj.boughtFish === totalFish) === undefined) {
-                    queue.push(nextObj);
+                    addToQueue(queue, nextObj);
                     computation++;
                 }
             }

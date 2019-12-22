@@ -52,7 +52,8 @@ function processData(k, shopItems, graph) {
         var comparer = (a, b) => queue[a][0] - queue[b][0];// dist[a1][a2]-dist[b1][b2];
         let computation = 0;
 
-        for (var v = 0; v < graph.length; v++) dist[v] = [];
+        for (var v = 0; v < graph.length; v++)
+            dist[v] = [];
 
         queue.push([0, 0, shopItems[0]]);
         dist[0][shopItems[0]] = 0;

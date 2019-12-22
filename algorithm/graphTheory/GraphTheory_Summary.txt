@@ -33,5 +33,12 @@
 
 7. [Prim's (MST) : Special Subtree]
    Must understand how to implement Prim's algothrim to calculate MST (Minimum Spanning Tree).
+   
+8. [Synchronous Shopping]
+   Key point: 
+   (1). Can be solved in a Dijkstra way, the item of array is combination of [node] and [fish already bought].
+   (2). Use [Min Heap] data structure can significantly improve performance (from 299.0 seconds to 0.3 second), 
+        the reason is might be effectively reduces the amount of backtracking.
+	    (2.1) I implemnet an ordered array, which improve performance (from 299.0 seconds to 5.3 second), still not good enough to pass all the test cases.
 
       
