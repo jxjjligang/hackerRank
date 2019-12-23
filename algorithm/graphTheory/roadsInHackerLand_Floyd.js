@@ -2,6 +2,8 @@
 
 main();
 
+// This algothrim works but can't pass performance tests because its time complexity is O(n^3)
+
 /*
  * Complete the roadsInHackerland function below.
  */

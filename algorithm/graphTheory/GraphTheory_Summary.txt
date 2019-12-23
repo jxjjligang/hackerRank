@@ -2,12 +2,12 @@
    (1). Use brute-force way to solve the problem.
    (2). use bit operator technique to solve the problem without timeout.
         The idea is narrow down the cost by starting the costLimit with 1023, 
-		then check if its top digit (valut is 2^9=512) can be zero or not. Mask off that digit from 
+		then check if its top digit (value is 2^9=512) can be zero or not. Mask off that digit from 
 		all the edges' cost, then use DFS to see if end node can still be reached, if YES then that digit 
 		can be 0 in the final cost, otherwise that digit must be kept 1. 
-		Follow the same procedure until we reach the bottom digit (valut is 2^0=1).
+		Follow the same procedure until we reach the bottom digit (value is 2^0=1).
 		
-        here I use below condiion:
+        here I use below condition:
       		    nodes = nodes.filter(o => (o.k & (~costLimit)) === 0).map(o => o.n);
 		     instead of o.k <= costLimit
 	    It's because we want all 0 bits of number costLimit were obeyed when filtering o.k.
@@ -18,8 +18,8 @@
 2. [Breadth First Search]
    It's quite straightforward.
 
-3. [Rruskals MST] Minimum-Spanning-Tree
-   It's quite straightforward, disjointset technique helps to detect if a new edge will introduce cycle 
+3. [Kruskal (MST) Really Special Subtree]    
+   It's quite straightforward, disjoint-set technique helps to detect if a new edge will introduce cycle 
    into existing graph.
    
 4. [Even Tree]   
@@ -32,13 +32,22 @@
 6. [Crab Graphs]
 
 7. [Prim's (MST) : Special Subtree]
-   Must understand how to implement Prim's algothrim to calculate MST (Minimum Spanning Tree).
+   Must understand how to implement Prim's algorithm to calculate MST (Minimum Spanning Tree).
    
 8. [Synchronous Shopping]
    Key point: 
    (1). Can be solved in a Dijkstra way, the item of array is combination of [node] and [fish already bought].
    (2). Use [Min Heap] data structure can significantly improve performance (from 299.0 seconds to 0.3 second), 
         the reason is might be effectively reduces the amount of backtracking.
-	    (2.1) I implemnet an ordered array, which improve performance (from 299.0 seconds to 5.3 second), still not good enough to pass all the test cases.
+	    (2.1) I implement an ordered array, which improve performance (from 299.0 seconds to 5.3 second), still not good enough to pass all the test cases.
 
-      
+9. [Roads in HackerLand]
+   Key point:
+   (1). Calculate MST (minimum spanning tree) from given graph.
+   (2). Count the times of each edge that appears in [vertex to another vertex] shortest path;
+        the final result is sum of [edge weight] * ([edge count]) * (N - [edge count])
+	
+   To improve performance:
+   (1). Array.prototype.filter is time-consuming, use a Set instead will improve performance from 76 seconds to 2 seconds
+   (2). To improve performance further for edge case, keep count of [disjoint set] to make it balanced will improve performance from 10.4 seconds to 1.4 second.
+    
