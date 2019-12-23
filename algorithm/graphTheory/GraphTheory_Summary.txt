@@ -51,3 +51,5 @@
    (1). Array.prototype.filter is time-consuming, use a Set instead will improve performance from 76 seconds to 2 seconds
    (2). To improve performance further for edge case, keep count of [disjoint set] to make it balanced will improve performance from 10.4 seconds to 1.4 second.
     
+10.[Jack goes to Rapture]
+   	
