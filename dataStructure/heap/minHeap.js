@@ -57,10 +57,10 @@ class MinHeap {
         }
     }
 
-    getMin(){
+    getMin() {
         if (this.heap_size === 0)
             return undefined;
-        else 
+        else
             return this.harr[0];
     }
 
@@ -68,8 +68,12 @@ class MinHeap {
     extractMin() {
         if (this.heap_size === 0)
             return undefined;
-        else if (this.heap_size === 1)
-            return this.harr[0];
+        else if (this.heap_size === 1) {
+            let root = this.harr[0];
+            this.heap_size = 0;
+            this.harr = [];
+            return root;
+        }
         else {
             let root = this.harr[0], tail = this.harr[this.heap_size - 1];
             this.harr[0] = tail;
@@ -80,7 +84,7 @@ class MinHeap {
         }
     }
 
-    deleteKey(i){
+    deleteKey(i) {
         this.decreaseKey(i, Number.MIN_SAFE_INTEGER);
         this.extractMin();
     }
@@ -100,21 +104,25 @@ class MinHeap {
     }
 }
 
-function main() 
-{ 
-    let h=new MinHeap(); 
-    h.insertKey(3); 
-    h.insertKey(2); 
-    h.deleteKey(1); 
-    h.insertKey(15); 
-    h.insertKey(5); 
-    h.insertKey(4); 
-    h.insertKey(45); 
-    
-    console.log(h.extractMin()); 
-    console.log(h.getMin()); 
-    h.decreaseKey(2, 1); 
-    console.log(h.getMin()); 
-} 
+function main() {
+    let h = new MinHeap();
+    h.insertKey(3);
+    h.insertKey(2);
+    console.log(h.extractMin());
+    console.log(h.extractMin());
+    console.log(h.extractMin());
+
+
+    h.deleteKey(1);
+    h.insertKey(15);
+    h.insertKey(5);
+    h.insertKey(4);
+    h.insertKey(45);
+
+    console.log(h.extractMin());
+    console.log(h.getMin());
+    h.decreaseKey(2, 1);
+    console.log(h.getMin());
+}
 
 main();

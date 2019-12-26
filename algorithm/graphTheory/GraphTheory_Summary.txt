@@ -52,4 +52,16 @@
    (2). To improve performance further for edge case, keep count of [disjoint set] to make it balanced will improve performance from 10.4 seconds to 1.4 second.
     
 10.[Jack goes to Rapture]
+   Key point: 
+   (1). Use Prim's MST algorithm to explore all unvisited vertexes.
+   (2). [Min Heap] data structure is used to quickly get the minimum running distance from queue
+   (3). To improve performance further, I added a Map object within [Min Heap], this 
+        map is used to save the [Vertex ID] -> [Index of intenal array], this improve performance when try to locate an object by its [Vertex ID], decrease running time from 2 seconds to 0.4 second.
+		
+11.[Rust & Murderer]
+   Key point: (quite straightforward)
+   (1). Starts from [start vertex], use BFS to find its all adjacent vertexes (not connected by city map road), save its visited history into a Map object; 
+   continue until queue is empty.
+   
+		
    	
