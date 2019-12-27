@@ -63,5 +63,11 @@
    (1). Starts from [start vertex], use BFS to find its all adjacent vertexes (not connected by city map road), save its visited history into a Map object; 
    continue until queue is empty.
    
+12.[Jeanie's Route]  
+   Based on the idea from [xdavidliu] in Discussion board.
+   (1). Prune node which is not deliver target and degree is 1, use recursion to prune its parent continuously, define it as [Pruned Graph]
+   (2). Find longest path from above graph by using BFS 2 times.
+   (3). Final result is (2 * Sum of edges in [Pruned Graph] - longest path)
+   
 		
    	
