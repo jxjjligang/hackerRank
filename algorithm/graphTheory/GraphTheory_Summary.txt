@@ -70,6 +70,10 @@
    (3). Final result is (2 * Sum of edges in [Pruned Graph] - longest path)
    To improve performance of pruneGraph function(from 131.3 seconds to 0.1 second): 
    Use last time found cutTable nodes to find their cutTable parent, initially is all nodes collection. 
+   
+13.[Clique]
+   This is simply a implementation of formula from below link (Turan Graph).
+   https://en.wikipedia.org/wiki/Tur%C3%A1n_graph    
      
    
    
