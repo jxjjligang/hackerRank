@@ -75,7 +75,11 @@
    This is simply a implementation of formula from below link (Turan Graph).
    https://en.wikipedia.org/wiki/Tur%C3%A1n_graph   
 
-13.[The Story of a Tree]   
+13.[The Story of a Tree]  
+   Kind of [Dynamic Programming], the key point is how to calculate the [Total passes count] of [adjacent nodes] when 
+   the [Total passes count] of their [parent node] is already calculated.
+   To improve performance:
+   (1). Create Map instance object for time-consuming Array.prototype.filter operation. 
      
    
    

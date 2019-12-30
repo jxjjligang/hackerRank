@@ -3,7 +3,7 @@
 main();
 
 /*
- * Complete the storyOfATree function below.
+ * My original work, doesn't work [only pass test case #1].
  */
 function storyOfATree(n, edges, k, guesses) {
     function removeDivisors(totalPassed, n) {
