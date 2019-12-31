@@ -1,24 +1,23 @@
 'use strict'
 main();
 
-
 /*
  * Complete the crabGraphs function below.
  */
 function crabGraphs(n, t, graph) {
-    function addToMap(parent, child, node2Children) {
-        let children;
-        if (node2Children.has(parent))
-            children = node2Children.get(parent);
-        else {
-            children = new Set();
-            node2Children.set(parent, children);
+    function constructMap(edges) {
+        function addToMap(parent, child, node2Children) {
+            let children;
+            if (node2Children.has(parent))
+                children = node2Children.get(parent);
+            else {
+                children = new Set();
+                node2Children.set(parent, children);
+            }
+
+            children.add(child);
         }
 
-        children.add(child);
-    }
-
-    function constructMap(edges) {
         let node2Children = new Map(), allNodes = new Set()
         for (let i = 0; i < edges.length; i++) {
             let edge = edges[i];
@@ -31,38 +30,100 @@ function crabGraphs(n, t, graph) {
         return node2Children;
     }
 
-    let vertexCount = 0, crabFound = false;
-    do {
-        let node2Children = constructMap(graph);
-        if (node2Children.size === 0)
-            break;
-
-        let allNodes = Array.from(node2Children.keys()), nodeObjs = [];
-        for (let node of allNodes) {
-            let children = node2Children.get(node);
-            let grandChildCount = Array.from(children).reduce((a, current) => a + node2Children.get(current).size, 0);
-            let nodeObj = { value: node, childCount: children.size, grandChildCount: grandChildCount };
-            nodeObjs.push(nodeObj);
-        }
-        let validNodes = nodeObjs.filter(n => n.childCount >= t);
-        crabFound = (validNodes.length > 0);
-        if (crabFound) {
-            validNodes.sort((n1, n2) => n1.childCount + n1.grandChildCount - n2.childCount - n2.grandChildCount);
-            let crabHead = validNodes[0];
-            vertexCount += Math.min(t, crabHead.childCount);
-            let crabFeet = node2Children.get(crabHead.value);
-
-            graph = graph.filter(edge => edge[0] !== crabHead.value && edge[1] !== crabHead.value && !crabFeet.has(edge[0]) && !crabFeet.has(edge[1]));
-            node2Children = constructMap(graph);
-        }
+    function getNodeCopy(nodeNumber, n) {
+        return nodeNumber + n;
     }
-    while (crabFound)
 
-    return vertexCount;
+    /* Create copy of existing node, and add [Source] node, [Sink] node; 
+        (1). Add edges between [source nodes] and [Source] node, capacity is min(t, node_degree);[Source] node
+        (2). Add edges between [copy nodes] and [Sink] node, capacity is 1
+        (3). Add edges between [source nodes] and [copy nodes], for each original edge, create 2 edges that one node is from [source nodes], and the other is from [copy nodes]
+    */
+    function createCopyNodesAndEdges(edges, t, node2Degree) {
+        let sortedEdges = edges;
+        let allEdges = [], edge2Capacity = new Map();
+        for (let node = 1; node <= NODES_COUNT; node++) {
+            // (1). Add edges between [source nodes] and [Source] node
+            let srcEdge = [SOURCE_NODE, node];
+            allEdges.push(srcEdge);
+            // if (node2Degree.has(node))
+            //     edge2Capacity.set(srcEdge, Math.min(node2Degree.get(node), t));
+
+            // (2). Add edges between [copy nodes] and [Sink] node
+            let sinkEdge = [node + NODES_COUNT, SINK_NODE];
+            allEdges.push(sinkEdge);    // capacity is 1
+            edge2Capacity.set(sinkEdge, t);
+        }
+
+        for (let edge of sortedEdges) {
+            let start = edge[0], end = edge[1];
+
+            allEdges.push([start, end + NODES_COUNT]);
+            allEdges.push([start + NODES_COUNT, end]);
+        }
+
+        return [allEdges, edge2Capacity];
+    }
+
+    function bfs(allEdges) {
+        let queue = [[SOURCE_NODE, []]], visited = new Set();
+
+        while (queue.length > 0) {
+            let nodeAndPath = queue.shift(), node = nodeAndPath[0], path = nodeAndPath[1];
+            visited.add(node);
+
+            let adjacentEdges = allEdges.filter(edge => edge[0] === node || edge[1] === node);
+            for (let edge of adjacentEdges) {
+                let anotherNode = (edge[0] === node ? edge[1] : edge[0]);
+                if (!visited.has(anotherNode) && (anotherNode > node)) {
+                    let copyPath = path.slice();
+                    copyPath.push(edge);
+                    queue.push([anotherNode, copyPath]);
+
+                    if (anotherNode === SINK_NODE)
+                        return copyPath;
+                }
+
+            }   // the end of for (let edge of adjacentEdges) {
+        }   // the end of  while (queue.length > 0) {
+
+        return [];
+    }
+
+    const SOURCE_NODE = 0, SINK_NODE = 1000, DEGREE_ONE = 1, NODES_COUNT = n;
+    let node2Children = constructMap(graph), node2Degree = new Map(Array.from(node2Children).map(kv => [kv[0], kv[1].size]).filter(arr => arr[1] > DEGREE_ONE));
+    let allEdgesAndCapacityMap = createCopyNodesAndEdges(graph, t, node2Degree), allEdges = allEdgesAndCapacityMap[0], edge2Capacity = allEdgesAndCapacityMap[1], bfsPath = bfs(allEdges), totalFlow = 0;
+    while (bfsPath.length > 0) {
+        console.log(bfsPath.join(' -> '));
+        totalFlow++;
+        // update allEdges
+        for (let edge of bfsPath) {
+            if (edge2Capacity.has(edge)) {
+                let capacity = edge2Capacity.get(edge);
+                if (capacity === 1) {
+                    edge2Capacity.delete(edge);
+                    allEdges = allEdges.filter(eg => eg !== edge);
+                }
+                else
+                    edge2Capacity.set(edge, capacity - 1);
+            }
+            else
+                allEdges = allEdges.filter(eg => eg !== edge);
+        }
+
+        bfsPath = bfs(allEdges);
+    }
+
+    return totalFlow;
 }
 
 function main() {
-    let inputs = [
+    let inputs = [`1
+    5 2 4
+    1 2    
+    2 3
+    1 4
+    1 5`,
         `2  
         8 2 7  
         1 4  
@@ -81,7 +142,7 @@ function main() {
         6 1  
         1 4  
         2 5`];
-    for (let i = 0; i < inputs.length; i++) {
+    for (let i = 0; i < 1; i++) {    // inputs.length
         let input = inputs[i], lines = input.split('\n').map(s => s.trim()).filter(s => s !== ''), index = 0;
 
         const c = parseInt(lines[index++], 10);
@@ -93,7 +154,7 @@ function main() {
                 graph[graphRowItr] = lines[index++].split(' ').map(graphTemp => parseInt(graphTemp, 10));
 
             let result = crabGraphs(n, t, graph);
-            console.log(result + "\n");
+            console.log(result);
         }
     }
 }
