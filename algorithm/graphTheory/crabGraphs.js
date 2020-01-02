@@ -16,20 +16,20 @@ function crabGraphs(n, t, graph) {
 
         for (let edge of origGraph) {
             let from = edge[0], to = edge[1], fromCopy = from + VERTEX_COUNT, toCopy = to + VERTEX_COUNT;
-            // Add edge between [Source Node] and other nodes
+            // Add edge between [Source Node] and other nodes, this is only one-way, from [Source Node] to [Node]
             rsGraph[SOURCE_INDEX][from] = rsGraph[SOURCE_INDEX][from] === undefined ? 1 : Math.min(1 + rsGraph[SOURCE_INDEX][from], LEG_LIMIT);
             rsGraph[SOURCE_INDEX][to] = rsGraph[SOURCE_INDEX][to] === undefined ? 1 : Math.min(1 + rsGraph[SOURCE_INDEX][to], LEG_LIMIT);
 
-            // Add edge between [Sink Node] and other nodes
-            rsGraph[SINK_INDEX][fromCopy] = 1;
-            rsGraph[SINK_INDEX][toCopy] = 1;
+            // Add edge between [Sink Node] and other nodes, this is only one-way, from [Node] to [Sink Node]
+            rsGraph[fromCopy][SINK_INDEX] = 1;
+            rsGraph[toCopy][SINK_INDEX] = 1;
 
-            // Add edge between [Original Node] and [Copy Node] 
+            // Add edge between [Original Node] and [Copy Node], this is two-way,
             rsGraph[from][toCopy] = 1;
             rsGraph[toCopy][from] = 0;
 
-            rsGraph[fromCopy][to] = 1;
-            rsGraph[to][fromCopy] = 0;
+            rsGraph[to][fromCopy] = 1;
+            rsGraph[fromCopy][to] = 0;
         }
         return rsGraph;
     }
@@ -44,9 +44,13 @@ function crabGraphs(n, t, graph) {
                 let from = queue.shift(), tos = graph[from];
                 for (let i = 0; i < tos.length; i++) {
                     let to = i, capacity = tos[i];
+                    if (visited.has(to))
+                        continue;
+
                     if (capacity === undefined || capacity <= 0)
                         continue;
 
+                    visited.add(to);
                     prevArr[to] = from;
                     queue.push(to);
 
@@ -78,10 +82,10 @@ function crabGraphs(n, t, graph) {
                 let from = path[i - 1], to = path[i];
                 rsGraph[from][to] -= minFlow;
 
-                if (rsGraph[to][from] === undefined)
-                    throw Error('rsGraph[to][from] shouldn not be undefined');
-                rsGraph[to][from] += minFlow;
+                if (rsGraph[to][from] !== undefined)    // throw Error('rsGraph[to][from] shouldn not be undefined');
+                    rsGraph[to][from] += minFlow;
 
+                let kk = 33;
             }
             // update residual graph
 
@@ -97,7 +101,12 @@ function crabGraphs(n, t, graph) {
 }
 
 function main() {
-    let inputs = [
+    let inputs = [`1
+    5 2 4
+    1 2    
+    2 3
+    1 4
+    1 5`,
         `2  
         8 2 7  
         1 4  
@@ -116,7 +125,7 @@ function main() {
         6 1  
         1 4  
         2 5`];
-    for (let i = 0; i < inputs.length; i++) {
+    for (let i = 0; i <1; i++) {    //  inputs.length
         let input = inputs[i], lines = input.split('\n').map(s => s.trim()).filter(s => s !== ''), index = 0;
 
         const c = parseInt(lines[index++], 10);
