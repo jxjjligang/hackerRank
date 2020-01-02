@@ -76,6 +76,13 @@
    https://en.wikipedia.org/wiki/Tur%C3%A1n_graph   
 
 13.[The Story of a Tree]   
+   Kind of [Dynamic Programming].
+   (1). First, choose any node (like node 1) as root, count [total passed amount].
+   (2). Then, iterate tree created in step 1, and update [total passed amount] of current node, just need to find the difference caused by the path from [parent node] to [current node], and continue until all tree nodes get visited.
+   To improve performance:
+   (1). Array.Prototype.filter is time-consuming, replace it with pre-calculated Map structure.
+   (2). Apply logic of step 1 to Array.prototype.find.
+
      
    
    
