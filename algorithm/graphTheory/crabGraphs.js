@@ -6,59 +6,94 @@ main();
  * Complete the crabGraphs function below.
  */
 function crabGraphs(n, t, graph) {
-    function addToMap(parent, child, node2Children) {
-        let children;
-        if (node2Children.has(parent))
-            children = node2Children.get(parent);
-        else {
-            children = new Set();
-            node2Children.set(parent, children);
-        }
+    const SOURCE_INDEX = 0, SINK_INDEX = 2 * n + 1, MATRIX_LENGTH = 2 * n + 1;
+    const VERTEX_COUNT = n, LEG_LIMIT = t, INVALID_INDEX = -1;
 
-        children.add(child);
+    function createResidualGraph(origGraph) {
+        let rsGraph = [];
+        for (let i = 0; i <= MATRIX_LENGTH; i++)
+            rsGraph.push([]);
+
+        for (let edge of origGraph) {
+            let from = edge[0], to = edge[1], fromCopy = from + VERTEX_COUNT, toCopy = to + VERTEX_COUNT;
+            // Add edge between [Source Node] and other nodes
+            rsGraph[SOURCE_INDEX][from] = rsGraph[SOURCE_INDEX][from] === undefined ? 1 : Math.min(1 + rsGraph[SOURCE_INDEX][from], LEG_LIMIT);
+            rsGraph[SOURCE_INDEX][to] = rsGraph[SOURCE_INDEX][to] === undefined ? 1 : Math.min(1 + rsGraph[SOURCE_INDEX][to], LEG_LIMIT);
+
+            // Add edge between [Sink Node] and other nodes
+            rsGraph[SINK_INDEX][fromCopy] = 1;
+            rsGraph[SINK_INDEX][toCopy] = 1;
+
+            // Add edge between [Original Node] and [Copy Node] 
+            rsGraph[from][toCopy] = 1;
+            rsGraph[toCopy][from] = 0;
+
+            rsGraph[fromCopy][to] = 1;
+            rsGraph[to][fromCopy] = 0;
+        }
+        return rsGraph;
     }
 
-    function constructMap(edges) {
-        let node2Children = new Map(), allNodes = new Set()
-        for (let i = 0; i < edges.length; i++) {
-            let edge = edges[i];
-            addToMap(edge[0], edge[1], node2Children);
-            addToMap(edge[1], edge[0], node2Children);
-            allNodes.add(edge[0]);
-            allNodes.add(edge[1]);
+    function getMaxFlow(rsGraph) {
+        function bfsSearch(prevArr, graph) {
+            let queue = [SOURCE_INDEX], visited = new Set();
+
+            prevArr[SOURCE_INDEX] = INVALID_INDEX
+            visited.add(SOURCE_INDEX);
+            while (queue.length > 0) {
+                let from = queue.shift(), tos = graph[from];
+                for (let i = 0; i < tos.length; i++) {
+                    let to = i, capacity = tos[i];
+                    if (capacity === undefined || capacity <= 0)
+                        continue;
+
+                    prevArr[to] = from;
+                    queue.push(to);
+
+                    if (to === SINK_INDEX)
+                        return true;
+                }
+            }
+
+            return false;
         }
 
-        return node2Children;
+        let maxFlow = 0, prev = [];
+
+        while (bfsSearch(prev, rsGraph) === true) {
+            let path = [SINK_INDEX], parent = prev[SINK_INDEX];
+            while (parent !== -1) {
+                path.unshift(parent);
+                parent = prev[parent];
+            }
+
+            let minFlow = Number.MAX_SAFE_INTEGER;
+            for (let i = 1; i < path.length; i++) {
+                let from = path[i - 1], to = path[i];
+                minFlow = Math.min(minFlow, rsGraph[from][to]);
+            }
+
+            maxFlow += minFlow;
+            for (let i = 1; i < path.length; i++) {
+                let from = path[i - 1], to = path[i];
+                rsGraph[from][to] -= minFlow;
+
+                if (rsGraph[to][from] === undefined)
+                    throw Error('rsGraph[to][from] shouldn not be undefined');
+                rsGraph[to][from] += minFlow;
+
+            }
+            // update residual graph
+
+            prev = [];
+        }
+
+        return maxFlow;
     }
 
-    let vertexCount = 0, crabFound = false;
-    do {
-        let node2Children = constructMap(graph);
-        if (node2Children.size === 0)
-            break;
-
-        let allNodes = Array.from(node2Children.keys()), nodeObjs = [];
-        for (let node of allNodes) {
-            let children = node2Children.get(node);
-            let grandChildCount = Array.from(children).reduce((a, current) => a + node2Children.get(current).size, 0);
-            let nodeObj = { value: node, childCount: children.size, grandChildCount: grandChildCount };
-            nodeObjs.push(nodeObj);
-        }
-        let validNodes = nodeObjs.filter(n => n.childCount >= t);
-        crabFound = (validNodes.length > 0);
-        if (crabFound) {
-            validNodes.sort((n1, n2) => n1.childCount + n1.grandChildCount - n2.childCount - n2.grandChildCount);
-            let crabHead = validNodes[0];
-            vertexCount += Math.min(t, crabHead.childCount);
-            let crabFeet = node2Children.get(crabHead.value);
-
-            graph = graph.filter(edge => edge[0] !== crabHead.value && edge[1] !== crabHead.value && !crabFeet.has(edge[0]) && !crabFeet.has(edge[1]));
-            node2Children = constructMap(graph);
-        }
-    }
-    while (crabFound)
-
-    return vertexCount;
+    let rsGraph = createResidualGraph(graph);
+    let maxFlow = getMaxFlow(rsGraph);
+    return maxFlow;
 }
 
 function main() {
