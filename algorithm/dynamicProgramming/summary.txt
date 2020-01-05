@@ -1,0 +1,10 @@
+[Lego Blocks]
+Key Points: 
+    (1). Starts from the basic case (only 1 row whose width is w)
+    (2). Then for n rows (without think unsafe cases), therefore g(n) = f(w)**n;
+	(3). Think about every combination of safe(i) and unsafe(i-j), use DN to find all the values for h(1) until h(n-1)
+	h[i] = g[i] - Sum of (h[j] * g[i-j]), j is [1, i-1]
+
+[Bricks Game]
+Key point: Use [Pre Sum Arr] and [bottom up] idea, previous player is actuallly a different    
+           way of showing first player. 
