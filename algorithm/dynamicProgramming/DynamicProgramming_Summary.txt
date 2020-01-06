@@ -1,3 +1,35 @@
 1. [Fibonacci Modified]
    Simple, use iteration to reach the target result; 
    In JavaScript, use BigInt for big number so as not to lose precision.
+
+2. [Stock Maximize]
+   My solution is push and pop, memorize the profit make and days, eventually accumulate to the final result.
+   Editorial first introduces a naive solution - use 2 level iteration to find the profit that can be made for each day.
+             Then, a simpler solution is to run the loop backward and keep track of the maximum stock price so far, time complexity is O(n**2). 
+			 This way you can eliminate the inner for loop, time complexity is O(n).   
+			 
+3. [Abbreviation]	
+   It's quite straightforward to construct a recursive solution.
+   But hard to implement in a iterative way. 
+
+4. [Fibonacci Modified]
+	Straigthforward to implement.
+
+5. [The Coin Change Problem] 
+   My solution is try to memorize each combination detail (the type/number of coin that used), is not easy to implement and will consume memory exponentially.
+   However, the Editorial gives a classic solution, consume O(n) memory space and O(m*n) time complexity.
+   
+6. [Lego Blocks]
+   Key Points: 
+    (1). Starts from the basic case (only 1 row whose width is w)
+    (2). Then for n rows (without think unsafe cases), therefore g(n) = f(w)**n;
+	(3). Think about every combination of safe(i) and unsafe(i-j), use DN to find all the values for h(1) until h(n-1)
+	h[i] = g[i] - Sum of (h[j] * g[i-j]), j is [1, i-1]
+
+7. [Bricks Game]
+    Key point: Use [Pre Sum Arr] and [bottom up] idea, previous player is actuallly a different    
+           way of showing first player. 
+		   
+8. [Xor and Sum]
+    My solution: When the bits that b shifted is more than a length, then a^b = a + b;
+             Based on that, I can deduce the result. 		    
