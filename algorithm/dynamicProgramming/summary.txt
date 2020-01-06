@@ -8,3 +8,7 @@ Key Points:
 [Bricks Game]
 Key point: Use [Pre Sum Arr] and [bottom up] idea, previous player is actuallly a different    
            way of showing first player. 
+		   
+[Xor and Sum]
+My solution: When the bits that b shifted is more than a length, then a^b = a + b;
+             Based on that, I can deduce the result. 		 
