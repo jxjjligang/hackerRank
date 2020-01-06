@@ -20,19 +20,19 @@ function abbreviation(a, b) {
     for (let columnIdx = 1; columnIdx < A_LENGTH; columnIdx++) {
         let charA = a[columnIdx], cellResult;
         if (isLowerCase(charA) === true) {
-            if (charA.toUpperCase() === charB) {
+            if (firstRow[columnIdx - 1] === true)
+                cellResult = true;
+            else {
                 let aSlice = a.slice(0, columnIdx);
-                cellResult = (aSlice.toUpperCase() === aSlice);
+                cellResult = (aSlice.toLowerCase() === aSlice) && (charA.toUpperCase()===charB);
             }
-            else
-                cellResult = firstRow[columnIdx - 1];
         }
         else {  // charA is upper case
             if (charA !== charB)
                 cellResult = false;
             else {
                 let aSlice = a.slice(0, columnIdx);
-                cellResult = (aSlice.toUpperCase() === aSlice);
+                cellResult = (aSlice.toLowerCase() === aSlice);
             }
         }
 
