@@ -9,6 +9,3 @@
 3. [Bonetrousle]
    The key point is construct the [series], a [series] is consecutive b number of boxes, another [series] which starts 1 index higher than previous one 
    will have b more [sum value], this point is used to find the correct position of [series].
-   
-4. [The Coin Change Problem]
-   

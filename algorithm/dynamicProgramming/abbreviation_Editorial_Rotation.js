@@ -2,78 +2,59 @@
 
 countTime(main)();
 
+// Rotate row, column in abbreviation_Editorial.js
 function abbreviation(a, b) {
-    const STRING_YES = 'YES', STRING_NO = 'NO', A_LENGTH = a.length, B_LENGTH = b.length;
-    function isLowerCase(char) {
-        return (char >= 'a' && char <= 'z');
+    function isAllLowerCase(str) {
+        return str.toLowerCase() === str;
     }
 
-    let resultArr = [];  // save the result of i:j, i is index of a, j is index of b
-    for (let row = 0; row < B_LENGTH; row++)
-        resultArr.push([]);
+    function isAllUpperCase(str) {
+        return str.toUpperCase() === str;
+    }
 
-    // step 1. The first element in the first row
-    resultArr[0][0] = (a[0].toUpperCase() === b[0]);
+    const ROW_LEN = b.length, COLUMN_LEN = a.length;
+    let result = [];
+    for (let i = 0; i <= ROW_LEN; i++)
+        result[i] = [];
 
-    // step 2. The other elements (index >= 1) in the first row    
-    let firstRow = resultArr[0], charB = b[0];
-    for (let columnIdx = 1; columnIdx < A_LENGTH; columnIdx++) {
-        let charA = a[columnIdx], cellResult;
-        if (isLowerCase(charA) === true) {
-            if (firstRow[columnIdx - 1] === true)
-                cellResult = true;
+    result[0][0] = true;
+    // a is empty (length is 0), but b is not (length is 1 or above) (j represents length of b)
+    for (let j = 1; j <= ROW_LEN; j++)
+        result[j][0] = false;
+
+    // b is empty but a is not empty 
+    for (let clmIdx = 1; clmIdx <= COLUMN_LEN; clmIdx++)
+        result[0][clmIdx] = isAllLowerCase(a.slice(0, clmIdx));
+
+    for (let rowIdx = 1; rowIdx <= ROW_LEN; rowIdx++) {
+        for (let columnIdx = 1; columnIdx <= COLUMN_LEN; columnIdx++) {
+            // Now, both a and b length is none-zero
+            let aLast = a[columnIdx - 1], bLast = b[rowIdx - 1];
+
+            if (aLast === bLast)    // aLast, bLast are both upperCase
+                result[rowIdx][columnIdx] = result[rowIdx - 1][columnIdx - 1];
+            else if (aLast.toUpperCase() === bLast) {
+                // aLast is lower case and its upper case match bLast
+                // 1. aLast is part of the final transformed A  2. aLast is NOT part of the final transformed A
+                result[rowIdx][columnIdx] = result[rowIdx - 1][columnIdx - 1] || result[rowIdx ][columnIdx-1];
+            }
             else {
-                let aSlice = a.slice(0, columnIdx);
-                cellResult = (aSlice.toLowerCase() === aSlice) && (charA.toUpperCase() === charB);
+                // Now, aLast can't match bLast
+                if (isAllUpperCase(aLast))      // And, aLast is upper case, and not equals bLast
+                    result[rowIdx][columnIdx] = false;
+                else                         // And, aLast is lower case, and not equals bLast
+                    result[rowIdx][columnIdx] = result[rowIdx][columnIdx-1];
             }
-        }
-        else {  // charA is upper case
-            if (charA !== charB)
-                cellResult = false;
-            else {
-                let aSlice = a.slice(0, columnIdx);
-                cellResult = (aSlice.toLowerCase() === aSlice);
-            }
-        }
+        }   // for (let j = 1; j <= bLen; j++)
+    }       // for (let i = 1; i <= aLen; i++)
 
-        firstRow[columnIdx] = cellResult;
-    }
-
-    // Step 3, all elements in the other rows (rowIdx >= 1)
-    for (let rowIdx = 1; rowIdx < B_LENGTH; rowIdx++) {
-        let row = resultArr[rowIdx];
-        for (let columnIdx = 0; columnIdx < A_LENGTH; columnIdx++) {
-            if (row[columnIdx] !== undefined)
-                continue;
-
-            if (rowIdx > columnIdx)
-                row[columnIdx] = false;
-
-            let charA = a[columnIdx], charB = b[rowIdx], cellResult;
-            if (isLowerCase(charA) === true) {
-                if (charA.toUpperCase() === charB)
-                    cellResult = resultArr[rowIdx - 1][columnIdx - 1] || row[columnIdx - 1];
-                else
-                    cellResult = row[columnIdx - 1];
-            }
-            else {  // charA is upper case
-                if (charA !== charB)
-                    cellResult = false;
-                else
-                    cellResult = resultArr[rowIdx - 1][columnIdx - 1];
-            }
-
-            row[columnIdx] = cellResult;
-        }
-    }
-
-    for (let i = 0; i < resultArr.length; i++) {
-        let row = resultArr[i], rowString = row.reduce((agg, cur, idx) => agg + ' ' + (cur === true ? 1 : 0), '');
+    for (let i = 1; i < result.length; i++) {
+        let row = result[i], rowString = row.reduce((agg, cur, idx) => (idx > 0 ? agg + ' ' + (cur === true ? 1 : 0) : ''), '');
         console.log(rowString);
     }
     console.log();
 
-    return resultArr[B_LENGTH - 1][A_LENGTH - 1] === true ? STRING_YES : STRING_NO;
+    return result[ROW_LEN][COLUMN_LEN] ? 'YES' : 'NO';
 }
 
 function main() {

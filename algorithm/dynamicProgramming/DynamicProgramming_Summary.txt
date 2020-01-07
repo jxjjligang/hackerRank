@@ -10,7 +10,7 @@
 			 
 3. [Abbreviation]	
    It's quite straightforward to construct a recursive solution.
-   But hard to implement in a iterative way. 
+   But hard to implement in a iterative way. But I still be able to implement it correctly on January 6, 2020. Four months before, I can only follow the idea of Editorial to write code. 
 
 4. [Fibonacci Modified]
 	Straigthforward to implement.
