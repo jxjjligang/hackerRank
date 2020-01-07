@@ -17,7 +17,10 @@
 
 5. [The Coin Change Problem] 
    My solution is try to memorize each combination detail (the type/number of coin that used), is not easy to implement and will consume memory exponentially.
-   However, the Editorial gives a classic solution, consume O(n) memory space and O(m*n) time complexity.
+   My solution only pass 6 cases, can't pass performance cases (take 47 seconds for case #3).
+   
+   However, the code from [rwan7727] works very fast to pass all cases.
+   Also, the editorial gives a classic solution, consume O(n) memory space and O(m*n) time complexity.
    
 6. [Lego Blocks]
    Key Points: 

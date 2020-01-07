@@ -11,5 +11,4 @@
    will have b more [sum value], this point is used to find the correct position of [series].
    
 4. [The Coin Change Problem]
-   My code can only pass 6 cases, can't pass performance cases (take 47 seconds for case #3).
-   The code from [rwan7727] works very fast to pass all cases.
+   
