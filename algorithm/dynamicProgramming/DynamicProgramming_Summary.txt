@@ -35,4 +35,7 @@
 		   
 8. [Xor and Sum]
     My solution: When the bits that b shifted is more than a length, then a^b = a + b;
-             Based on that, I can deduce the result. 		    
+             Based on that, I can deduce the result. 		
+
+9. [The Maximum Subarray]			 
+   Kadane’s Algorithm: implement it to get [Max SubArray]; [Max SubSequence] is simply sum of all non-negative element's value.
