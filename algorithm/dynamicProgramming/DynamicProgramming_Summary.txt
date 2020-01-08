@@ -39,3 +39,7 @@
 
 9. [The Maximum Subarray]			 
    Kadane’s Algorithm: implement it to get [Max SubArray]; [Max SubSequence] is simply sum of all non-negative element's value.
+   
+10.[The Longest Increasing Subsequence]
+   The dynamic programming way (iteration way) is easy to understand and implement.
+   But, it cant' pass performance test cases because its time complexity is O(n**2).   
