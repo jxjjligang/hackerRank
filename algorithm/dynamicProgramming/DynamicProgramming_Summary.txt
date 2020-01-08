@@ -42,4 +42,19 @@
    
 10.[The Longest Increasing Subsequence]
    The dynamic programming way (iteration way) is easy to understand and implement.
-   But, it cant' pass performance test cases because its time complexity is O(n**2).   
+   But, it cant' pass performance test cases because its time complexity is O(n**2).  
+   
+   However, there is O(n*log(n)) algorithm, refer link: https://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/
+   You must have the idea of [multiple active increasing list], and compare their end element with the incoming array element, then we will have 3 cases:
+   (1). [incoming array element] < (all of them), a new [active increasing list] should be created.
+   (2). [incoming array element] > (all of them), clone [longest active increasing list] as new list, append [incoming array element] to it.
+   (3). [incoming array element] is between (all of them), then need find the [biggest end element] among lists whose [end element] is < [incoming array element], 
+        clone that list and append [incoming array element], delete [active list] which has the same length as the new list just created.
+   Eventually, return the longest [active list] length;		
+   To improve performance, save all the [end elements] in a sorted array.
+   
+		
+   
+   
+   
+      
