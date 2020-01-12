@@ -2,70 +2,66 @@
 
 countTime(main)();
 
-
-// Use Dynamic Programming technique, in iterative way.
-function longestIncreasingSubsequence_DP(arr) {
-    const ARR_LEN = arr.length, MIN_NUMBER = Number.MIN_SAFE_INTEGER;
-
-    let idx2LISValue = new Map([[0, 1]]), maxLCS = 1;
-    for (let i = 1; i < ARR_LEN; i++) {
-        let itemI = arr[i], maxJ = MIN_NUMBER;
-        for (let j = 0; j < i; j++) {
-            if (itemI > arr[j])
-                maxJ = Math.max(maxJ, idx2LISValue.get(j))
-        }
-
-        if (maxJ === MIN_NUMBER)
-            idx2LISValue.set(i, 1);
-        else {
-            idx2LISValue.set(i, 1 + maxJ);
-            maxLCS = Math.max(maxLCS, 1 + maxJ);
-        }
-    }
-
-    return maxLCS;
-}
-
 function longestIncreasingSubsequence(arr) {
     const ARR_LEN = arr.length;
 
-    let endElement2Length = new Map([[arr[0], 1]]);          // [End Element] of LCS array, 
-    let minEElement = arr[0], maxEElement = arr[0];
-    for (let i = 1; i < ARR_LEN; i++) {
-        let itemI = arr[i];
+    // sorted is in ascending order
+    function binarySearch(sorted, value) {
+        let min = sorted[0], max = sorted[sorted.length - 1];
+        if (value <= min)
+            return 0;
+        else if (value >= max)
+            return sorted.length - 1;
 
-        if (itemI < minEElement) {
-            // Case 1 (Start a new active list): current element is less than all [End Element], need create a new [Active List]
-            endElement2Length.set(itemI, 1);
-            endElement2Length.delete(minEElement);
-            minEElement = itemI;
-        }
-        else if (itemI > maxEElement) {
-            // Case 2 (Clone and extend): current element is bigger than all [End Element], find the longest [Active List]
-            endElement2Length.set(itemI, 1 + endElement2Length.get(maxEElement));
-            maxEElement = itemI;
-        }
-        else {
-            // Case 3: find the largest [End Element] that is smaller than itemI
-            let maxOfSmall = Number.MIN_SAFE_INTEGER, minOfBig = Number.MAX_SAFE_INTEGER;
-            for (let eEle of endElement2Length.keys()) {
-                if (eEle < itemI)
-                    maxOfSmall = Math.max(maxOfSmall, eEle);
-                else if (eEle >= itemI)
-                    minOfBig = Math.min(minOfBig, eEle);
+        let left = 0, right = arr.length - 1, middle = Math.floor((left + right) / 2);
+        while (left < right) {
+            if (sorted[middle] < value) {
+                if (sorted[middle + 1] >= value)
+                    return middle;
+                else {
+                    left = middle;
+                    middle = Math.floor((left + right) / 2);
+                }
             }
-            let prevLen = endElement2Length.get(maxOfSmall), newLen = 1 + prevLen;
-            endElement2Length.delete(minOfBig);
-            if (minOfBig === maxEElement)
-                maxEElement = itemI;
-
-            endElement2Length.set(itemI, newLen);
+            else {
+                right = middle;
+                middle = Math.floor((left + right) / 2);
+            }
         }
     }
 
-    let maxLen = Number.MIN_SAFE_INTEGER;
-    for (let value of endElement2Length.values())
-        maxLen = Math.max(maxLen, value);
+    let endElement2Length = new Map([[arr[0], 1]]);          // [End Element] of LCS array, 
+    let sortedEElement = [arr[0]], maxLen = 1;
+    for (let i = 1; i < ARR_LEN; i++) {
+        let itemI = arr[i], minEElement = sortedEElement[0], maxEElement = sortedEElement[sortedEElement.length - 1];
+
+        if (itemI === minEElement || itemI === maxEElement)
+            continue;
+        else if (itemI < minEElement) {
+            // Case 1 (Start a new active list, replace): current element is less than all [End Element], need create a new [Active List]
+            endElement2Length.set(itemI, 1);
+            endElement2Length.delete(minEElement);
+            sortedEElement[0] = itemI;
+        }
+        else if (itemI > maxEElement) {
+            // Case 2 (Clone and extend): current element is bigger than all [End Element], find the longest [Active List]
+            let newLen = 1 + endElement2Length.get(maxEElement);
+            endElement2Length.set(itemI, newLen);
+            sortedEElement.push(itemI);
+            maxLen = Math.max(maxLen, newLen);
+        }
+        else {
+            // Case 3: find the largest [End Element] that is smaller than itemI, extend and discard
+            let maxOfSmallIndex = binarySearch(sortedEElement, itemI);
+            let maxOfSmall = sortedEElement[maxOfSmallIndex], minOfBig = sortedEElement[1 + maxOfSmallIndex];
+            let newLen = 1 + endElement2Length.get(maxOfSmall);
+            endElement2Length.delete(minOfBig);
+            endElement2Length.set(itemI, newLen);
+
+            sortedEElement.splice( 1 + maxOfSmallIndex, 1, itemI);
+            maxLen = Math.max(maxLen, newLen);
+        }
+    }
 
     return maxLen;
 }
@@ -10123,4 +10119,29 @@ function countTime(func) {
         console.log(`${((end - start) / 1000).toFixed(3)} seconds spent.`);
         return result;
     }
+}
+
+
+
+// Use Dynamic Programming technique, in iterative way.
+function longestIncreasingSubsequence_DP(arr) {
+    const ARR_LEN = arr.length, MIN_NUMBER = Number.MIN_SAFE_INTEGER;
+
+    let idx2LISValue = new Map([[0, 1]]), maxLCS = 1;
+    for (let i = 1; i < ARR_LEN; i++) {
+        let itemI = arr[i], maxJ = MIN_NUMBER;
+        for (let j = 0; j < i; j++) {
+            if (itemI > arr[j])
+                maxJ = Math.max(maxJ, idx2LISValue.get(j))
+        }
+
+        if (maxJ === MIN_NUMBER)
+            idx2LISValue.set(i, 1);
+        else {
+            idx2LISValue.set(i, 1 + maxJ);
+            maxLCS = Math.max(maxLCS, 1 + maxJ);
+        }
+    }
+
+    return maxLCS;
 }
