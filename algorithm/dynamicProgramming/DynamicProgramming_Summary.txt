@@ -43,3 +43,11 @@
 10.[The Longest Increasing Subsequence]
    The dynamic programming way (iteration way) is easy to understand and implement.
    But, it cant' pass performance test cases because its time complexity is O(n**2).   
+   
+11.[Mandragora Forest]   
+   Key point:
+   (1). Sort the input array in ascending order;
+   (2). Iterate the sorted input, check each element of the array, decide the better way from (eat, battle).
+   (3). The decision is based from compare (current health * current element) with (sum of left elements).
+   The editorial made a clear discussion about how the logic and strategy was made.
+   
