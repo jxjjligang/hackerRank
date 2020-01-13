@@ -60,3 +60,12 @@
    (3). The decision is based from compare (current health * current element) with (sum of left elements).
    The editorial made a clear discussion about how the logic and strategy was made.
    
+   
+12.[Knapsack]
+   My solution is a little bit longer than the [editorial one], but time combination are both O(n^2).
+      (1). Create a distinct array from input and sort the array in ascending order. 
+      (2). Iterate every element of sorted array, and multiply them with count++, and save into [combination array]. 
+      (3). Nest iterate [combination array], the outer iteration find the min element, then the inner iteration will add min with other elements left in [combination array], and update [combination array].
+      Eventually, iterate backwards the [combination array], return the nearest number.
+
+  The editorial solution is way simpler and straightforward, it shows me that the recursive way can start in a forward manner, not necessarily backward. 	  
