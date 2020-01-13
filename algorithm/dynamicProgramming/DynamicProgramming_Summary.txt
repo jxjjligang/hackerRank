@@ -69,3 +69,6 @@
       Eventually, iterate backwards the [combination array], return the nearest number.
 
   The editorial solution is way simpler and straightforward, it shows me that the recursive way can start in a forward manner, not necessarily backward. 	  
+  
+13.[Coin on the Table]
+ 

@@ -1,0 +1,189 @@
+'use strict'
+main();
+
+function coinOnTheTable(m, k, board) {
+    const ROW_COUNT = board.length, COLUMN_COUNT = m, STAR = '*', BASE = 100;
+    //                  left,    right,  up,      down                  
+    const NEIGHBOURS = [[0, -1], [0, 1], [-1, 0], [1, 0]], NEIGHBOUR_LETTERS = ['L', 'R', 'U', 'D'];
+
+    function addEdge(from, to, node2Nodes) {
+        let nodeSet;
+        if (node2Nodes.has(from))
+            nodeSet = node2Nodes.get(from);
+        else {
+            nodeSet = new Set();
+            node2Nodes.set(from, nodeSet);
+        }
+
+        nodeSet.add(to);
+    }
+
+    let grid = [], END_ROW = -1, END_COLUMN;
+    for (let i = 0; i < ROW_COUNT; i++) {
+        let line = board[i];
+        let cells = line.split('');
+        grid.push(cells);
+        if (END_ROW === -1) {
+            END_COLUMN = cells.findIndex(element => element === STAR);
+            if (END_COLUMN !== -1)
+                END_ROW = i;
+        }
+    }
+
+    // use BFS to find the minChange value between [start node] and [all other nodes]
+    let startNode = [0, 0], nodeKey2MinChange = new Map([[startNode[0] * BASE + startNode[1], 0]]);
+    let queue = [[startNode[0], startNode[1], 0]], visitedEdges = new Map();
+    while (queue.length > 0) {
+        let node = queue.shift(), currentX = node[0], currentY = node[1], currentNodeKey = currentX * BASE + currentY, spentTime = node[2];
+        let changesAlreadyMade = nodeKey2MinChange.get(currentNodeKey), totalChanges = changesAlreadyMade;
+        if (spentTime >= k)
+            continue;
+
+        for (let i = 0; i < NEIGHBOURS.length; i++) {
+            let neighbour = NEIGHBOURS[i];
+            let nextX = currentX + neighbour[0], nextY = currentY + neighbour[1];
+            // check if node location is valid
+            if (nextX < 0 || nextX >= ROW_COUNT || nextY < 0 || nextY >= COLUMN_COUNT)
+                continue;
+
+            let nextNodeKey = nextX * BASE + nextY;
+            if (visitedEdges.has(currentNodeKey) && visitedEdges.get(currentNodeKey).has(nextNodeKey))
+                continue;
+            if (visitedEdges.has(nextNodeKey) && visitedEdges.get(nextNodeKey).has(currentNodeKey))
+                continue;
+
+            totalChanges = (grid[currentX][currentY] !== NEIGHBOUR_LETTERS[i]) ? (1 + changesAlreadyMade) : changesAlreadyMade;
+            let lessChangesFound = (nodeKey2MinChange.has(nextNodeKey) === false) || (totalChanges < nodeKey2MinChange.get(nextNodeKey));
+            if (lessChangesFound === false)
+                continue;
+            else {
+                visitedEdges.delete(nextNodeKey);
+                nodeKey2MinChange.set(nextNodeKey, totalChanges);
+                addEdge(currentNodeKey, nextNodeKey, visitedEdges);
+                addEdge(nextNodeKey, currentNodeKey, visitedEdges);
+            }
+            // push [next node]  into stack
+            queue.push([nextX, nextY, 1 + spentTime]);
+        }
+    }   // the end of while (queue.length > 0) {
+
+    let endNodeKey = END_ROW * BASE + END_COLUMN;
+    if (nodeKey2MinChange.has(endNodeKey) === false)
+        return -1;
+
+    let minChanges = nodeKey2MinChange.get(endNodeKey);
+    return minChanges > k ? -1 : minChanges;
+}
+
+function main() {
+    let inputs = [`18 42 42
+    DUDDDLLRURULLDLURURLDLRULDURLDDURLUURLURRU
+    DLDLURDRRLDDLDULRUDURDDUURDLLLLRRLDUULLDDD
+    RULURDLLUULDRDDLLDLRDUDRDDRRRDRUDRURURLRLD
+    RLUDLLLUURRDRRDRDRLDLDDDULLRRLLRLDLUDRDDUU
+    RDDRURLRUUDLLRLULLLLULLDLUDRLDRDDURDLRDRLL
+    LDRDDDLDUDLDUDRLURRDLURRRDLDURLULDDURDUDLU
+    UDUULDRUULUDL*UDULUDLLRRLULULUDULURLRDULLL
+    UDLDRLDLDLRRULURDRUDRLDLLDDRLRRLRUURLUDULR
+    RULDDLUULRRDRDLUULRULDRRUULULLUDRLLRLLDRRR
+    ULRLDDDUUDLLRLURRURLDRULRRDUDRULUDDRDLULDD
+    DDDRDRRULRLUUDRRDDLDUDRLRRRDLRDRLUDRULLLDR
+    DUDULULRLUDRLRLLLUUURRDLLRRLLLDUDLDRDDURRR
+    UULDRUULRDDRDLUDLLLULULRRUUUULDDDRRRUDLLDU
+    LLLURRRDRUUULDLLLDDDLLRLDLLURUDLRLDLDDLLUL
+    LLLDDDDULDRURULULLULLUDRDURRRRUUURRLURDURL
+    RDDDDDLRRRRLRUDRLURRLRRUUUUURULULRRDRUUDUU
+    RDUURUULLDULRUULRRLLDDLRURDULRDLUDDDURDRUD
+    LUDLDDRDURUDLLLDRLRRRLRDULLLDLDUUUDRRDRLRU`
+        , `50 50 4
+    RURDRDRLDLUDLDURURRDDLLLURLUDRRRUDRDLULDRRULDLDDRL
+    RRRURDULDLRRLURDRDURUDDDDRURUUUULUULLDDUUUULURURRU
+    URLDDRRDDLRDLLRRUURDLDRURUDUDDLDLDUUDDLLDRRDDRDLRR
+    RLLRRLUDRDULLDLDRLLRULRDRRDRRDDRLDLDURUUULLDURLDLD
+    LDUULRRLRUUDDLLDLDULULUUURRDRDUDLLRLRDLDLRRLDLUURD
+    LRRDRLRURDRDRUUUUDRLDUDDLRULRUDLLRLRDRLUDRLRLLLDUU
+    LDULDRLURDULUURUDULDUUDLLDURDUULRLDDRLRUDRRLURULLL
+    UDDLRDDUDUDDLDULRUDLUDLUULLLUDRLUDDLLLUULDURDRULRL
+    RLLLULDURDULRDLLRRURLDDLUUDRUUUUURUURDURDULUDDULRD
+    LUUUURRURLUDRURLLDDLLUDDRLLRURULUULULRURLDUUUURRUD
+    UDLDURDUULRLDURLLLLURDLLRLDULRURRRLUDURURRDLULDRDL
+    DURRLUDUULLLLULURLURDLRRUDRLLRDLURDLLUDUUURLLLDRDD
+    RDDLULLLLDRDUDUDULLURLDDRDRLLDLULDULLDULRUULUUDLUD
+    LRRRUDRUULUUDLDULDDLUUUURLDDLULDDLLDUDDLLLRUDDLLDU
+    UULLDRDRRLRDUULDRULDULRRLDUULDURUDUURLRLRDRURRLDDD
+    DLDLDLLDRULUURLUUUUUUDDRULDURLRLLUDRURLRULRRUDDUDL
+    LDDULRLURRDDUDDLUDDUDUDDDLRLLLUURLURLLRRULLLRDRRLU
+    LUUULLDLDRLRLULRUUDRRUDRLUDUDUDRLUUURLURUUDDULDRUD
+    LDLDRDDLLDDLUULULULDDDLRDLDULDDLLLDRDRDRRDLLRLDUDR
+    ULURUDRLLDLRDLDURUDUURDLRRULDLLDURRLDULLRULLLLULLL
+    RRDULLDLUUDURDRULURURULUDRRUURLLUUURLDDRRLRLDULUUR
+    RDDRURLULUDULUUDDDULRDLLDUULDLRDLLULDUUDRDDLDRDDDD
+    DLLRRDLDRRLRDRDDUUDLLLRULRRDDDLUURRRURRRDDLDDLDDLU
+    LRRLDDLDRDRLDDULLRDDLRLRULDLRRULLDDRDRDULRDUDRRLRR
+    UUDDLDLDUDUDDUULDDLUDLLDUULLULRLDURRUUUDLRDRLRLLLU
+    LRLLRRUDLLRDLLRRUDRRULRDRDDUUDRULRRURLDLDRRLRLDLDD
+    URRDRDDUDUDURLLDDLRDLUULUULLRDDRDDLDLDRRDUDRDLDUUD
+    RURRRLLDULUDRRRRUDLUDULUULUDRLRUDDRLDUDDLRULUURRRL
+    LLRUULUUUUDURLLRLDLLLDULURRLRDULDLDURLRURLUUDDLUUD
+    RLLRLULRDUULRLUULLULDRRLURDRUDLDUUDUDRDRRDRLLULLDU
+    LDDLLDLURRRRRLLLUDDDUURLURRDDRUDDUDLLRUDDULUULDRRU
+    RRLDURLLDDRUUDUURUURURUDDULDLULUUDDUUUDDRRLRUDDLLR
+    RDLDURULDRDLDDURDUUDLLRDDURLULLDDRLLURULDURRLRDDLR
+    DUUURLURLRULDLLRURLDDUUDLRLLRRLDDLRRDRRDDURDRURRUD
+    RURLLRLDDUURUDDUDLURDLRDRDURUDLUDLRRDUUURLRLDLURUD
+    RLLDUULURLLRLDDDLLULDDDLRRLDRDURLDDDDULDLDUDLDULUD
+    RURLUUDULRUURURRLDDUULDRUDLDDRRRRRLDDLDLRDLLRLRRDR
+    LRUUUDLUUDRRRRLLLRLLRUURLRRLLUDUULRRRUURRR*LRLLRDD
+    URRLDUDDLRLURDULLURLLDRDRURDLULDLLRRDDURRDDRULDLDL
+    RLDRDRUUDURDDLLLULLLDLULRLDDLLRLUDULLLDDLURULUULUL
+    RLRRLLDRLRRRDRDURRLDRDLLDLLDDLUULURUURLRUDRUUDDLUD
+    UDLURRULDULUDDRDRRLDRRDDURLURDDDDDLLLRUDLUUDLULUDU
+    URRLDRLDUULLLRLRUDDRULLRLLDURDUUULUULUDDLLDRURRRLD
+    LDDDLDDRRDLUDDDRLLUULDDUDUDDDULURRLRLLUUDLDDRDRDRR
+    UDDDDULRULUUDLLRUDULRDLRULLLURURUUDLLRLLDRURRRRRDD
+    LULUDLDLDDRRLDURUUULDLURRUUDUDLUURDRDLRRRLDRDDRDUD
+    RUULRUDRRLULDDUDDDULLLDRULUDRLLLRDRUURLLDLRDDRLUUD
+    URDULDDURLLLLDDDLURRRLRULRLLDLUDDRRRULRRRRLLDLUUDL
+    LLLDLURUDLDRURRLDDLDLLURUDRDUDLDRRLRDLUUDLULULUULU
+    LLURLDUULUURULLLDURRUUUDLUDLRURULDLUURRRULURRRLULD`
+        , `20 17 47
+    DRLULLRRRLRDLRRLU
+    URUURLRLLLDULRRRR
+    DRDLDDLDRRDRURRLR
+    DRRRRRRLDULDDUDLD
+    DULRDDULDUDULRDUD
+    LRURUDURRUURDDUDL
+    URURDLRUULRRDLDLR
+    DLRUDLDRUUDULUDUU
+    *ULLURDRDUURLDRDR
+    ULDUDUUULLURURURR
+    LDRDLDRRLDDRRLRLD
+    RDDLURRRDDLRDURLD
+    ULRLRLRRLLLRRURRL
+    RLLLDRDURLRURLUDD
+    DRLDURRLURUULLRDU
+    RURRUDLLLDDDRUUUD
+    UUUUDDLRURULRRDRD
+    URDUUDRDLDRLLULRU
+    DRDUUULUUDURULDDL
+    LLULDRLRRRUDLDRRU`
+        , `2 2 3  
+    RD  
+    *L`,
+        `2 2 1  
+    RD  
+    *L`]; for (let i = 0; i < 1; i++) {        // inputs.length
+        let input = inputs[i], lines = input.split('\n').map(s => s.trim()).filter(s => s !== ''), index = 0;
+
+        const nmk = lines[index++].split(' '), n = parseInt(nmk[0], 10), m = parseInt(nmk[1], 10), k = parseInt(nmk[2], 10);
+
+        let board = [];
+        for (let boardItr = 0; boardItr < n; boardItr++) {
+            const boardItem = lines[index++];
+            board.push(boardItem);
+        }
+
+        let result = coinOnTheTable(m, k, board);
+        console.log(result);
+    }
+}
