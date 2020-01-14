@@ -83,5 +83,10 @@
    The editorial solution is more straightforward for understanding, it takes [row,column,time] 3 factors to deduce 
    future (time >= 1) [min changes] value based on previous values.
    
+14.[The Longest Common Subsequence]
+   Key points:
+   (1). Calculate LCS value for 2-Dimensional array in iterative way;
+   (2). Once step 1 done, find common sequences in a backward way.
+   
         
  
