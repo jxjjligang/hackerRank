@@ -71,4 +71,17 @@
   The editorial solution is way simpler and straightforward, it shows me that the recursive way can start in a forward manner, not necessarily backward. 	  
   
 13.[Coin on the Table]
+   Key points:
+   (1). Set the [min changes] of [Start Node] (0,0) to 0, put it into queue, shift queue to get the current node,
+        then calculate current node's neighbour nodes [min changes] value, continue until queue is empty 
+		(BFS is used here), discard node when the [spent time] value >= k.
+   (2). Sort the queue before shift operation, sort firstly by the [spent time], then by the [min changes] value.
+   (3). When visit current node's neighbour nodes (Left, Right, Up, Down), add neighbour node to queue only when 
+        [min changes] of [current node] plus [possible change (1)] is smaller than existing value of neighbour node,
+		OR there is no existing value for neighbour node.
+		
+   The editorial solution is more straightforward for understanding, it takes [row,column,time] 3 factors to deduce 
+   future (time >= 1) [min changes] value based on previous values.
+   
+        
  

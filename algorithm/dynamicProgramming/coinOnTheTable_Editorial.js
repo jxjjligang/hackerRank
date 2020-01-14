@@ -2,70 +2,49 @@
 main();
 
 function coinOnTheTable(m, k, board) {
-    const ROW_COUNT = board.length, COLUMN_COUNT = m, STAR = '*', BASE = 100;
+    const ROW_COUNT = board.length, COLUMN_COUNT = m, STAR = '*', MAX_NUMBER = 10000000;
     //                  left,    right,  up,      down                  
     const NEIGHBOURS = [[0, -1], [0, 1], [-1, 0], [1, 0]], NEIGHBOUR_LETTERS = ['L', 'R', 'U', 'D'];
+    let resultIJK = [], END_ROW = board.findIndex(row => row.includes(STAR)), END_COLUMN = board[END_ROW].indexOf(STAR);
 
-    function getNodeKey(node) {
-        return node[0] * BASE + node[1];
-    }
-
-    function getNodeKeyByXY(x, y) {
-        return x * BASE + y;
-    }
-
-    let grid = [], END_ROW = -1, END_COLUMN;
+    // initialize the 3-dimensional array, i (row), j (column), time (the time spent in reach current location [i,j]), these 3 factors define the [min changes] value
     for (let i = 0; i < ROW_COUNT; i++) {
-        let line = board[i];
-        let cells = line.split('');
-        grid.push(cells);
-        if (END_ROW === -1) {
-            END_COLUMN = cells.findIndex(element => element === STAR);
-            if (END_COLUMN !== -1)
-                END_ROW = i;
+        let row = [];
+        resultIJK.push(row);
+        for (let j = 0; j < COLUMN_COUNT; j++)
+            row[j] = [];
+    }
+
+    // only initialze the [min changes] value only when time === 0 
+    for (let i = 0; i < ROW_COUNT; i++) {
+        for (let j = 0; j < COLUMN_COUNT; j++) {
+            let cellOfTime = resultIJK[i][j];
+            cellOfTime[0] = ((i + j) === 0 ? 0 : MAX_NUMBER);
         }
     }
 
-    // use BFS to find the minChange value between [start node] and [all other nodes]
-    let startNode = [0, 0], nodeKey2MinChange = new Map([[getNodeKey(startNode), 0]]), queue = [[startNode[0], startNode[1], 0]];
-    while (queue.length > 0) {
-        queue.sort((n1, n2) => {
-            if (n1[2] !== n2[2])
-                return n1[2] - n2[2];
+    // iterate time from 1 to k, also interate location (i,j)
+    for (let time = 1; time <= k; time++) {
+        for (let i = 0; i < ROW_COUNT; i++) {
+            for (let j = 0; j < COLUMN_COUNT; j++) {
+                let cellOfTime = resultIJK[i][j];
 
-            let n1Key = getNodeKey(n1), n2Key = getNodeKey(n2);
-            return nodeKey2MinChange.get(n1Key) - nodeKey2MinChange.get(n2Key);
-        });
-        let minChangesNode = queue.shift(), currentX = minChangesNode[0], currentY = minChangesNode[1], currentNodeKey = getNodeKeyByXY(currentX, currentY), spentTime = minChangesNode[2];
-        if (spentTime >= k)
-            continue;
-
-        let changesAlreadyMade = nodeKey2MinChange.get(currentNodeKey), totalChanges = changesAlreadyMade;
-        for (let i = 0; i < NEIGHBOURS.length; i++) {
-            let neighbour = NEIGHBOURS[i];
-            let nextX = currentX + neighbour[0], nextY = currentY + neighbour[1];
-            // check if [nxet node location] is valid
-            if (nextX < 0 || nextX >= ROW_COUNT || nextY < 0 || nextY >= COLUMN_COUNT)
-                continue;
-
-            let nextNodeKey = getNodeKeyByXY(nextX, nextY);
-            totalChanges = (grid[currentX][currentY] !== NEIGHBOUR_LETTERS[i]) ? (1 + changesAlreadyMade) : changesAlreadyMade;
-            let lessChangesFound = (nodeKey2MinChange.has(nextNodeKey) === false) || (totalChanges < nodeKey2MinChange.get(nextNodeKey));
-            if (lessChangesFound === false)
-                continue;
-            else
-                nodeKey2MinChange.set(nextNodeKey, totalChanges);
-
-            queue.push([nextX, nextY, 1 + spentTime]);  // push [next node]  into stack
+                let changeIJTime = MAX_NUMBER;
+                for (let idx = 0; idx < NEIGHBOURS.length; idx++) {
+                    let neighbour = NEIGHBOURS[idx], prevI = i - neighbour[0], prevJ = j - neighbour[1];
+                    if (prevI >= 0 && prevI < ROW_COUNT && prevJ >= 0 && prevJ < COLUMN_COUNT) {
+                        let prevChanges = resultIJK[prevI][prevJ][time - 1];
+                        if (prevChanges !== undefined && prevChanges !== MAX_NUMBER)
+                            changeIJTime = Math.min(changeIJTime, (board[prevI][prevJ] === NEIGHBOUR_LETTERS[idx] ? 0 : 1) + prevChanges);
+                    }
+                }
+                cellOfTime[time] = changeIJTime;
+            }
         }
-    }   // the end of while (queue.length > 0) {
+    }
 
-    let endNodeKey = getNodeKeyByXY(END_ROW, END_COLUMN);
-    if (nodeKey2MinChange.has(endNodeKey) === false)
-        return -1;
-
-    let minChanges = nodeKey2MinChange.get(endNodeKey);
-    return minChanges > k ? -1 : minChanges;
+    let resultArr = resultIJK[END_ROW][END_COLUMN].filter(element => element !== undefined && element < MAX_NUMBER).sort((a, b) => a - b);
+    return resultArr.length === 0 ? -1 : resultArr[0];
 }
 
 function main() {
