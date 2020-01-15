@@ -84,9 +84,16 @@
    future (time >= 1) [min changes] value based on previous values.
    
 14.[The Longest Common Subsequence]
-   Key points:
+   My solution:
    (1). Calculate LCS value for 2-Dimensional array in iterative way;
    (2). Once step 1 done, find common sequences in a backward way.
+   
+15.[Nikita and the Game]   
+   My solution:
+   (1). Create BST tree, create node when middle value (based on [start,end] from input) does exist, then recursively
+        create its left node based on (start, middle) and right node based on (middle, end).
+   (2). Traverse above tree root to get its level.
+    
    
         
  
