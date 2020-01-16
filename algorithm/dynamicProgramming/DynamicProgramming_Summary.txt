@@ -13,7 +13,7 @@
    But hard to implement in a iterative way. But I still be able to implement it correctly on January 6, 2020. Four months before, I can only follow the idea of Editorial to write code. 
 
 4. [Fibonacci Modified]
-	Straigthforward to implement.
+	Straightforward to implement.
 
 5. [The Coin Change Problem] 
    My solution is try to memorize each combination detail (the type/number of coin that used), is not easy to implement and will consume memory exponentially.
@@ -93,6 +93,14 @@
    (1). Create BST tree, create node when middle value (based on [start,end] from input) does exist, then recursively
         create its left node based on (start, middle) and right node based on (middle, end).
    (2). Traverse above tree root to get its level.
+   
+16.[Red John is Back]  
+   My solution is calculating the number of permutation, hard to implement and eventually only passed 2 cases.
+   However, the Editorial one is quite simple, key points: 
+   (1). Refer https://www.geeksforgeeks.org/tiling-problem/ about how to use [dynamic programming] for this type of problem
+   (2). Sieve of Eratosthenes - calculate the number of primes less than or equal to M.
+        Refer 
+ 
     
    
         
