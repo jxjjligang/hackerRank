@@ -9,8 +9,8 @@ function cost(B) {
         let prev = B[i - 1], current = B[i];
         result[i] = [];
         let curResults = result[i], prevResults = result[i - 1];
-        curResults[0] = Math.max(prevResults[0], prevResults[1]+ Math.abs(prev - 1));
-        curResults[1] = Math.max(prevResults[0] + Math.abs(current-1), prevResults[1] + Math.abs(prev - current));
+        curResults[0] = Math.max(prevResults[0], prevResults[1] + Math.abs(prev - 1));
+        curResults[1] = Math.max(prevResults[0] + Math.abs(current - 1), prevResults[1] + Math.abs(prev - current));
     }
     let finalResults = result[B.length - 1];
     return Math.max(finalResults[0], finalResults[1]);
