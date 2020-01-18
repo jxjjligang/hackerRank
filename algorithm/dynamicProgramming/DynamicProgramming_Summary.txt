@@ -100,6 +100,15 @@
    (1). Refer https://www.geeksforgeeks.org/tiling-problem/ about how to use [dynamic programming] for this type of problem
    (2). Sieve of Eratosthenes - calculate the number of primes less than or equal to M.
         Refer 
+
+17.[Sherlock and Cost]
+    Based on the idea from discussion, key point:
+    (1). The previous best result is an array has 2 elements, index 0 means use 1 as A[i-1], index 1 means use B[i-1] as A[i-1].
+    (2). The current best result will also be array has 2 elements, index 0, 1 has the same meaning as above; 
+	     for index 0, we need the best result among appending it (value is 1) with [ prevResult[0], prevResult[1] ];
+		 for index 1, we need the best result among appending it (value is B[i]) with [ prevResult[0], prevResult[1] ];
+
+18. 		
  
     
    
