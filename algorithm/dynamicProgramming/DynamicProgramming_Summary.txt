@@ -112,7 +112,8 @@
    My solution is dp[i] = (k-1)**i- dp[i-1].
    Pay attention that when x is 1, the initial value of dp[1] is k-1, otherwise will be k-2.   
  
-    
-   
+19.[Play with words]   
+   Refer below link:
+   https://algorithms.tutorialhorizon.com/longest-palindromic-subsequence/
         
  

@@ -3,6 +3,8 @@
 main();
 
 /**
+ * This idea works only for calcuate one number, it can't give you the number that can be used to solve this challenge.
+ * 
  * 1. reverse input string s, create LCS (longest common sequence) result array 
  * @param {*} s 
  */
