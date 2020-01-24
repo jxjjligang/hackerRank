@@ -3,7 +3,7 @@
 main();
 
 
-// Complete the substringDiff function below.
+// My solution is a greedy solution, therefore it can only be partial correct.
 function substringDiff(k, s1, s2) {
     function getMax(subStrValueArr) {
         let maxValue = 0;
