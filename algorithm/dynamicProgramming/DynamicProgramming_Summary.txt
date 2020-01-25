@@ -117,4 +117,9 @@
    https://algorithms.tutorialhorizon.com/longest-palindromic-subsequence/
         
 20.[Substring Diff]	
+   Although solved the challenge by using the idea from Editorial, I still can't 
+   understand its logic and how [dynamic programming] is related with it.
+   
+21.[Sam and substrings]
+   Find a dynamic programming solution by myself, it runs very fast and passed all the test cases.
  
