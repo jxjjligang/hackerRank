@@ -2,62 +2,40 @@
 
 main();
 
-// function intervalSelection(intervals) {
-//     let startPoints = [], endPoints = [];
-//     for (let interval of intervals) {
-//         startPoints.push(interval[0]);
-//         endPoints.push(interval[1]);
-//     }
-
-//     startPoints.sort((a, b) => a - b);
-//     endPoints.sort((a, b) => a - b);
-//     intervals.sort((iv1, iv2) => iv1[0] - iv2[0]);
-
-//     let stack = [], maxValue = 0;
-//     for (let interval of intervals) {
-//         if (stack.length === 0)
-//             stack.push([...interval, 1]);
-//         else {
-//             let start = interval[0], end = interval[1];
-//             let stackLen = stack.length;
-//             stack = stack.filter(arr => arr[1] >= start);
-//             maxValue += (stackLen - stack.length);
-//             stack.forEach(arr => arr[2]++);
-//             stack.push([...interval, 1])
-//             stack = stack.filter(arr => arr[2] <= 2);
-//         }
-//     }
-
-//     return maxValue + stack.length;
-// }
-
+/* Based on the idea from [Discussion] xDavidLiu
+ Here's my greedy solution that passes all test cases:
+ 1. Sort by the [end time value]. 
+ 2. Since we are dealing with the [2 resource interval scheduling] problem, our greedy method is more complicated than the simple 
+    "just keep grabbing the next compatible interval with the smallest end time" that we would use in the 1-resource problem. 
+    Instead, for every interval, we need to decide which resource to give it to. 
+    Here's the rule: we keep track the most recent interval placed in each of the two resources, and for a new interval, 
+       we replace the interval of the resource with the latest compatible end time (if any). 
+    Doing this allows the highest chance of some interval with a later end time being able to fit in the other resource, 
+    since that other resource has an earlier end time, so is strictly more likely to make accomodations for some interval we will encounter later. 
+    Hopefully this helps people, as I found most of the comments on this thread about the greedy solution utterly incomprehensible.
+The sorting is O(N lg N) and the rest is O(N).
+*/
 function intervalSelection(intervals) {
-    let allPoints = [];
+    intervals.sort((iv1, iv2) => iv1[1] - iv2[1]);        // sort by interval's ending point
+    let firstTwo = [[0, 0], [0, 0]], count = 0;
     for (let interval of intervals) {
-        allPoints.push([interval[0], 0]);
-        allPoints.push([interval[1], 1]);
-    }
-
-    allPoints.sort((ar1, ar2) => {
-        if (ar1[0] !== ar2[0])
-            return ar1[0] - ar2[0];
-        else
-            return ar1[1] - ar2[1]
-    });
-
-    let maxValue = 0, upDownResult = 0;
-    for (let points of allPoints) {
-        let isStart = (points[1] === 0);
-        if (isStart)
-            upDownResult++;
-        else {
-            upDownResult--;
-            if (upDownResult < 2)
-                maxValue++;
+        let start = interval[0];
+        if (start > firstTwo[1][1]) {
+            count++;
+            firstTwo[1] = interval;
+        }
+        else if (start > firstTwo[0][1]) {
+            count++;
+            firstTwo[0] = interval;
+            if (firstTwo[0][1] > firstTwo[1][1]) {          // swap if necessary
+                let temp = firstTwo[0];
+                firstTwo[0] = firstTwo[1];
+                firstTwo[1] = temp;
+            }
         }
     }
 
-    return maxValue;
+    return count;
 }
 
 function main() {
@@ -835,7 +813,7 @@ function main() {
     1 1
     1 2
     1 2`
-        ,`4
+        , `4
 3
 1 2
 2 3
