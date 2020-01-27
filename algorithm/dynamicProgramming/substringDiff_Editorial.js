@@ -50,7 +50,9 @@ function main() {
     let inputs = [`3
     2 tabriz torino
     0 abacba abcaba
-    3 helloworld yellomarin`]; for (let i = 0; i < 1; i++) {    // inputs.length
+    3 helloworld yellomarin`]; 
+    
+    for (let i = 0; i < 1; i++) {    // inputs.length
         let input = inputs[i], lines = input.split('\n').map(s => s.trim()), index = 0;
 
         const t = parseInt(lines[index++], 10);

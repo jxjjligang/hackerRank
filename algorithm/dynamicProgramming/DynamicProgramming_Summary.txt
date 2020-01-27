@@ -119,10 +119,32 @@
 20.[Substring Diff]	
    Although solved the challenge by using the idea from Editorial, I still can't 
    understand its logic and how [dynamic programming] is related with it.
+   Key points:
+   (1). Create difference array, value of [i, j] = (str1[i] !== str2[j]) ? 1 : 0, then find the maximum possible value by expanding str1 and str2;
+   (2). Keep 2 pointers (front and tail), the difference value of front and tail is the result;
+   (3). There will be 2 sets of tailing pointers, but only one [front pointer], expand the search in 2 different ways: 
+        [frontPtr][frontPtr + gap] and [frontPtr + gap][frontPtr], gap value is of [0, string length]; 
    
 21.[Sam and substrings]
    Find a dynamic programming solution by myself, it runs very fast and passed all the test cases.
+   Let's take 179, the we get 1x10**2 + (1+ 2x7)x10**1 + (1+ 2x7 + 3x9)x10**0   
    
 22.[Interval Selection]   
-   I can't solve it, then follow the idea from Discusssion and solve it.
+   I can't solve it, then follow the idea from Discussion and solve it.
+   Based on the idea from [Discussion] xDavidLiu
+   Here's my greedy solution that passes all test cases:
+	1. Sort by the [end time value]. 
+	2. Since we are dealing with the [2 resource interval scheduling] problem, our greedy method is more complicated than the simple 
+       "just keep grabbing the next compatible interval with the smallest end time" that we would use in the 1-resource problem. 
+       Instead, for every interval, we need to decide which resource to give it to. 
+       Here's the rule: we keep track the most recent interval placed in each of the two resources, and for a new interval, 
+         we replace the interval of the resource with the latest compatible end time (if any). 
+       Doing this allows the highest chance of some interval with a later end time being able to fit in the other resource, 
+        since that other resource has an earlier end time, so is strictly more likely to make accomodations for some interval we will encounter later. 
+       Hopefully this helps people, as I found most of the comments on this thread about the greedy solution utterly incomprehensible.
+	   The sorting is O(N lg N) and the rest is O(N).  
+   
+23.[Summing Pieces]   
+   Did not find the solution by myself, then read the Discussion board and use the idea =>
+     A formula to get count for each element of original array, then sum all of them.
  
