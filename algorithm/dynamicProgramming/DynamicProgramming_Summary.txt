@@ -140,11 +140,22 @@
        Here's the rule: we keep track the most recent interval placed in each of the two resources, and for a new interval, 
          we replace the interval of the resource with the latest compatible end time (if any). 
        Doing this allows the highest chance of some interval with a later end time being able to fit in the other resource, 
-        since that other resource has an earlier end time, so is strictly more likely to make accomodations for some interval we will encounter later. 
+        since that other resource has an earlier end time, so is strictly more likely to make accommodations for some interval we will encounter later. 
        Hopefully this helps people, as I found most of the comments on this thread about the greedy solution utterly incomprehensible.
 	   The sorting is O(N lg N) and the rest is O(N).  
    
 23.[Summing Pieces]   
    Did not find the solution by myself, then read the Discussion board and use the idea =>
      A formula to get count for each element of original array, then sum all of them.
+	 
+24.[Counting Special Sub-Cubes]
+   Dynamic Programming is used in following way:
+   (1). High level (grid size of k+1) cube only cares about its 8 child sub-cube (grid size of k).
+   (2). Start from bottom (grid size of 1) up, once high level cube (grid size of 2) is constructed, replace [previous sub-cube map] with [current cube map]
+   (3). Map [cube element location] ( f(x,y,z) ) to [cube element value], this also helps above step 1 and 2.
+   
+   The Editorial shows a better/simpler coding solution.
+
+   
+ 	 
  
