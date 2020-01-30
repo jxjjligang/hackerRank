@@ -157,6 +157,8 @@
    The Editorial shows a better/simpler coding solution.
 
 25.[The Indian Job]
+   My solution is a greedy type and pass only 6 cases.
+   The Editorial gives an workable solution based on the constraint of input, is fast and simple.
    
  	 
  
