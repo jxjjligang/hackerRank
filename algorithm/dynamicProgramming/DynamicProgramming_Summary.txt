@@ -160,5 +160,16 @@
    My solution is a greedy type and pass only 6 cases.
    The Editorial gives an workable solution based on the constraint of input, is fast and simple (reverse iteration to find all possible SUM values).   
    
- 	 
+26.[Prime XOR]
+   I can't construct a solution by myself, find a solution in [Discussion].
+   Below comment is from [kirakira]:
+	 DP(i, j) := The # of subset using numbers within [3500, i] which XOR result of the subset equals to j (3500 <= i <= 4500)
+	 Now, DP(i, j) should consists of two disjoint parts:
+	 DP(i-1, j) which means i has no effect at all on the XOR result
+	 DP(i-1, j^i) which means i has effect at all on the XOR result
+
+	 So Part 1 includes subsets of DP(i-1, j) union even number of i, as even number of i will produce 0 on the XOR result (no effect)
+	 Part 2 on the contrast includes subsets of DP(i-1, j^i) union odd number of i, as odd number of i will produce a XOR i effect
+	 Combined these points, the problem becomes counting how many even / odd i to produce XOR result j, which is the (cnt[i]+2)/2 or (cnt[i]+1)/2
+
  
