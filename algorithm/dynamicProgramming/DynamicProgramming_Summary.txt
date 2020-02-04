@@ -157,7 +157,7 @@
    The Editorial shows a better/simpler coding solution.
 
 25.[The Indian Job]
-   My solution is a greedy type and pass only 6 cases.
+   My solution is a greedy type and pass only 6 cases. Looks like the solution from Editorial is not a [dynamic programming] solution.
    The Editorial gives an workable solution based on the constraint of input, is fast and simple (reverse iteration to find all possible SUM values).   
    
 26.[Prime XOR]
@@ -172,4 +172,4 @@
 	 Part 2 on the contrast includes subsets of DP(i-1, j^i) union odd number of i, as odd number of i will produce a XOR i effect
 	 Combined these points, the problem becomes counting how many even / odd i to produce XOR result j, which is the (cnt[i]+2)/2 or (cnt[i]+1)/2
 
- 
+27.[HackerRank City]
