@@ -10,7 +10,7 @@
 /build
 
 # visual studio code
-.vscode
+# .vscode
 
 # misc
 .DS_Store

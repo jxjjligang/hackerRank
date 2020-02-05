@@ -1,7 +1,7 @@
 'use strict'
 main();
 
-/*
+/* From [xdavidliu]
 First, lets compute some auxiliary quantities. Define M[i] as the number of nodes after the i-th iteration. We then have
 
 M[0] = 6
@@ -79,32 +79,59 @@ C[i] = A[i] + 4 C[i-1] + 8 B[i-1] + 12 A[i] M[i-1] + 12 M[i-1] B[i-1] + 16 A[i] 
 To obtain C[0], we note that C[-1] = 0, B[-1] = 0, and M[-1] = 1, so we have
 C[0] = 29 A[0]
 */
-
-/**
- * 
-  let a=0,b=0,c=0,d=0,m=1;
-  for(let i=0;i<n;++i){
-    let bp=b, cp=c, dp=d, mp=m;
-    a = A[i];
-    m = add(2,mul(4,mp));
-    d = add(3*a,mul(2,dp));
-
-    b = mul(mp,add(8*a,mul(3,dp)));
-    let bterm[] = {mul(4,bp), 3*a, mul(2,dp)};
-    for(let term: bterm) 
-      b=add(b,term);
-
-    c=mul(mul(12,mp),add(a,bp));
-    let cterm[] = {a,mul(4,cp),mul(8,bp),mul(16*a,mul(mp,mp))};
-    for(let term: cterm) 
-      c=add(c,term);
-  }
- 
- */
-
 function hackerrankCity(A) {
- 
+    const MOD = 1000000007n;
+    A = A.map(a => BigInt(a));
+
+    function calculateB(i) {
+        let prevD = (i === 0) ? 0n : D[i - 1], prevB = (i === 0) ? 0n : B[i - 1], prevM = (i === 0) ? 1n : M[i - 1];
+
+        return (4n * prevB + 3n * A[i] + 2n * prevD + prevM * (8n * A[i] + 3n * prevD)) % MOD;
+    }
+
+    function calculateCost(i) {
+        let prevC = (i === 0) ? 0n : C[i - 1], prevB = (i === 0) ? 0n : B[i - 1], prevM = (i === 0) ? 1n : M[i - 1];
+
+        return (A[i] + 4n * prevC + 8n * prevB + 12n * A[i] * prevM + 12n * prevM * prevB + 16n * A[i] * prevM * prevM) % MOD;
+    }
+
+    // M: nuber of count of all nodes, 
+    let M = [6n], D = [3n * A[0]], B = [calculateB(0)], C = [calculateCost(0)];
+    for (let i = 1; i < A.length; i++) {
+        M[i] = (4n * M[i - 1] + 2n) % MOD;
+        D[i] = (3n * A[i] + 2n * D[i - 1]) % MOD;
+
+        //     4   B[i-1]   + 3   A[i] + 2   D[i-1]   + M[i-1]   * (8   A[i] + 3   D[i-1])
+        B[i] = (4n * B[i - 1] + 3n * A[i] + 2n * D[i - 1] + M[i - 1] * (8n * A[i] + 3n * D[i - 1])) % MOD;
+
+        C[i] = calculateCost(i);
+    }
+
+    return C[A.length - 1].toString();
+}
+
+function hackerrankCityCPP(A) {
     const mod = 1000000007;
+    let a = 0, b = 0, c = 0, d = 0, m = 1;
+    for (let i = 0; i < A.length; ++i) {
+        let bp = b, cp = c, dp = d, mp = m;
+        a = A[i];
+        m = add(2, mul(4, mp));
+        d = add(3 * a, mul(2, dp));
+
+        b = mul(mp, add(8 * a, mul(3, dp)));
+        let bterm = [mul(4, bp), 3 * a, mul(2, dp)];
+        for (let term of bterm)
+            b = add(b, term);
+
+        c = mul(mul(12, mp), add(a, bp));
+        let cterm = [a, mul(4, cp), mul(8, bp), mul(16 * a, mul(mp, mp))];
+        for (let term of cterm)
+            c = add(c, term);
+    }
+
+    return c;
+
     function add(a, b) {
         return (a + b) % mod;
     }
@@ -112,51 +139,6 @@ function hackerrankCity(A) {
     function mul(a, b) {
         return (a * b) % mod;
     }
-
-    function calculateCost(i) {
-        let prevC = (i === 0) ? 0 : C[i - 1], prevB = (i === 0) ? 0 : B[i - 1], prevM = (i === 0) ? 1 : M[i - 1];
-
-        return A[i] + 4 * prevC + 8 * prevB + 12 * A[i] * prevM + 12 * prevM * prevB + 16 * A[i] * prevM * prevM;
-    }
-
-    function calculateB(i) {
-        let prevD = (i === 0) ? 3*A[0] : D[i - 1], prevB = (i === 0) ? 0 : B[i - 1], prevM = (i === 0) ? 1 : M[i - 1];
-
-        return 4 * prevB + 3 * A[i] + 2 * prevD + prevM * (8 * A[i] + 3 * prevD);
-    }
-
-    // M: nuber of count of all nodes, 
-    let M = [6], D = [3 * A[0]], B = [calculateB(0)], C = [calculateCost(0)];
-    for (let i = 1; i < A.length; i++) {
-        M[i] = 4 * M[i - 1] + 2;
-        D[i] = 3 * A[i] + 2 * D[i - 1];
-
-        //     4   B[i-1]   + 3   A[i] + 2   D[i-1]   + M[i-1]   * (8   A[i] + 3   D[i-1])
-        B[i] = 4 * B[i - 1] + 3 * A[i] + 2 * D[i - 1] + M[i - 1] * (8 * A[i] + 3 * D[i - 1]);
-
-        C[i] = calculateCost(i);
-    }
-    return C[A.length - 1];
-
-    // let a = 0, b = 0, c = 0, d = 0, m = 1;
-    // for (let i = 0; i < A.length; ++i) {
-    //     let bp = b, cp = c, dp = d, mp = m;
-    //     a = A[i];
-    //     m = add(2, mul(4, mp));
-    //     d = add(3 * a, mul(2, dp));
-
-    //     b = mul(mp, add(8 * a, mul(3, dp)));
-    //     let bterm = [mul(4, bp), 3 * a, mul(2, dp)];
-    //     for (let term of bterm)
-    //         b = add(b, term);
-
-    //     c = mul(mul(12, mp), add(a, bp));
-    //     let cterm = [a, mul(4, cp), mul(8, bp), mul(16 * a, mul(mp, mp))];
-    //     for (let term of cterm)
-    //         c = add(c, term);
-    // }
-
-    // return c;
 }
 
 function main() {

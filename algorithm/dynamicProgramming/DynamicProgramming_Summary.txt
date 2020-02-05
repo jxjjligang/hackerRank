@@ -173,3 +173,5 @@
 	 Combined these points, the problem becomes counting how many even / odd i to produce XOR result j, which is the (cnt[i]+2)/2 or (cnt[i]+1)/2
 
 27.[HackerRank City]
+   I can't construct a solution by myself, it's more like a mathematical problem.
+   Eventually, solve it by the help from [Discussion].
