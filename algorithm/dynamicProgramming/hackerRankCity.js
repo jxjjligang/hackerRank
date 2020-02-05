@@ -79,31 +79,91 @@ C[i] = A[i] + 4 C[i-1] + 8 B[i-1] + 12 A[i] M[i-1] + 12 M[i-1] B[i-1] + 16 A[i] 
 To obtain C[0], we note that C[-1] = 0, B[-1] = 0, and M[-1] = 1, so we have
 C[0] = 29 A[0]
 */
+
+/**
+ * 
+  let a=0,b=0,c=0,d=0,m=1;
+  for(let i=0;i<n;++i){
+    let bp=b, cp=c, dp=d, mp=m;
+    a = A[i];
+    m = add(2,mul(4,mp));
+    d = add(3*a,mul(2,dp));
+
+    b = mul(mp,add(8*a,mul(3,dp)));
+    let bterm[] = {mul(4,bp), 3*a, mul(2,dp)};
+    for(let term: bterm) 
+      b=add(b,term);
+
+    c=mul(mul(12,mp),add(a,bp));
+    let cterm[] = {a,mul(4,cp),mul(8,bp),mul(16*a,mul(mp,mp))};
+    for(let term: cterm) 
+      c=add(c,term);
+  }
+ 
+ */
+
 function hackerrankCity(A) {
+ 
+    const mod = 1000000007;
+    function add(a, b) {
+        return (a + b) % mod;
+    }
+
+    function mul(a, b) {
+        return (a * b) % mod;
+    }
+
     function calculateCost(i) {
         let prevC = (i === 0) ? 0 : C[i - 1], prevB = (i === 0) ? 0 : B[i - 1], prevM = (i === 0) ? 1 : M[i - 1];
 
         return A[i] + 4 * prevC + 8 * prevB + 12 * A[i] * prevM + 12 * prevM * prevB + 16 * A[i] * prevM * prevM;
     }
 
+    function calculateB(i) {
+        let prevD = (i === 0) ? 3*A[0] : D[i - 1], prevB = (i === 0) ? 0 : B[i - 1], prevM = (i === 0) ? 1 : M[i - 1];
 
-    // M: nuber of count of all nodes, 
-    let M = [6], D = [3 * A[0]], B = [0], C = [calculateCost(0)];
-    for (let i = 1; i < A.length; i++) {
-        M[i] = 4 * M[i - 1] + 2;
-        B[i] = 4 * B[i - 1] + 3 * A[i] + 2 * D[i - 1] + M[i - 1] * (8 * A[i] + 3 * D[i - 1]);
-        D[i] = 3 * A[i] + 2 * D[i - 1];
-        C[i] = calculateCost(i);
+        return 4 * prevB + 3 * A[i] + 2 * prevD + prevM * (8 * A[i] + 3 * prevD);
     }
 
+    // M: nuber of count of all nodes, 
+    let M = [6], D = [3 * A[0]], B = [calculateB(0)], C = [calculateCost(0)];
+    for (let i = 1; i < A.length; i++) {
+        M[i] = 4 * M[i - 1] + 2;
+        D[i] = 3 * A[i] + 2 * D[i - 1];
+
+        //     4   B[i-1]   + 3   A[i] + 2   D[i-1]   + M[i-1]   * (8   A[i] + 3   D[i-1])
+        B[i] = 4 * B[i - 1] + 3 * A[i] + 2 * D[i - 1] + M[i - 1] * (8 * A[i] + 3 * D[i - 1]);
+
+        C[i] = calculateCost(i);
+    }
     return C[A.length - 1];
+
+    // let a = 0, b = 0, c = 0, d = 0, m = 1;
+    // for (let i = 0; i < A.length; ++i) {
+    //     let bp = b, cp = c, dp = d, mp = m;
+    //     a = A[i];
+    //     m = add(2, mul(4, mp));
+    //     d = add(3 * a, mul(2, dp));
+
+    //     b = mul(mp, add(8 * a, mul(3, dp)));
+    //     let bterm = [mul(4, bp), 3 * a, mul(2, dp)];
+    //     for (let term of bterm)
+    //         b = add(b, term);
+
+    //     c = mul(mul(12, mp), add(a, bp));
+    //     let cterm = [a, mul(4, cp), mul(8, bp), mul(16 * a, mul(mp, mp))];
+    //     for (let term of cterm)
+    //         c = add(c, term);
+    // }
+
+    // return c;
 }
 
 function main() {
     let inputs = [`1
     1`, `2
     2 1`];
-    for (let i = 0; i < 2; i++) {    // inputs.length
+    for (let i = 1; i < 2; i++) {    // inputs.length
         let input = inputs[i], lines = input.split('\n').map(s => s.trim()), index = 0;
 
         const ACount = parseInt(lines[index++], 10), A = lines[index++].split(' ').map(ATemp => parseInt(ATemp, 10));
