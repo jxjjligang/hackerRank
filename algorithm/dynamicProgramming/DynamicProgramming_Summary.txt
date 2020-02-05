@@ -175,3 +175,6 @@
 27.[HackerRank City]
    I can't construct a solution by myself, it's more like a mathematical problem.
    Eventually, solve it by the help from [Discussion].
+   
+28.[Travel around the world]
+   I can't construct a solution by myself, solve it by using idea from [Discussion].  
