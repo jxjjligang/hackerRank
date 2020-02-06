@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\algorithm\\dynamicProgramming\\travelAroundTheWorld_Discussion.js"
+            "program": "${workspaceFolder}\\algorithm\\dynamicProgramming\\travelAroundTheWorld_Editorial.js"
         }
     ]
 }
