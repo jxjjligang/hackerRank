@@ -178,3 +178,6 @@
    
 28.[Travel around the world]
    I can't construct a solution by myself, solve it by using idea from [Discussion].  
+   
+29.[Equal]   
+   Still don't comprehend the logic behind the code from Editorial
