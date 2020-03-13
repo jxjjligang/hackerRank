@@ -181,3 +181,6 @@
    
 29.[Equal]   
    Still don't comprehend the logic behind the code from Editorial
+   
+30.[Kingdom Division]
+   Still don't comprehend the logic behind the code from Discussion.   

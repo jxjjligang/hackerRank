@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\algorithm\\dynamicProgramming\\equal.js"
+            "program": "${workspaceFolder}\\algorithm\\dynamicProgramming\\kindomDivision.js"
         }
     ]
 }
