@@ -27,16 +27,8 @@ function getWays(n, c) {
 }
 
 function main() {
-    let inputs = [`75 27
-    25 10 11 29 49 31 33 39 12 36 40 22 21 16 37 8 18 4 27 17 26 32 6 38 2 30 34`
-        , `1 25
-    48 6 34 50 49 36 30 35 40 41 17 43 39 13 4 20 19 2 46 7 38 33 28 18 21`,
-        `166 23
-    5 37 8 39 33 17 22 32 13 7 10 35 40 2 43 49 46 19 41 1 12 11 28`,
-        `4 3
-1 2 3`,
-        `10 4
-2 5 3 6`];
+    let inputs = [`152 6
+    100 50 25 10 5 1`];
     for (let i = 0; i < 1; i++) {    //  inputs.length
         let input = inputs[i], lines = input.split('\n').map(s => s.trim()).filter(s => s !== ''), index = 0;
         const firstMultipleInput = lines[index++].replace(/\s+$/g, '').split(' ');
