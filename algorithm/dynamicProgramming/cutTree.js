@@ -3,9 +3,7 @@
 main();
 
 
-/*
- * Complete the cuttree function below.
- */
+// My own solution does not work, since I don't have the idea of cut trees
 function cutTree(n, k, edges) {
     function buildPath(start, end, point2points) {
         let points;
