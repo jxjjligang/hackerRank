@@ -184,3 +184,9 @@
    
 30.[Kingdom Division]
    Still don't comprehend the logic behind the code from Discussion.   
+   Implement an iterative solution for test case 11.
+   It's an extreme case: from root, each node has only one child until the only leaf node.
+   This case will break JavaScript because of the recursive stack call limit.
+
+31.[Cut Tree]
+   I don't understand the problem, only follow a C# solution to implement a JavaScript solution.

@@ -3,44 +3,86 @@
 main();
 
 // Based on the idea from [ShubhamAvasthi], in discussion board. https://www.hackerrank.com/challenges/kingdom-division/forum
-// This is a recursive solution
+// This is a iterative solution
 function kingdomDivision(n, roads) {
-    function dfs(x) {
-        visited[x] = true;
-        let sf = 1n, usf = 1n;
-        for (let y of tree[x]) {
-            if (visited[y] === true)
+    function addToMap(map, start, end) {
+        let set;
+        if (map.has(start))
+            set = map.get(start);
+        else {
+            set = new Set();
+            map.set(start, set);
+        }
+
+        set.add(end);
+    }
+
+    // to create the hierarchy between [parent node] and its children
+    function bfs(root) {
+        let queue = [root], visited = [], visitArr = [root];
+        while (queue.length > 0) {
+            let parent = queue.shift();
+            if (visited[parent] === true)
                 continue;
 
-            dfs(y);
-            usf *= dp[y][SAFE_INDEX];
-            usf %= MODULO;
-            sf *= 2n * dp[y][SAFE_INDEX] + dp[y][UNSAFE_INDEX];
-            sf %= MODULO;
+            visited[parent] = true;
+            for (let child of tree.get(parent)) {
+                tree.get(child).delete(parent);
+                queue.push(child);
+                visitArr.push(child);
+            }
         }
-        sf -= usf;
-        sf = (sf + MODULO) % MODULO;
-        dp[x][SAFE_INDEX] = sf;
-        dp[x][UNSAFE_INDEX] = usf;
+
+        return visitArr;
+    }
+
+    function calculate(visitArr, nodeMap) {
+        let dp = [];     // array of array
+        for (let i = 0; i < n; i++)
+            dp.push([]);
+
+        visitArr.reverse();
+
+        for (let node of visitArr) {
+            if (nodeMap.get(node).size !== 0)
+                continue;
+
+            let baseNode = node;
+            dp[baseNode][SAFE_INDEX] = 0n;
+            dp[baseNode][UNSAFE_INDEX] = 1n;
+        }
+
+        for (let node of visitArr) {
+            if (dp[node][0] !== undefined)
+                continue;
+
+            let sf = 1n, usf = 1n
+            for (let child of nodeMap.get(node)) {
+                usf *= dp[child][SAFE_INDEX];
+                usf %= MODULO;
+                sf *= 2n * dp[child][SAFE_INDEX] + dp[child][UNSAFE_INDEX];
+                sf %= MODULO;
+            }
+            sf -= usf;
+            sf = (sf + MODULO) % MODULO;
+            dp[node][SAFE_INDEX] = sf;
+            dp[node][UNSAFE_INDEX] = usf;
+        }
+
+        return dp;
     }
 
     const SAFE_INDEX = 0, UNSAFE_INDEX = 1;
-    let tree = [], dp = [];    // array of array
-    let visited = [];      // bool array
     const MODULO = 1000000007n;
-
-    for (let i = 0; i < n; i++) {
-        tree.push([]);
-        dp.push([]);
-    }
-
+    let tree = new Map();
     for (let x of roads) {   // because city number starts from 1, we need subtract 1 so that actual array index will start from 0    
-        tree[x[0] - 1].push(x[1] - 1);
-        tree[x[1] - 1].push(x[0] - 1);
+        addToMap(tree, x[0] - 1, x[1] - 1);
+        addToMap(tree, x[1] - 1, x[0] - 1);
     }
 
-    dfs(0);
-    return((2n * dp[0][SAFE_INDEX]) % MODULO).toString();
+    let visitArr = bfs(0);
+    let dpResult= calculate(visitArr, tree);
+    return ((2n * dpResult[0][SAFE_INDEX]) % MODULO).toString();
 }
 
 function main() {
