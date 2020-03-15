@@ -190,3 +190,6 @@
 
 31.[Cut Tree]
    I don't understand the problem, only follow a C# solution to implement a JavaScript solution.
+   
+32.[Fair Cut]
+   I don't understand the problem, only follow a C# solution from Discussion.
