@@ -193,3 +193,6 @@
    
 32.[Fair Cut]
    I don't understand the problem, only follow a C# solution from Discussion.
+   
+33.[Wet Shark and Two Subsequences]
+   Based on [the idea and sample code] from Discussion.  
