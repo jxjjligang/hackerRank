@@ -196,3 +196,9 @@
    
 33.[Wet Shark and Two Subsequences]
    Based on [the idea and sample code] from Discussion.  
+
+34.[Prime Digit Sums]
+   Don't understand the problem even look at [Editorial].
+
+35.[Mr K marsh]   
+   After read idea and [sample code] from Editorial, understand the problem and implement a JavaScript solution.
