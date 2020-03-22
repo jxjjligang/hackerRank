@@ -202,3 +202,7 @@
 
 35.[Mr K marsh]   
    After read idea and [sample code] from Editorial, understand the problem and implement a JavaScript solution.
+   
+36.[Grid Walking]
+   My own recursive and memory cache solution works, but can't pass many test cases because of memory usage.
+   After read Editorial, I understand the problem and use same code from LeaderBoard.   
