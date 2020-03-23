@@ -206,3 +206,6 @@
 36.[Grid Walking]
    My own recursive and memory cache solution works, but can't pass many test cases because of memory usage.
    After read Editorial, I understand the problem and use same code from LeaderBoard.   
+   
+37.[Two Robots]   
+   After read idea and [sample code] from Editorial, understand the problem and use a JavaScript solution from LeaderBoard.
