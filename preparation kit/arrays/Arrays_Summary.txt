@@ -2,10 +2,10 @@
    Simple: Iteration within iteration.
 
 2. [Left Rotation]
-   Simple: copy 2 parts of original array, then mgerge the 2 parts together.
+   Simple: copy 2 parts of original array, then merge the 2 parts together.
    
 3. [New Year Chaos]
-   Iterate arr from the last to first, for current item, check if it's bribe result 
+   Iterate array from the last to first, for current item, check if it's bribe result 
    case 1: its value - index > 3, bribe more than 2 which is not allowed and return 'Too chaotic';
    case 2: its value - index in (1,2), then sway it with right neighbour and re-set the iteration index.
    

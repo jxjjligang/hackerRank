@@ -1,0 +1,16 @@
+1. Warm-up challenges
+   (1). Sock Merchant: simply use [count array] for counting pairs of sock
+   (2). Counting Valleys: find the rule for [valley confirmation]
+   (3). Jumping on the Clouds: a greedy way, simple
+   (4). Repeated String: Still simple enough to finish with minutes
+
+2. Arrays 
+   (1). 2D Array - DS: simple, understand row, column index
+   (2). Arrays: Left Rotation: use Array.prototype.slice function
+   (3). New Year Chaos: iterate each person in queue,
+		#1 If current person sticker > 2 + (Original person sticker) => Too choas
+		#2 Count how many times the current person is bribed: count sub array 
+		(starts from a place before the current person original place, to a place 
+		before the current person index
+   (4). Minimum Swaps 2: the Editorial use dfs, I don;t get it now. (Sep 11, 2020) 
+   (5). Array Manipulation: I still remember the skills to pass performance tests.      
