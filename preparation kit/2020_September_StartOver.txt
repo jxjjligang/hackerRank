@@ -13,4 +13,50 @@
 		(starts from a place before the current person original place, to a place 
 		before the current person index
    (4). Minimum Swaps 2: the Editorial use dfs, I don;t get it now. (Sep 11, 2020) 
-   (5). Array Manipulation: I still remember the skills to pass performance tests.      
+   (5). Array Manipulation: I still remember the skills to pass performance tests.
+
+3. Dictionaries and Hashmaps
+   (1). Ransom Note: Simple
+   (2). Two Strings: Simple
+   (3). Sherlock and Anagrams:
+        #1. Use 2-level nested loop to find all possible subStrings, and compute signature for each subString,
+		    save signature to a Map object, whose key-value is signature-count (how many times it repeats)
+		#2. Iterator map created in step 1 and get the final result
+   (4). [Triplet]: 2 ways to solve it; I prefer the idea from Editorial
+   (5). [Frequency Queries]: 
+        #1. Create a Map object (key -> Frequency) will pass most test cases except fail one performance case
+		#2. Create another Map (Frequency -> Set of keys) helps to pass performance case
+
+
+   (1). 
+   (2). 
+   (3). 
+   (4). 
+   (5). 
+
+   (1). 
+   (2). 
+   (3). 
+   (4). 
+   (5). 
+
+
+   (1). 
+   (2). 
+   (3). 
+   (4). 
+   (5). 
+
+
+   (1). 
+   (2). 
+   (3). 
+   (4). 
+   (5). 
+
+
+   (1). 
+   (2). 
+   (3). 
+   (4). 
+   (5). 

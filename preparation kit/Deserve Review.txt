@@ -1,5 +1,9 @@
 Array 
-1. New year chaos
-2. Minimum Swaps 2: the Editorial use dfs, I don;t get it now. (Sep 11, 2020) 
+	1. New year chaos
+	2. Minimum Swaps 2: the Editorial use dfs, I don;t get it now. (Sep 11, 2020) 
+
+Dictionaries and Hashmaps
+	1. Sherlock and Anagrams
+	2. Triplet: the idea from Editorial is very easy to understand 
 
 

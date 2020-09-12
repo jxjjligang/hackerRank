@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\algorithm\\dynamicProgramming\\twoRobots.js"
+            "program": "${workspaceFolder}\\preparation kit\\dictionaries\\tripletEditorial.js"
         }
     ]
 }
