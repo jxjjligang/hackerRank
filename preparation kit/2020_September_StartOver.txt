@@ -32,7 +32,8 @@
    (2). Mark and tops: Simple, essentially is a greedy algorithm, each greedy step contributes to the final correct solution.
    (3). Comparator: Simple
    (4). Fraudulent Activity Notifications
-
+	    #1. Use [counting array]
+		#2. Use [priority queue], I still has bug to fix.
 
    (5). 
 

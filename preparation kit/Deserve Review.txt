@@ -6,5 +6,9 @@ Array
 Dictionaries and Hashmaps
 	1. Sherlock and Anagrams
 	2. Triplet: the idea from Editorial is very easy to understand 
+	
+Sorting:
+    1. Fraudulent Activity Notifications
+    2. 	
 
 
