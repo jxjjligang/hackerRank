@@ -35,7 +35,10 @@
 	    #1. Use [counting array]
 		#2. Use [priority queue], I still has bug to fix.
 
-   (5). 
+   (5). Merge Sort Counting Inversions:
+        #1. Divide and conquer: halve array into left, right part and call msRecursive (recursive merge sort) on them;
+		#2. Compare first item of left, right [half array], if left item > 
+			right item, then swaps += left.length; (means all itmes of left half array should be swapped against first item of left half array)
 
    (1). 
    (2). 
