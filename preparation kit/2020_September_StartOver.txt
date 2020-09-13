@@ -27,11 +27,13 @@
         #1. Create a Map object (key -> Frequency) will pass most test cases except fail one performance case
 		#2. Create another Map (Frequency -> Set of keys) helps to pass performance case
 
+4. Sorting
+   (1). Bubble Sort: Simple
+   (2). Mark and tops: Simple, essentially is a greedy algorithm, each greedy step contributes to the final correct solution.
+   (3). Comparator: Simple
+   (4). Fraudulent Activity Notifications
 
-   (1). 
-   (2). 
-   (3). 
-   (4). 
+
    (5). 
 
    (1). 

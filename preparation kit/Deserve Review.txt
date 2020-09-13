@@ -1,6 +1,7 @@
 Array 
 	1. New year chaos
 	2. Minimum Swaps 2: the Editorial use dfs, I don;t get it now. (Sep 11, 2020) 
+	3. Priority Querue, heap implementation in JavaScript (used in Fraudulent Activity Notifications)
 
 Dictionaries and Hashmaps
 	1. Sherlock and Anagrams
