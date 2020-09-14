@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\preparation kit\\sorting\\fraudulentNofifications_heap.js"
+            "program": "${workspaceFolder}\\preparation kit\\string\\commonChild_Revisit.js"
         }
     ]
 }

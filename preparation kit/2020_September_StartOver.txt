@@ -28,9 +28,9 @@
 		#2. Create another Map (Frequency -> Set of keys) helps to pass performance case
 
 4. Sorting
-   (1). Bubble Sort: Simple
-   (2). Mark and tops: Simple, essentially is a greedy algorithm, each greedy step contributes to the final correct solution.
-   (3). Comparator: Simple
+   (1). Bubble Sort: simple
+   (2). Mark and tops: simple, essentially is a greedy algorithm, each greedy step contributes to the final correct solution.
+   (3). Comparator: simple
    (4). Fraudulent Activity Notifications
 	    #1. Use [counting array]
 		#2. Use [priority queue], I still has bug to fix.
@@ -39,12 +39,21 @@
         #1. Divide and conquer: halve array into left, right part and call msRecursive (recursive merge sort) on them;
 		#2. Compare first item of left, right [half array], if left item > 
 			right item, then swaps += left.length; (means all itmes of left half array should be swapped against first item of left half array)
-
-   (1). 
-   (2). 
-   (3). 
-   (4). 
-   (5). 
+			
+5. String
+   (1). Making Anagrams: simple
+   (2). Alternating Characters: simple
+   (3). Sherlock and the Valid String: simple, just need to be clear 3    
+        cases that return 'YES'
+   (4). Special String Again
+		Below is my idea, still O(n*n*n)
+		#1. Use 2-level loop to find all subStrings, return [if is special, count of different chars from the first char]
+		#2. Break out of the inner loop when arr[1] > 1 (from step 1)
+		
+		The idea from Editorial is very good, is O(n*n)
+   (5). Common Child: 
+        #1. In a recursive way, there might be [maximum call stack size exceeded].
+		#2. In a iterative way.
 
 
    (1). 
