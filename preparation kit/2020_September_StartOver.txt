@@ -55,8 +55,29 @@
         #1. In a recursive way, there might be [maximum call stack size exceeded].
 		#2. In a iterative way.
 
-
-   (1). 
+6. Search
+   (1). Hash Tables: Ice Cream Parlor
+	    Simple: but pay attention to a special case: 2 distinct icecream both 
+		have money/2 price.
+   (2). Swap Nodes [Algo]
+		#1. How to create tree from input values 
+		#2. in-order visit tree
+   (3). Paris: simple 
+   (4). Triple Sum: simple
+        use [Binary Search] to improve performance
+   (5). Minimum Time Required: still simple
+        #1. accumulate machines produced day by day, until goal reached,  
+		    it works but cannot pass performance tests.
+        #2. solve it in a binary search way.
+   (6). Maximum Subarray Sum:
+        #1 Use prefix array
+		#2 Find 2 key points by observation
+   (7). Making Candies: 
+        #1. Buy all is always better than buy none.
+		#2. Greedy strategy (always invest on buying resource ASAP) may not yield the best result.
+	
+7. Greedy Algorithms	
+   (1). Minimum Absolute Difference in an Array
    (2). 
    (3). 
    (4). 
@@ -68,6 +89,31 @@
    (3). 
    (4). 
    (5). 
+
+
+
+   (1). 
+   (2). 
+   (3). 
+   (4). 
+   (5). 
+
+
+
+   (1). 
+   (2). 
+   (3). 
+   (4). 
+   (5). 
+
+
+
+   (1). 
+   (2). 
+   (3). 
+   (4). 
+   (5). 
+
 
 
    (1). 

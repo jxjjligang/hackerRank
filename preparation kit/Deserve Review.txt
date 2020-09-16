@@ -11,5 +11,11 @@ Sorting:
     1. Fraudulent Activity Notifications
     2. Merge Sort Counting Inversions	
 
-
+String:
+    1. Special String Again
+	2. Common Child
+	
+Searching:
+    1. Maximum Sub-array Sum
+	2. Making Candies, it's quite difficult to figure out the correct logic.	
 

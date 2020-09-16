@@ -31,7 +31,7 @@ Making Candies:
 	     the best answer is found.
     (2). During each iteration of above binary search, compare the [best guess value] with the [necessary rounds to make candies],
 	     return TRUE if [best guess] >= [real rounds]; 
-		 if not then check the possibility of increse resource amount case (return FALSE when [best guess] <= [round to buy resource];). 
+		 if not then check the possibility of increase resource amount case (return FALSE when [best guess] <= [round to buy resource];
 	
 	
 		
