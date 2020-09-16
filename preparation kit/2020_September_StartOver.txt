@@ -77,11 +77,11 @@
 		#2. Greedy strategy (always invest on buying resource ASAP) may not yield the best result.
 	
 7. Greedy Algorithms	
-   (1). Minimum Absolute Difference in an Array
-   (2). 
-   (3). 
-   (4). 
-   (5). 
+   (1). Minimum Absolute Difference in an Array: simple
+   (2). Luck Balance: simple
+   (3). Greedy Florist: simple, just remember all flowers have to been bought by tourists
+   (4). Max Min: simple, just need figure out loop variable range from [0, length- k], both array side is inclusive.
+   (5). Reverse Shuffle Merge: the logic is most important, after that code is easy to implement.
 
 
    (1). 

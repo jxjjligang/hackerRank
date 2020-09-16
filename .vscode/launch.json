@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\preparation kit\\search\\maxSubArray_Revisit.js"
+            "program": "${workspaceFolder}\\preparation kit\\greedy\\reverseShuffleMerge_Revisit.js"
         }
     ]
 }
