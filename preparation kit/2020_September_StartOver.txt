@@ -1,3 +1,6 @@
+September 17, pause on those medium to hard problems that could take more than 45
+minutes to finish.
+
 1. Warm-up challenges
    (1). Sock Merchant: simply use [count array] for counting pairs of sock
    (2). Counting Valleys: find the rule for [valley confirmation]
@@ -83,27 +86,37 @@
    (4). Max Min: simple, just need figure out loop variable range from [0, length- k], both array side is inclusive.
    (5). Reverse Shuffle Merge: the logic is most important, after that code is easy to implement.
 
-
-   (1). 
-   (2). 
-   (3). 
-   (4). 
+8. Stacks and Queues 
+   (1). Balanced Brackets: simple
+   (2). Queues: A Tale of Two Stacks: not hard, 
+        attention: 
+			when iterate array elements within the for(let v of arr) loop, 
+			we shouldn't call pop within loop, otherwise unexpected errors may occur
+   (3). Largest Rectangle:
+        #1. Use <= condition to decide whether pop stack;
+		#2. While popping, keep track of popped object, the last popped object width will be added up to the incoming building width.
+   (4). Min Max Riddle
+	
    (5). 
 
-
-
-   (1). 
-   (2). 
-   (3). 
-   (4). 
+9. Trees
+   (1). Height of a Binary Tree: simple
+   (2). BST: Lowest Common Ancestor
+	    #1. Go to left subtree or right subtree when possible
+	    #2. return current node after #1 finish
+   (3). Is this a binary tree:  
+        #1. Pre-define a [min, max] value for all possible tree data values;
+		#2. Check each node and narrow down the [min, max] by using existing node data value
+   (4). Huffman Decoding: actually simple, but need write code in correct order
    (5). 
 
-
-
-   (1). 
-   (2). 
-   (3). 
-   (4). 
+10. Linked Lists
+   (1). Insert a node at a specific position in a linked list: simple
+   (2). Inserting a Node Into a Sorted Doubly Linked List: simple as above
+   (3). Reverse a doubly linked list:
+        #1. keep track of p0, p1;
+		#2. inside the while loop, save p1.next into a temp variable before make change to p1.next
+   (4). Find Merge Point of Two Lists:
    (5). 
 
 

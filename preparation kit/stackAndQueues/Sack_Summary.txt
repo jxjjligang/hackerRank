@@ -8,7 +8,7 @@ Largest Rectangle:
     keep updating largest rectangle by width*height when pop occurs and in the end
  
     (2). The idea is the same as the above, 2 points are different:
-         #1 push statk the index of height array, when pop occurs, width = (incoming index - [value poped from stack] - 1) OR
+         #1 push stack the index of height array, when pop occurs, width = (incoming index - [value popped from stack] - 1) OR
 		    incoming index value when stack is empty;
 		 #2 push height value which is smaller than the minimum value of height array, this helps to pop stack in the end
 
@@ -27,8 +27,8 @@ Poisonous Plants:
 	   If array element > stack top level value, then push a new object {level: array element value, days: 1};
 	   Else pop up stack while array element <= stack top level value, there are 2 cases here:
 	   #1 pop the stack to be empty, which means array element has the lowest poisonous level, will never die, push a new object {level: array element value, days: 0};
-	   #2 can't pop the stack to be empty, remember the maxmimum days value of all those poped-pout stack objects, then 
-	      push a new object {level: array element value, days: 1 + [maxmimum days value]};
+	   #2 can't pop the stack to be empty, remember the maximum days value of all those poped-pout stack objects, then 
+	      push a new object {level: array element value, days: 1 + [maximum days value]};
 		  Means after those will-die plants in the stack did die, the current plant will die.
 	3. Update the maxDays (save the days that no plants will die after that) variable value.
 

@@ -21,4 +21,7 @@ Searching:
 	
 Greedy:
     1. Reverse Shuffle Merge: the logic is most important.
+	
+Stacks and Queues:
+    1. Largest Rectangle	
 
